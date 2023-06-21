@@ -65,10 +65,10 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                     </div>
                 </div>
             </div>
-            <div class="space-y-4 py-4 rounded-xl overflow-hidden">
+            <div class="space-y-6 py-4 rounded-xl overflow-hidden">
                 <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
-                    <div class="flex items-center ml-8 space-x-8">
+                    <div class="flex items-center ml-6 space-x-6">
                         <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
                             <div class="flex text-[#7EE787]">
                                 <StarFillIcon v-for="i in 5" class="h-4 w-4" />
@@ -86,7 +86,7 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="180" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'reverse'" class="overflow-hidden">
-                    <div class="flex items-center ml-8 space-x-8">
+                    <div class="flex items-center ml-6 space-x-6">
                         <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
                             <div class="flex text-[#7EE787]">
                                 <StarFillIcon v-for="i in 5" class="h-4 w-4" />
@@ -104,7 +104,7 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="150" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
-                    <div class="flex items-center ml-8 space-x-8">
+                    <div class="flex items-center ml-6 space-x-6">
                         <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
                             <div class="flex text-[#7EE787]">
                                 <StarFillIcon v-for="i in 5" class="h-4 w-4" />
