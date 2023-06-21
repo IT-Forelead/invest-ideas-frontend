@@ -1,5 +1,9 @@
 <script setup>
+import { Vue3Marquee } from 'vue3-marquee'
+import 'vue3-marquee/dist/style.css'
 import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
+import CaretRightIcon from '../Icons/CaretRightIcon.vue'
+import StarFillIcon from '../Icons/StarFillIcon.vue'
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -47,14 +51,7 @@ import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
                         </h2>
                         <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
                             <span>Check out GitHub Codespaces</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="octicon arrow-symbol-mktg" width="16" height="16"
-                                viewBox="0 0 16 16" fill="none">
-                                <path fill="currentColor"
-                                    d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z">
-                                </path>
-                                <path class="octicon-chevrow-stem" stroke="currentColor" d="M1.75 8H11" stroke-width="1.5"
-                                    stroke-linecap="round"></path>
-                            </svg>
+                            <CaretRightIcon class="w-5 h-5 text-white" />
                         </div>
                     </div>
                     <div class="px-16 pt-12 pb-20 w-1/2">
@@ -68,15 +65,66 @@ import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
                     </div>
                 </div>
             </div>
-            <!-- content -->
-            <div class="grid grid-cols-2 gap-8 mt-4">
-                <div class="col-span-2 h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
-                <div class=" h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
-                <div class=" h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
+            <div class="space-y-4 py-4 rounded-xl overflow-hidden">
+                <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="true" :gradientColor="[13, 17, 23]"
+                    :direction="'normal'" class="overflow-hidden">
+                    <div class="flex items-center ml-8 space-x-8">
+                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex text-[#7EE787]">
+                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                            </div>
+                            <div class="text-white mt-3 text-lg font-semibold leading-6">
+                                It really works.
+                            </div>
+                            <div class="text-[#7D8590] mt-3 text-base leading-7">
+                                I downloaded Pocket today and turned $5000 into $25,000
+                                in half an hour.
+                            </div>
+                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                        </div>
+                    </div>
+                </Vue3Marquee>
+                <Vue3Marquee :pauseOnHover="true" :duration="180" :gradient="true" :gradientColor="[13, 17, 23]"
+                    :direction="'reverse'" class="overflow-hidden">
+                    <div class="flex items-center ml-8 space-x-8">
+                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex text-[#7EE787]">
+                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                            </div>
+                            <div class="text-white mt-3 text-lg font-semibold leading-6">
+                                It really works.
+                            </div>
+                            <div class="text-[#7D8590] mt-3 text-base leading-7">
+                                I downloaded Pocket today and turned $5000 into $25,000
+                                in half an hour.
+                            </div>
+                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                        </div>
+                    </div>
+                </Vue3Marquee>
+                <Vue3Marquee :pauseOnHover="true" :duration="150" :gradient="true" :gradientColor="[13, 17, 23]"
+                    :direction="'normal'" class="overflow-hidden">
+                    <div class="flex items-center ml-8 space-x-8">
+                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex text-[#7EE787]">
+                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                            </div>
+                            <div class="text-white mt-3 text-base font-semibold leading-6">
+                                It really works.
+                            </div>
+                            <div class="text-[#7D8590] mt-3 text-sm leading-7">
+                                I downloaded Pocket today and turned $5000 into $25,000
+                                in half an hour.
+                            </div>
+                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                        </div>
+                    </div>
+                </Vue3Marquee>
             </div>
-
             <div class="flex flex-col items-center w-1/12">
-                <div class="h-32 w-[3px] bg-gradient-to-b from-[#0D1117] via-[#EA6045] to-[#ffa28b] mt-4 md:mt-6 rounded-md"></div>
+                <div
+                    class="h-32 w-[3px] bg-gradient-to-b from-[#0D1117] via-[#EA6045] to-[#ffa28b] mt-4 md:mt-6 rounded-md">
+                </div>
             </div>
         </div>
     </section>
