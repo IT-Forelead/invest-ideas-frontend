@@ -83,7 +83,7 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/nuxtjs.png" class="w-full h-40 rounded-t-md" alt="#" />
+                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
                             <div class="flex items-center p-3 text-base text-white">Workout</div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/nuxtjs.png" class="w-full h-40 rounded-t-md" alt="#" />
+                            <img src="/images/nuxtjs.png" class="w-full object-cover h-40 rounded-t-md" alt="#" />
                             <div class="flex items-center p-3 text-base text-white">Workout</div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/nuxtjs.png" class="w-full h-40 rounded-t-md" alt="#" />
+                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
                             <div class="flex items-center p-3 text-base text-white">Workout</div>
                         </div>
                     </div>
