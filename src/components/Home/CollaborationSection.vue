@@ -1,6 +1,35 @@
 <script setup>
+import { ref } from 'vue'
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, EffectCoverflow } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+
+import "swiper/css/effect-coverflow";
+
+import { Vue3Marquee } from 'vue3-marquee'
+import 'vue3-marquee/dist/style.css'
 import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../Icons/CaretRightIcon.vue'
+import MySqlIcon from '../Icons/MySqlIcon.vue'
+import AkkaIcon from '../Icons/AkkaIcon.vue'
+import AngularJsIcon from '../Icons/AngularJsIcon.vue'
+import AnsibleIcon from '../Icons/AnsibleIcon.vue'
+import ApacheAirFlowIcon from '../Icons/ApacheAirFlowIcon.vue'
+import ApacheIcon from '../Icons/ApacheIcon.vue'
+import ArgoIcon from '../Icons/ArgoIcon.vue'
+import AstroIcon from '../Icons/AstroIcon.vue'
+import AxiosIcon from '../Icons/AxiosIcon.vue'
+import BackboneJsIcon from '../Icons/BackboneJsIcon.vue'
+import BootstrapIcon from '../Icons/BootstrapIcon.vue'
+import MongoDbIcon from '../Icons/MongoDbIcon.vue'
+import NestJsIcon from '../Icons/NestJsIcon.vue'
+import NodeJsIcon from '../Icons/NodeJsIcon.vue'
+import NuxtJsIcon from '../Icons/NuxtJsIcon.vue'
+import SparkIcon from '../Icons/SparkIcon.vue'
+
+const modules = ref([Autoplay, EffectCoverflow])
 
 </script>
 <template>
@@ -39,7 +68,8 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
                         src="/images/git-branch-collaboration.svg" alt="">
                 </div>
                 <div class="w-11/12 ml-2 md:ml-10 relative z-[1] overflow-hidden">
-                    <img class="absolute -top-96 right-0 h-auto w-full pointer-events-none bg-cover overflow-clip rotate-180 translate-x-80" src="/images/bg-stars.webp" alt="" />
+                    <img class="absolute -top-96 right-0 h-auto w-full pointer-events-none bg-cover overflow-clip rotate-180 translate-x-80"
+                        src="/images/bg-stars.webp" alt="" />
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
                             <span class="text-white font-normal">GitHub Issues and GitHub Projects</span>
@@ -64,9 +94,155 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
             </div>
             <!-- content -->
             <div class="grid grid-cols-2 gap-8 mt-4">
-                <div class="col-span-2 h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
-                <div class=" h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
-                <div class=" h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
+                <div
+                    class="col-span-2 flex h-96 bg-[#161B22] group border border-solid border-[#30363D] rounded-xl box-shadow">
+                    <div class="w-1/3 p-16 space-y-12 max-w-5xl tracking-tight">
+                        <h2 class="text-2xl mb-4 text-[#7D8590]">
+                            <span class="text-white font-normal">Active Users</span>
+                            is who are actively contributing to projects that are currently being worked on.
+                        </h2>
+                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
+                            <span>View all active users </span>
+                            <CaretRightIcon class="w-5 h-5 text-white" />
+                        </div>
+                    </div>
+                    <div class="w-2/3 py-10 px-16 flex items-end justify-end space-x-6">
+                        <div class="w-52 h-64 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
+                            <img src="/images/nuxtjs.png" class="w-full h-36 object-cover rounded-t-md" alt="#" />
+                            <div class=" text-center p-3 space-y-2">
+                                <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
+                                <div class="text-sm text-[#7D8590]">Scala Developer</div>
+                            </div>
+                        </div>
+                        <div class="w-56 h-72 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
+                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
+                            <div class=" text-center p-3 space-y-2">
+                                <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
+                                <div class="text-sm text-[#7D8590]">Scala Developer</div>
+                            </div>
+                        </div>
+                        <div class="w-52 h-64 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
+                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
+                            <div class=" text-center p-3 space-y-2">
+                                <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
+                                <div class="text-sm text-[#7D8590]">Scala Developer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div
+                    class="flex flex-col justify-center space-y-4 h-96 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow">
+                    <div class="flex justify-center">
+                        <div class="py-8 rounded-lg w-3/6 space-y-4">
+                            <div class="text-3xl text-center font-bold text-[#FFA28B]">Frontend</div>
+                            <div class="text-base text-center text-white">Technologies that are widely used in the frontend
+                                part of projects</div>
+                        </div>
+                    </div>
+                    <div>
+                        <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
+                            class="overflow-hidden">
+                            <div class="flex items-center ml-6 space-x-6">
+                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
+                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
+                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
+                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
+                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-28 w-auto text-[#6e7681]" />
+                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-24 w-auto text-[#6e7681]" />
+                            </div>
+                        </Vue3Marquee>
+                        <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
+                            class="overflow-hidden">
+                            <div class="flex items-center ml-6 space-x-6">
+                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
+                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AstroIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AxiosIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
+                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NuxtJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-12 w-auto text-[#6e7681]" />
+                            </div>
+                        </Vue3Marquee>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col justify-center space-y-4 h-96 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow">
+                    <div class="flex justify-center">
+                        <div class="py-8 rounded-lg w-3/6 space-y-4">
+                            <div class="text-3xl text-center font-bold text-[#FFA28B]">Backend</div>
+                            <div class="text-base text-center text-white">Technologies that are widely used in the backend
+                                part of projects</div>
+                        </div>
+                    </div>
+                    <div>
+                        <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
+                            class="overflow-hidden">
+                            <div class="flex items-center ml-6 space-x-6">
+                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
+                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
+                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
+                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
+                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-28 w-auto text-[#6e7681]" />
+                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-24 w-auto text-[#6e7681]" />
+                            </div>
+                        </Vue3Marquee>
+                        <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
+                            class="overflow-hidden">
+                            <div class="flex items-center ml-6 space-x-6">
+                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
+                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AstroIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AxiosIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
+                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NuxtJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-12 w-auto text-[#6e7681]" />
+                            </div>
+                        </Vue3Marquee>
+                    </div>
+
+
+
+                </div>
             </div>
 
             <div class="flex flex-col items-center w-1/12">
@@ -77,7 +253,7 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
         </div>
     </section>
 </template>
-<style>
+<style scoped>
 .box-shadow {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .5), 0 70px 65px rgba(0, 0, 0, .18), 0 30px 30px rgba(0, 0, 0, .14), 0 15px 15px rgba(0, 0, 0, .12), 0 10px 8px rgba(0, 0, 0, .1), 0 4px 4px rgba(0, 0, 0, .08), 0 2px 2px rgba(0, 0, 0, .06) !important;
 }
