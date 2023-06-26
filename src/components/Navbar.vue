@@ -46,7 +46,6 @@ const changeLang = (lang) => {
   useDropDownStore().closeLanguageDropDown()
 }
 
-
 // Dark & Light mode
 watch(() => isDark.value, (val) => {
   useDarkModeStore().setCurrentMode(val);
@@ -66,56 +65,65 @@ onMounted(() => {
 
 </script>
 <template>
-  <header class="relative top-0 z-50 p-4 flex items-center w-full bg-black/10">
-    <div class="container flex flex-row items-center justify-center px-4 mx-auto">
-      <div class="flex items-center justify-center space-x-2">
-        <img src="/images/logo.png" alt="logo" class="w-12" />
-        <span
-          class="hidden font-bold leading-none text-gray-600 md:block md:text-xl xl:text-2xl dark:text-white whitespace-nowrap">
-          Invest Ideas
-        </span>
-      </div>
-      <nav class="flex items-center justify-center flex-auto w-full">
-        <ul class="flex justify-center space-x-2 p-0 m-0">
-          <li>
-            <a href="/"
-              class="block px-2 text-base text-white transition duration-200 bg-transparent cursor-pointer hover:text-gray-100">
-              <span>Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="/"
-              class="block px-2 text-base text-white transition duration-200 bg-transparent cursor-pointer hover:text-gray-400">
-              <span>Projects</span>
-            </a>
-          </li>
-          <li>
-            <a href="/"
-              class="block px-2 text-base text-white transition duration-200 bg-transparent cursor-pointer hover:text-gray-400">
-              <span>Ideas</span>
-            </a>
-          </li>
-          <li>
-            <a href="/"
-              class="block px-2 text-base text-white transition duration-200 bg-transparent cursor-pointer hover:text-gray-400">
-              <span>Services</span>
-            </a>
-          </li>
-          <li>
-            <a href="/"
-              class="block px-2 text-base text-white transition duration-200 bg-transparent cursor-pointer hover:text-gray-400">
-              <span>Contact us</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
 
-      <div class="flex items-center justify-center space-x-4">
-        <div
-          class="flex items-center text-sm justify-between w-36 px-3 mr-4 py-1 transition bg-transparent text-center text-gray-400 whitespace-nowrap border border-gray-400 border-solid rounded-md cursor-pointer hover:border-gray-400 hover:text-gray-400">
-          <span>English</span>
-          <LangTranslaterIcon class="w-6 h-6 text-gray-400" />
+<header class="fixed top-0 z-50 px-2 py-4 flex items-center w-full transition-all bg-transparent border-0 border-transparent" :class="{
+    'bg-white/70 dark:bg-black/70 backdrop-blur-sm shadow-sm border-b border-solid border-[#eaeaea] dark:border-[#333]': !top,
+  }">
+    <div class="container flex flex-row items-center justify-center px-4 mx-auto">
+      <div class="flex items-center justify-between flex-1 mr-auto">
+        <div class="flex items-center justify-center space-x-2">
+          <img src="/images/logo.png" alt="logo" class="w-12" />
+          <span
+            class="hidden font-bold leading-none text-gray-600 md:block md:text-xl xl:text-2xl dark:text-white whitespace-nowrap">
+            Invest Ideas
+          </span>
         </div>
+        <div></div>
+      </div>
+      <div class="flex items-center justify-center flex-auto w-full">
+        <nav class="flex items-center justify-center w-full">
+          <ul class="flex justify-center space-x-2 p-0 m-0">
+            <li>
+              <a href="/"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#services"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>Services</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#services"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>Ideas</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#services"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#services"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>About</span>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
+                <span>Contact us</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="flex items-center justify-center flex-1 space-x-5">
         <div
           class="text-base text-white transition duration-500 bg-transparent cursor-pointer hover:text-gray-400 whitespace-nowrap">
           Sign in

@@ -12,16 +12,23 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
         srcset="/images/hero-bg.webp 1x, /images/hero-bg-2x.webp 2x">
 
     </picture> -->
-    <img class="w-[4377px] -right-[600px] absolute top-0 pointer-events-none" style="max-width: calc(230vw + 1670px)"
-      src="/images/hero-bg.webp" alt="#" />
+    <img class="absolute top-0 left-0 pointer-events-none object-cover" 
+      src="/images/footer-galaxy.jpg" alt="#" />
+
+    <!-- stars version -->
+    <!-- <img class="absolute -top-1/4 right-0 rotate-90 pointer-events-none object-cover"
+      src="/images/bg-stars.webp" alt="#" /> -->
+
     <div class="relative container px-6 pt-16 mx-auto">
 
-      <img src="/images/hero-drone.webp" class="absolute top-32 right-0 pointer-events-none w-80 h-52" alt="#" />
+      <!-- <img src="/images/hero-drone.webp" class="absolute top-32 right-0 pointer-events-none w-80 h-52" alt="#" /> -->
 
       <div class="flex">
         <div class="w-1/12 flex flex-col pointer-events-none relative">
-          <img class="relative max-w-none w-[437px] h-[643px]" style="left: calc(50% - 14px);"
-            src="/images/lines-hero.svg" alt="#">
+          <!-- <img class="relative max-w-none w-[437px] h-[643px]" style="left: calc(50% - 14px);"
+            src="/images/lines-hero.svg" alt="#"> -->
+          <div style="background: linear-gradient(#A371F7, #6639BA, #6639BA, #D2A8FF);"
+            class="w-[3px] h-full rounded-md mx-auto"></div>
           <div class="mx-auto my-4">
             <div class="relative inline-block">
               <CodeSimpleIcon class="w-6 h-6 text-white" />
@@ -31,7 +38,7 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
           <div style="background: linear-gradient(#d2a8ff, #a371f7 10%, #196c2e 70%, #2ea043 80%, #56d364);"
             class="w-[3px] h-full rounded-md mx-auto"></div>
         </div>
-        <div class="w-11/12 pt-72">
+        <div class="w-11/12 pt-16">
           <div
             class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid border-gray-50 rounded-full mt-8">
             <picture>
