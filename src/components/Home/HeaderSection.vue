@@ -77,10 +77,9 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
               </button>
             </div>
             <div class="w-[1px] bg-gray-700 h-12"></div>
-            <button
-              class="w-1/3 flex items-center justify-center border-2 border-solid border-[#6e40c9] hover:border-white duration-500 whitespace-nowrap rounded-md select-none px-5 h-12 text-base font-bold text-white">
+            <router-link to="/add-idea" class="w-1/3 flex items-center justify-center border-2 border-solid border-[#6e40c9] hover:border-white duration-500 whitespace-nowrap rounded-md select-none px-5 h-12 text-base font-bold text-white">
               Add your idea now
-            </button>
+            </router-link>
           </div>
           <div class="relative z-[1] my-32">
             <p class="block text-base text-gray-500">The leading organizations of Uzbekistan are supporting us ↘︎</p>
