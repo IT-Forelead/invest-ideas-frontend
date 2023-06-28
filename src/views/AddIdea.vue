@@ -129,8 +129,6 @@ import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
           </div>
         </div>
       </div>
-
-
     </div>
   </section>
 </template>

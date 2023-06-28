@@ -14,7 +14,6 @@ import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
         Ideas currently being discussed and voted on
       </div>
       <div class="grid grid-cols-7 gap-8">
-
         <div class="col-span-2">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
@@ -66,7 +65,11 @@ import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
               <div class="text-base text-[#7d8590]">Xususiy biznesni avtomatlashtirish</div>
               <div class="text-base text-[#7d8590]">26.07.2023</div>
             </div>
-            <div class="text-xl font-extrabold text-[#e6edf3]">Futbol maydonlarini avtomatlashtirish</div>
+            <div class="text-xl font-extrabold text-[#e6edf3]">
+              <router-link to="/idea">
+                Futbol maydonlarini avtomatlashtirish
+              </router-link>
+            </div>
             <div class="text-base text-[#e6edf3]">
               Hozirda xususiy mini futbol maydonlari avtomatlashtirilmagan. Shuning uchun gazon egalariga ham
               mijozlarga ham ko'plab noqulaykilar keltirmoqda. Agar mijozlar onlayn platformadan tanlangan

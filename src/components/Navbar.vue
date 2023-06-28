@@ -90,19 +90,19 @@ onMounted(() => {
               </a>
             </li>
             <li>
-              <a href="/#services"
+              <a href="/"
                 class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
                 <span>Services</span>
               </a>
             </li>
             <li>
-              <a href="/#services"
+              <a href="/ideas"
                 class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
                 <span>Ideas</span>
               </a>
             </li>
             <li>
-              <a href="/#services"
+              <a href="/#"
                 class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
                 <span>Projects</span>
               </a>
