@@ -1,9 +1,11 @@
 <script setup>
 import ThumbsUpIcon from '../components/Icons/ThumbsUpIcon.vue'
 import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
-import { supabase } from '@/supabaseClient'
+import { supabase } from '../lib/supabaseClient'
+import { onMounted, ref } from 'vue';
 
 const ideas = ref([])
+const categories = ref([])
 
 async function getIdeas() {
   const { data } = await supabase
@@ -12,8 +14,16 @@ async function getIdeas() {
   ideas.value = data
 }
 
+async function getCategories() {
+  const { data } = await supabase
+  .from('categories')
+  .select()
+  categories.value = data
+}
+
 onMounted(() => {
   getIdeas()
+  getCategories()
 })
 
 </script>
@@ -33,45 +43,9 @@ onMounted(() => {
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
-              <li v-for="(idea, idx) in ideas" :key="idx" class="flex items-center space-x-1">
+              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">{{ idea }}</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Xususiy biznesni avtomatlashtirish</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Jamiyat uchun foydali staruplar</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Insonlar uchun foydali staruplar</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Xususiy biznesni avtomatlashtirish</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Jamiyat uchun foydali staruplar</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Insonlar uchun foydali staruplar</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Xususiy biznesni avtomatlashtirish</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Jamiyat uchun foydali staruplar</sapn>
-              </li>
-              <li class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">Insonlar uchun foydali staruplar</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">{{ category?.name }}</sapn>
               </li>
             </ul>
           </div>
