@@ -4,12 +4,14 @@
 <template>
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
     <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
-      <div class="flex items-center justify-center space-x-2">
-        <img src="/images/logo.png" alt="logo" class="w-12" />
-        <div class="font-bold leading-none text-2xl text-white whitespace-nowrap">
-          Invest Ideas
+      <router-link to="/">
+        <div class="flex items-center justify-center space-x-2">
+          <img src="/images/logo.png" alt="logo" class="w-12" />
+          <div class="font-bold leading-none text-2xl text-white whitespace-nowrap">
+            Invest Ideas
+          </div>
         </div>
-      </div>
+      </router-link>
 
       <div class="relative mt-12 sm:mt-16 z-[1]">
         <svg viewBox="0 0 1090 1090" aria-hidden="true" fill="none"
