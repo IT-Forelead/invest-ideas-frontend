@@ -1,6 +1,5 @@
 <script setup>
 </script>
-
 <template>
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
     <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">

@@ -1,6 +1,5 @@
 <script setup>
 </script>
-
 <template>
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
     <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
@@ -12,7 +11,6 @@
           </div>
         </div>
       </router-link>
-
       <div class="relative mt-12 sm:mt-16 z-[1]">
         <svg viewBox="0 0 1090 1090" aria-hidden="true" fill="none"
           preserveAspectRatio="none" width="1090" height="1090"

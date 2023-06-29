@@ -124,14 +124,18 @@ onMounted(() => {
       </div>
 
       <div class="flex items-center justify-center flex-1 space-x-5">
-        <div
-          class="text-base text-white transition duration-500 bg-transparent cursor-pointer hover:text-gray-400 whitespace-nowrap">
-          Sign in
-        </div>
-        <div
-          class="px-3 py-1 transition bg-transparent text-center text-white whitespace-nowrap border border-white border-solid rounded-md cursor-pointer hover:border-gray-400 hover:text-gray-400">
-          Sign up
-        </div>
+        <router-link to="/login">
+          <div
+            class="text-base text-white transition duration-500 bg-transparent cursor-pointer hover:text-gray-400 whitespace-nowrap">
+            Sign in
+          </div>
+        </router-link>
+        <router-link to="/sign-up">
+          <div
+            class="px-3 py-1 transition bg-transparent text-center text-white whitespace-nowrap border border-white border-solid rounded-md cursor-pointer hover:border-gray-400 hover:text-gray-400">
+            Sign up
+          </div>
+        </router-link>
       </div>
     </div>
   </header>
