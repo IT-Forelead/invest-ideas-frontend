@@ -1,6 +1,15 @@
 <script setup>
 import ThumbsUpIcon from '../components/Icons/ThumbsUpIcon.vue'
-import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
+import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
+import TextBIcon from '../components/Icons/TextBIcon.vue'
+import TextItalicIcon from '../components/Icons/TextItalicIcon.vue'
+import TextUnderlineIcon from '../components/Icons/TextUnderlineIcon.vue'
+import TextAlignCenterIcon from '../components/Icons/TextAlignCenterIcon.vue'
+import TextAlignLeftIcon from '../components/Icons/TextAlignLeftIcon.vue'
+import TextAlignRightIcon from '../components/Icons/TextAlignRightIcon.vue'
+import ArrowBendUpLeftIcon from '../components/Icons/ArrowBendUpLeftIcon.vue'
+import ThumbsDownIcon from '../components/Icons/ThumbsDownIcon.vue'
+import UserIcon from '../components/Icons/UserIcon.vue'
 </script>
 
 <template>
@@ -54,6 +63,20 @@ import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
             </div>
           </div>
 
+          <div
+            class="flex flex-col justify-center min-h-[600px] space-y-12 p-9 text-white  bg-[#161B22] bg-[url('/images/bg-linerbg.png')] bg-cover border border-solid border-[#30363D] rounded-xl box-shadow">
+            <div class="space-y-2">
+              <CrownSimpleIcon class="p-2 bg-[#30363D]/80 rounded-lg h-16 w-16 text-blue-500" />
+              <h3 class="text-2xl font-semibold">Premium</h3>
+              <h4 class="text-xl mb-28">
+                If you want to implement your idea faster by financing, we offer you our Premium tariff.
+              </h4>
+            </div>
+            <div class="inline-block w-56 px-6 py-2 bg-[#e6edf3] text-black font-medium rounded-full cursor-pointer">
+              Get more information
+            </div>
+          </div>
+
         </div>
         <div class="col-span-5 space-y-6">
           <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
@@ -76,34 +99,74 @@ import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
             </div>
           </div>
 
-          <!-- <div class="relative flex flex-1 items-stretch md:flex-col" role="presentation">
-            <div class="">
-              <div class="h-full flex ml-1 md:w-full md:m-auto md:mb-2 gap-0 md:gap-2 justify-center"><button
-                  class="btn relative btn-neutral -z-0 border-0 md:border" as="button">
-                  <div class="flex w-full gap-2 items-center justify-center"><svg stroke="currentColor" fill="none"
-                      stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                      class="h-3 w-3 flex-shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="1 4 1 10 7 10"></polyline>
-                      <polyline points="23 20 23 14 17 14"></polyline>
-                      <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                    </svg>Regenerate response</div>
-                </button></div>
+          <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
+            <div class="text-2xl font-medium text-[#e6edf3]">Write a comment</div>
+            <div class="bg-[#0D1117] max-w-3xl border border-[#30363D] overflow-hidden rounded-md">
+              <div class="flex items-center w-full border-b border-[#30363D] text-xl text-gray-600">
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextBIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextItalicIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextUnderlineIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+                <div class="w-5"></div>
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextAlignLeftIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextAlignCenterIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+                <button
+                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
+                  <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
+                </button>
+              </div>
+              <textarea id="editor" rows="5"
+                class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
+                placeholder="Write an article..."></textarea>
             </div>
-            <div
-              class="flex flex-col w-full py-[10px] flex-grow md:py-4 md:pl-4 relative border border-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-gray-700 rounded-xl shadow-xs dark:shadow-xs">
-              <textarea id="prompt-textarea" tabindex="0" data-id="f501983a-11de-40a7-a628-9587cc02c39b" rows="1"
-                placeholder="Send a message"
-                class="m-0 w-full resize-none border-0 bg-transparent p-0 pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparent md:pr-12 pl-3 md:pl-0"
-                style="max-height: 200px; height: 24px; overflow-y: hidden;"></textarea><button
-                class="absolute p-1 rounded-md md:bottom-3 md:p-2 md:right-3 dark:hover:bg-gray-900 dark:disabled:hover:bg-transparent right-2 disabled:text-gray-400 enabled:bg-brand-purple text-white bottom-1.5 transition-colors disabled:opacity-40"
-                style="" disabled=""><span class="" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16" fill="none" class="h-4 w-4 m-1 md:m-0" stroke-width="2">
-                    <path
-                      d="M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z"
-                      fill="currentColor"></path>
-                  </svg></span></button>
+            <button class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
+              Comment
+            </button>
+          </div>
+
+          <div class="space-y-2">
+            <div v-for="i in 5" class="flex items-start space-x-4">
+              <UserIcon class="p-2 bg-[#30363D]/80 rounded-full h-14 w-14 text-blue-500 border border-[#30363D]" />
+              <div class="w-full bg-[#161B22] rounded-md border border-[#30363D] p-4 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="text-lg font-medium text-[#e6edf3]">Jumaniyozov Surojiddin</div>
+                  <div class="text-base text-[#7d8590]">26.07.2023 17:31</div>
+                </div>
+                <div class="text-xl text-[#e6edf3]">
+                  Ajoyib g'oya ekan. Oldindan bron qilingan vaqtda malum miqdorda pul to'lanadigan qilinsa juda ajoyib bo'lardi nazarimda
+                </div>
+                <div class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
+                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                    <ArrowBendUpLeftIcon class="w-5 h-5" />
+                    <span class="text-sm">Reply</span>
+                  </div>
+                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                    <ThumbsUpIcon class="w-5 h-5" />
+                    <span class="text-sm">Like</span>
+                  </div>
+                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                    <ThumbsDownIcon class="w-5 h-5" />
+                    <span class="text-sm">Dislike</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div> -->
+          </div>
+
 
         </div>
       </div>
