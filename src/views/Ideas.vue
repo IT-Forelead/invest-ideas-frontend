@@ -1,6 +1,21 @@
 <script setup>
 import ThumbsUpIcon from '../components/Icons/ThumbsUpIcon.vue'
 import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
+import { supabase } from '@/supabaseClient'
+
+const ideas = ref([])
+
+async function getIdeas() {
+  const { data } = await supabase
+  .from('ideas')
+  .select()
+  ideas.value = data
+}
+
+onMounted(() => {
+  getIdeas()
+})
+
 </script>
 
 <template>
@@ -18,6 +33,10 @@ import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
+              <li v-for="(idea, idx) in ideas" :key="idx" class="flex items-center space-x-1">
+                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
+                <sapn class="text-lg font-normal text-[#e6edf3]">{{ idea }}</sapn>
+              </li>
               <li class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
                 <sapn class="text-lg font-normal text-[#e6edf3]">Xususiy biznesni avtomatlashtirish</sapn>
