@@ -2,26 +2,46 @@
 import ThumbsUpIcon from '../components/Icons/ThumbsUpIcon.vue'
 import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
 import { supabase } from '../lib/supabaseClient'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
+import { computed } from '@vue/reactivity'
 import moment from 'moment'
+import { useIdeaStore } from '../store/idea.store'
+import { useCategoryStore } from '../store/category.store'
+import { useRouter } from 'vue-router'
 
-const ideas = ref([])
-const categories = ref([])
+const router = useRouter()
+
+const ideas = computed(() => {
+  return useIdeaStore().ideas
+})
+
+const categories = computed(() => {
+  return useCategoryStore().categories
+})
 
 async function getIdeas() {
   const { data } = await supabase
-  .from('ideas')
-  .select(`id, 
-  title, text, created_at, likes_count, 
-  categories ( id, name )`)
-  ideas.value = data
+    .from('ideas')
+    .select(`
+      *,
+      categories ( id, name ),
+      users ( id, firstname, lastname )
+    `)
+  useIdeaStore().clearStore()
+  useIdeaStore().setIdeas(data)
 }
 
 async function getCategories() {
   const { data } = await supabase
-  .from('categories')
-  .select()
-  categories.value = data
+    .from('categories')
+    .select()
+  useCategoryStore().clearStore()
+  useCategoryStore().setCategories(data)
+}
+
+const selectIdea = (id) => {
+  useIdeaStore().setSelectedIdeaId(id)
+  router.push('/idea')
 }
 
 onMounted(() => {
@@ -30,7 +50,6 @@ onMounted(() => {
 })
 
 </script>
-
 <template>
   <section class="bg-[#0D1117]">
     <div class="container px-6 mx-auto pt-24 pb-16">
@@ -51,7 +70,6 @@ onMounted(() => {
               </li>
             </ul>
           </div>
-
         </div>
         <div class="col-span-5 space-y-6">
           <div v-for="(idea, idx) in ideas" :key="idx"
@@ -60,10 +78,8 @@ onMounted(() => {
               <div class="text-base text-[#7d8590]">{{ idea.categories.name }}</div>
               <div class="text-base text-[#7d8590]">{{ moment(idea.created_at).format('DD/MM/YYYY H:mm') }}</div>
             </div>
-            <div class="text-xl font-extrabold text-[#e6edf3]">
-              <router-link to="/idea">
-                {{ idea.title }}
-              </router-link>
+            <div @click="selectIdea(idea.id)" class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
+              {{ idea.title }}
             </div>
             <div class="text-base text-[#e6edf3]">
               {{ idea.text.substring(0, 300) + '...' }}
@@ -75,9 +91,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </template>
-
 <style scoped></style>

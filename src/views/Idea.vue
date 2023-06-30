@@ -10,6 +10,34 @@ import TextAlignRightIcon from '../components/Icons/TextAlignRightIcon.vue'
 import ArrowBendUpLeftIcon from '../components/Icons/ArrowBendUpLeftIcon.vue'
 import ThumbsDownIcon from '../components/Icons/ThumbsDownIcon.vue'
 import UserIcon from '../components/Icons/UserIcon.vue'
+import { onMounted, computed } from 'vue'
+import { supabase } from '../lib/supabaseClient'
+import moment from 'moment'
+import { useIdeaStore } from '../store/idea.store'
+
+const selectedIdeaId = computed(() => {
+  return useIdeaStore().selectedIdeaId
+})
+
+const selectedIdea = computed(() => {
+  return useIdeaStore().selectedIdea
+})
+
+async function getIdeaById() {
+  const { data } = await supabase
+    .from('ideas')
+    .select(`
+      *, 
+      categories ( id, name ),
+      users ( id, firstname, lastname )
+    `)
+    .eq('id', selectedIdeaId.value)
+  useIdeaStore().setSelectedIdea(data)
+}
+
+onMounted(() => {
+  getIdeaById()
+})
 </script>
 
 <template>
@@ -22,34 +50,46 @@ import UserIcon from '../components/Icons/UserIcon.vue'
       <div class="text-xl font-normal max-w-4xl text-gray-500 mb-12">
         Ideas currently being discussed and voted on
       </div>
-      <div class="grid grid-cols-7 gap-8">
+      <div v-for="(si, idx) in selectedIdea" :key="idx" class="grid grid-cols-7 gap-8">
         <div class="col-span-2 space-y-8">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
             <ul class="space-y-1">
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Creator:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">Jumaniyozov Surojiddin</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ si?.users?.firstname + ' ' + si?.users?.lastname }}
+                </sapn>
               </li>
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Created at:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">28.07.2023 15:16</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ moment(si.created_at).format('DD/MM/YYYY H:mm') }}
+                </sapn>
               </li>
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Category:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">Jamiyat uchun foydali staruplar</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ si?.categories?.name }}
+                </sapn>
               </li>
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Comentaries:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">3 095</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ si?.comments_count }}
+                </sapn>
               </li>
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Views:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">5 731</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ si?.views_count }}
+                </sapn>
               </li>
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Likes:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">2 184</sapn>
+                <sapn class="text-lg font-normal text-[#e6edf3]">
+                  {{ si?.likes_count }}
+                </sapn>
               </li>
             </ul>
           </div>
@@ -80,22 +120,11 @@ import UserIcon from '../components/Icons/UserIcon.vue'
         </div>
         <div class="col-span-5 space-y-6">
           <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
-            <div class="text-3xl font-extrabold text-[#e6edf3]">Futbol maydonlarini avtomatlashtirish</div>
+            <div class="text-3xl font-extrabold text-[#e6edf3]">
+              {{ si?.title }}
+            </div>
             <div class="text-xl text-[#e6edf3]">
-              Hozirda xususiy mini futbol maydonlari avtomatlashtirilmagan. Shuning uchun gazon egalariga ham
-              mijozlarga ham ko'plab noqulaykilar keltirmoqda. Agar mijozlar onlayn platformadan tanlangan
-              hududida qancha futbol maydonlari borligini va ular qaysi vaqtlarda bo'sh yoki bandligini bila
-              olishi, bo'sh maydonni onlayn band qilish imkoniyatlari bo'lsa ajoyib qulaylik yaratilgan bo'lardi.
-              <br><br>
-              Hozirda xususiy mini futbol maydonlari avtomatlashtirilmagan. Shuning uchun gazon egalariga ham
-              mijozlarga ham ko'plab noqulaykilar keltirmoqda. Agar mijozlar onlayn platformadan tanlangan
-              hududida qancha futbol maydonlari borligini va ular qaysi vaqtlarda bo'sh yoki bandligini bila
-              olishi, bo'sh maydonni onlayn band qilish imkoniyatlari bo'lsa ajoyib qulaylik yaratilgan bo'lardi.
-              <br><br>
-              Hozirda xususiy mini futbol maydonlari avtomatlashtirilmagan. Shuning uchun gazon egalariga ham
-              mijozlarga ham ko'plab noqulaykilar keltirmoqda. Agar mijozlar onlayn platformadan tanlangan
-              hududida qancha futbol maydonlari borligini va ular qaysi vaqtlarda bo'sh yoki bandligini bila
-              olishi, bo'sh maydonni onlayn band qilish imkoniyatlari bo'lsa ajoyib qulaylik yaratilgan bo'lardi.
+              {{ si?.text }}
             </div>
           </div>
 
@@ -167,10 +196,8 @@ import UserIcon from '../components/Icons/UserIcon.vue'
             </div>
           </div>
 
-
         </div>
       </div>
-
 
     </div>
   </section>
