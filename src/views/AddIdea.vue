@@ -7,6 +7,49 @@ import TextAlignLeftIcon from '../components/Icons/TextAlignLeftIcon.vue'
 import TextAlignRightIcon from '../components/Icons/TextAlignRightIcon.vue'
 import UploadIcon from '../components/Icons/UploadIcon.vue'
 import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
+import { supabase } from '../lib/supabaseClient'
+import { reactive, ref, onMounted } from 'vue'
+
+const categories = ref([])
+
+const submitData = reactive({
+  categoryId: '',
+  title: '',
+  text: ''
+})
+
+const clearForm = () => {
+  submitData.categoryId = ''
+  submitData.title = ''
+  submitData.text = ''
+}
+
+const addIdea = async () => {
+  let { error } = await supabase
+    .from('ideas')
+    .insert({
+      user_id: '',
+      category_id: submitData.categoryId,
+      title: submitData.title,
+      text: submitData.text,
+    })
+  if (error) {
+    throw error
+  } else {
+    clearForm()
+  }
+}
+
+async function getCategories() {
+  const { data } = await supabase
+    .from('categories')
+    .select()
+  categories.value = data
+}
+
+onMounted(() => {
+  getCategories()
+})
 </script>
 
 <template>
@@ -28,7 +71,7 @@ import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
               Title:
               <span class="text-red-500">*</span>
             </label>
-            <input type="text"
+            <input type="text" v-model="submitData.title"
               class="border text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter idea's title">
           </div>
@@ -38,13 +81,12 @@ import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
               Category:
               <span class="text-red-500">*</span>
             </label>
-            <select
+            <select v-model="submitData.categoryId"
               class="border text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-              <option selected>Choose a category</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option value="" selected>Choose a category</option>
+              <option v-for="(category, idx) in categories" :key="idx" :value="category?.id">
+                {{ category?.name }}
+              </option>
             </select>
           </div>
 
@@ -81,7 +123,7 @@ import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
                   <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
                 </button>
               </div>
-              <textarea id="editor" rows="8"
+              <textarea v-model="submitData.text" id="editor" rows="8"
                 class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
                 placeholder="Write an article..."></textarea>
             </div>
@@ -107,10 +149,12 @@ import CrownSimpleIcon from '../components/Icons/CrownSimpleIcon.vue'
             </label>
           </div>
           <div class="space-x-4 pt-4">
-            <button class="w-36 py-2 px-4 rounded-lg text-white text-base bg-gray-600 cursor-pointer hover:bg-gray-800">
+            <button @click="clearForm()"
+              class="w-36 py-2 px-4 rounded-lg text-white text-base bg-gray-600 cursor-pointer hover:bg-gray-800">
               Reset
             </button>
-            <button class="w-36 py-2 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
+            <button @click="addIdea()"
+              class="w-36 py-2 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
               Send
             </button>
           </div>
