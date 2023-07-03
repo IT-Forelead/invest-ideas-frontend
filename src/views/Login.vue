@@ -1,20 +1,57 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabaseClient'
+import { Toaster, toast } from 'vue-sonner'
+import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
 
-const userData = reactive({
+const router = useRouter()
+const isLoading = ref(false)
+
+const submitForm = reactive({
   email: '',
   password: ''
 })
 
+const clearForm = () => {
+  submitForm.email = ''
+  submitForm.password = ''
+}
+
 const signIn = async () => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: userData.email,
-    password: userData.password,
-  })
+  if (!submitForm.email) {
+    toast.error('Please enter your email!')
+  } else if (!submitForm?.password) {
+    toast.error('Please enter your password!')
+  } else {
+    isLoading.value = true
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: submitForm.email,
+      password: submitForm.password,
+    })
+    if (data.user) {
+      toast.success('Login was successful!')
+      router.push('/')
+      isLoading.value = false
+      clearForm()
+    }
+    if (error) {
+      console.log(error);
+      toast.error('Email or password incorrect. Please try again!')
+      isLoading.value = false
+    }
+  }
 }
 </script>
 <template>
+  <Toaster richColors closeButton :toastOptions="{
+    style: {
+      background: '#161B22',
+      border: '1px solid #30363D',
+      color: '#e6edf3'
+    },
+  }" />
+
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
     <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
       <router-link to="/">
@@ -47,7 +84,7 @@ const signIn = async () => {
             <label for="login" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Email address
             </label>
-            <input v-model="userData.email" type="email" id="login"
+            <input v-model="submitForm.email" type="email" id="login"
               class="border appearance-none text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your login">
           </div>
@@ -55,15 +92,20 @@ const signIn = async () => {
             <label for="password" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Password
             </label>
-            <input v-model="userData.password" type="password" id="password"
+            <input v-model="submitForm.password" type="password" id="password"
               class="border appearance-none text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your password">
           </div>
         </div>
-        <button @click="signIn()"
-          class="inline-flex justify-center rounded-lg p-2.5 text-base font-semibold bg-blue-600 text-white hover:bg-blue-800 mt-8 w-full cursor-pointer"
+        <button v-if="!isLoading" @click="signIn()"
+          class="inline-flex items-center justify-center rounded-lg p-2.5 text-base font-semibold bg-blue-600 text-white hover:bg-blue-800 mt-8 w-full cursor-pointer"
           type="submit">
           Sign in to account
+        </button>
+        <button v-else
+          class="inline-flex items-center justify-center space-x-2 rounded-lg p-2.5 text-base font-semibold bg-blue-800 text-white mt-8 w-full cursor-default">
+          <SpinnersRingResizeIcon class="w-6 h-6 text-white" />
+          <span>Sign in to account</span>
         </button>
       </div>
     </div>

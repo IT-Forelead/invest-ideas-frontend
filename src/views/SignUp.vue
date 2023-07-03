@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient'
 import { Toaster, toast } from 'vue-sonner'
 import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
 
@@ -23,7 +23,6 @@ const clearForm = () => {
 }
 
 const signUp = async () => {
-  console.log(submitForm.firstname);
   if (!submitForm.firstname) {
     toast.error('Please enter your firstname!')
   } else if (!submitForm?.lastname) {
