@@ -26,7 +26,7 @@ async function getIdeas() {
       *,
       categories ( id, name ),
       profiles ( id, firstname, lastname )
-    `).then((res) => {
+    `).then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
