@@ -23,6 +23,7 @@ const clearForm = () => {
 }
 
 const signUp = async () => {
+  console.log(submitForm.firstname);
   if (!submitForm.firstname) {
     toast.error('Please enter your firstname!')
   } else if (!submitForm?.lastname) {
@@ -46,11 +47,11 @@ const signUp = async () => {
         { description: 'An activation link has been sent to your email.' }
       )
       isLoading.value = false
-      clearForm()
       await supabase
         .from('profiles')
         .upsert({ id: res.data.user.id, firstname: submitForm.firstname, lastname: submitForm.lastname })
         .select()
+      clearForm()
     }).catch((err) => {
       toast.error('Error while registering! Please try again.')
       isLoading.value = false
@@ -101,18 +102,18 @@ const signUp = async () => {
         class="-mx-4 mt-10 flex-auto items-center rounded-xl bg-[#161B22] z-[2] px-4 shadow-2xl shadow-gray-500/10 sm:mx-0 sm:flex-none sm:rounded-5xl sm:p-24">
         <div class="grid grid-cols-2 gap-6">
           <div>
-            <label for="first_name" class="mb-2 block text-base font-semibold text-[#e6edf3]">
+            <label for="firstname" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               First name
             </label>
-            <input v-model="submitForm.firstname" type="text" id="first_name"
+            <input v-model="submitForm.firstname" type="text" id="firstname"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your first name">
           </div>
           <div>
-            <label for="last_name" class="mb-2 block text-base font-semibold text-[#e6edf3]">
+            <label for="lastname" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Last name
             </label>
-            <input v-model="submitForm.lastname" type="text" id="first_name"
+            <input v-model="submitForm.lastname" type="text" id="lastname"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your last name">
           </div>
@@ -133,10 +134,10 @@ const signUp = async () => {
               placeholder="Enter your password">
           </div>
           <div class="col-span-full">
-            <label for="password" class="mb-2 block text-base font-semibold text-[#e6edf3]">
+            <label for="confirmPassword" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Confirm password
             </label>
-            <input v-model="submitForm.confirmPassword" type="password" id="password"
+            <input v-model="submitForm.confirmPassword" type="password" id="confirmPassword"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your password">
           </div>
