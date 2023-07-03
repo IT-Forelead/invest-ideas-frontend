@@ -20,15 +20,17 @@ const categories = computed(() => {
 })
 
 async function getIdeas() {
-  const { data } = await supabase
+  await supabase
     .from('ideas')
     .select(`
       *,
       categories ( id, name ),
-      users ( id, firstname, lastname )
-    `)
-  useIdeaStore().clearStore()
-  useIdeaStore().setIdeas(data)
+      profiles ( id, firstname, lastname )
+    `).then((res) => {
+      useIdeaStore().clearStore()
+      useIdeaStore().setIdeas(res.data)
+    })
+
 }
 
 async function getCategories() {
