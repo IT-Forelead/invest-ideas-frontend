@@ -1,6 +1,7 @@
 <script setup>
 import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../Icons/CaretRightIcon.vue'
+import LightBulbIcon from '../Icons/LightBulbIcon.vue'
 
 </script>
 <template>
@@ -41,14 +42,7 @@ import CaretRightIcon from '../Icons/CaretRightIcon.vue'
         <div class="w-11/12 pt-16">
           <div
             class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid border-gray-50 rounded-full mt-8">
-            <picture>
-              <source
-                srcset="https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg 44w,https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg?width=35 35w,https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg?width=26 26w,https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg?width=22 22w,https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg?width=17 17w,https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg?width=8 8w"
-                sizes="44px" type="image/svg">
-              <img class="eyebrow-banner-icon d-block width-auto flex-grow-0 flex-shrink-0" width="44" height="44"
-                loading="lazy" decoding="async" alt="" aria-hidden="true"
-                src="https://github.githubassets.com/images/modules/site/eyebrow-banner-icon-copilot-x.svg">
-            </picture>
+            <LightBulbIcon class="w-11 h-11 bg-white p-2 rounded-full" />
             <div>
               <div class="font-semibold text-white">
                 Introducing Invest Ideas

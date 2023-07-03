@@ -28,6 +28,8 @@ import NestJsIcon from '../Icons/NestJsIcon.vue'
 import NodeJsIcon from '../Icons/NodeJsIcon.vue'
 import NuxtJsIcon from '../Icons/NuxtJsIcon.vue'
 import SparkIcon from '../Icons/SparkIcon.vue'
+import RacketLaunchIcon from '../Icons/RacketLaunchIcon.vue'
+import UserIcon from '../Icons/UserIcon.vue'
 
 const modules = ref([Autoplay, EffectCoverflow])
 
@@ -39,7 +41,7 @@ const modules = ref([Autoplay, EffectCoverflow])
                 <div class="w-1/12 flex flex-col items-center relative">
                     <div class="mx-auto my-8">
                         <div class="relative inline-block mb-10">
-                            <CodeSimpleIcon class="w-6 h-6 text-white" />
+                            <RacketLaunchIcon class="w-6 h-6 text-white" />
                             <div class="absolute bg-[#FFA28B] blur-lg left-0 top-0 h-full w-full"></div>
                         </div>
                         <div class="w-[3px] h-72 rounded-md mx-auto"
@@ -47,11 +49,11 @@ const modules = ref([Autoplay, EffectCoverflow])
                     </div>
                 </div>
                 <div class="w-11/12 pt-8 relative z-[1]">
-                    <div class="text-2xl mb-6 font-medium text-white">Collaboration</div>
+                    <div class="text-2xl mb-6 font-medium text-white">Startups</div>
                     <h3 class="text-5xl font-medium text-white max-w-5xl tracking-tight">
-                        <span class="text-[#FFA28B]">Supercharge collaboration.</span>
-                        We provide unlimited repositories, best-in-class version control, and the world’s most
-                        powerful open source community-so your team can work more efficiently together.
+                        <span class="text-[#FFA28B]">Choose any idea and turn it into a startup.</span>
+                        Choose the one you like from the ideas and turn it into a startup using the programming 
+                        language and technologies you know.
                     </h3>
                 </div>
             </div>
@@ -72,11 +74,11 @@ const modules = ref([Autoplay, EffectCoverflow])
                         src="/images/bg-stars.webp" alt="" />
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
-                            <span class="text-white font-normal">GitHub Issues and GitHub Projects</span>
-                            supply flexible project management tools that adapt to your team alongside your code.
+                            <span class="text-white font-normal">Invest Ideas Team</span>
+                            creates public Repositories on the Github platform for startups based on supply and demand. You can develop startups in these repositories.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
-                            <span>Explore GitHub Issues </span>
+                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                            <span>View all startups</span>
                             <CaretRightIcon class="w-5 h-5 text-white" />
                         </div>
                     </div>
@@ -85,9 +87,9 @@ const modules = ref([Autoplay, EffectCoverflow])
                             class="text-xs font-semibold inline-block px-2 py-1 border border-double border-[#FFA28B] text-[#FFA28B] rounded-full">
                             Did you know?
                         </div>
-                        <h3 class="text-6xl font-medium text-[#FFA28B] mb-8 mt-4">80% reduction</h3>
+                        <h3 class="text-6xl font-medium text-[#FFA28B] mb-8 mt-4">10+ startups</h3>
                         <p class="mb-4 text-xl font-medium max-w-2xl text-white">
-                            in onboarding time with GitHub
+                            Currently, more than 10 startups are being worked on
                         </p>
                     </div>
                 </div>
@@ -101,30 +103,36 @@ const modules = ref([Autoplay, EffectCoverflow])
                             <span class="text-white font-normal">Active Users</span>
                             is who are actively contributing to projects that are currently being worked on.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
+                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
                             <span>View all active users </span>
                             <CaretRightIcon class="w-5 h-5 text-white" />
                         </div>
                     </div>
                     <div class="w-2/3 py-10 px-16 flex items-end justify-end space-x-6">
                         <div class="w-52 h-64 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
-                            <img src="/images/nuxtjs.png" class="w-full h-36 object-cover rounded-t-md" alt="#" />
+                            <div class="flex items-center justify-center w-full h-36 rounded-t-md bg-slate-900">
+                                <UserIcon class="w-20 h-20 text-[#FFA28B]" />
+                            </div>
                             <div class=" text-center p-3 space-y-2">
-                                <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
+                                <div class="text-base font-semibold text-white">Shomurodov Og'abek</div>
                                 <div class="text-sm text-[#7D8590]">Scala Developer</div>
                             </div>
                         </div>
                         <div class="w-56 h-72 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
-                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
+                            <div class="flex items-center justify-center w-full h-40 rounded-t-md bg-slate-900">
+                                <UserIcon class="w-24 h-24 text-[#FFA28B]" />
+                            </div>
                             <div class=" text-center p-3 space-y-2">
                                 <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
                                 <div class="text-sm text-[#7D8590]">Scala Developer</div>
                             </div>
                         </div>
                         <div class="w-52 h-64 bg-[#161B22] border border-solid border-[#30363D] rounded-lg">
-                            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
+                            <div class="flex items-center justify-center w-full h-36 rounded-t-md bg-slate-900">
+                                <UserIcon class="w-20 h-20 text-[#FFA28B]" />
+                            </div>
                             <div class=" text-center p-3 space-y-2">
-                                <div class="text-base font-semibold text-white">Jumaniyozov Surojiddin</div>
+                                <div class="text-base font-semibold text-white">Raxmatov Maftunbek</div>
                                 <div class="text-sm text-[#7D8590]">Scala Developer</div>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ import 'vue3-marquee/dist/style.css'
 import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../Icons/CaretRightIcon.vue'
 import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
+import TerminalWindowIcon from '../Icons/TerminalWindowIcon.vue'
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -12,7 +13,7 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                 <div class="w-1/12 flex flex-col items-center relative">
                     <div class="mx-auto my-8">
                         <div class="relative inline-block mb-10">
-                            <CodeSimpleIcon class="w-6 h-6 text-white" />
+                            <TerminalWindowIcon class="w-6 h-6 text-white" />
                             <div class="absolute bg-[#939AFF] blur-lg left-0 top-0 h-full w-full"></div>
                         </div>
                         <div
@@ -21,11 +22,11 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                     </div>
                 </div>
                 <div class="w-11/12 pt-8 relative z-[1]">
-                    <div class="text-2xl mb-6 font-medium text-white">Security</div>
+                    <div class="text-2xl mb-6 font-medium text-white">Deployment</div>
                     <h3 class="text-5xl font-medium text-white max-w-5xl tracking-tight">
-                        <span class="text-[#939AFF]">Embed security into the developer workflow.</span>
-                        With GitHub, developers can secure their code in minutes and organizations can
-                        automatically comply with regulations.
+                        <span class="text-[#939AFF]">Deploy and security are on us.</span>
+                        We will deploy the startup that is considered ready for use. 
+                        We deploy daily changes at a certain time every day.
                     </h3>
                 </div>
             </div>
@@ -46,12 +47,11 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                         src="/images/bg-stars.webp" alt="" />
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
-                            <span class="text-white font-normal">GitHub Advanced Security</span>
-                            lets you gain visibility into your security posture, respond to threats proactively,
-                            and ship secure applications quickly.
+                            <span class="text-white font-normal">Invest Ideas Team</span>
+                            provides partially ready-to-use startups as a demo, regardless of what programming language or technology they are written in.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
-                            <span>Get GitHub Advanced Security</span>
+                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                            <span>View all products</span>
                             <CaretRightIcon class="w-5 h-5 text-white" />
                         </div>
                     </div>
@@ -61,10 +61,10 @@ import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
                             Did you know?
                         </div>
                         <h3 class="text-6xl font-medium text-[#939AFF] mb-8 mt-4">
-                            56 million projects
+                            3 projects
                         </h3>
                         <p class="mb-4 text-xl font-medium max-w-2xl text-white">
-                            in onboarding time with GitHub
+                            Currently, we have 3 projects ready for use
                         </p>
                     </div>
                 </div>

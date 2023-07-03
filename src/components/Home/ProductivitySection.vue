@@ -4,6 +4,7 @@ import 'vue3-marquee/dist/style.css'
 import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../Icons/CaretRightIcon.vue'
 import StarFillIcon from '../Icons/StarFillIcon.vue'
+import LightBulbIcon from '../Icons/LightBulbIcon.vue'
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -12,7 +13,7 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                 <div class="w-1/12 flex flex-col items-center relative">
                     <div class="mx-auto my-8">
                         <div class="relative inline-block mb-10">
-                            <CodeSimpleIcon class="w-6 h-6 text-white" />
+                            <LightBulbIcon class="w-6 h-6 text-white" />
                             <div class="absolute bg-[#7ee787] blur-lg left-0 top-0 h-full w-full"></div>
                         </div>
                         <div
@@ -21,10 +22,10 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                     </div>
                 </div>
                 <div class="w-11/12 pt-8 relative z-[1]">
-                    <div class="text-2xl mb-6 font-medium text-white">Productivity</div>
+                    <div class="text-2xl mb-6 font-medium text-white">Ideas</div>
                     <h3 class="text-5xl font-medium text-white w-2/3">
-                        <span class="text-[#7ee787]">Accelerate high-quality software development.</span>
-                        Our AI-powered platform drives innovation with tools that boost developer velocity.
+                        <span class="text-[#7ee787]">Add your own ideas or suggest others' ideas</span>
+                        Share yourself with suggestions and ideas to find solutions to problems in your life or business.
                     </h3>
                 </div>
             </div>
@@ -45,23 +46,24 @@ import StarFillIcon from '../Icons/StarFillIcon.vue'
                         src="/images/bg-stars.webp" alt="">
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
-                            <span class="text-white font-normal">GitHub Codespaces</span>
-                            offers a complete dev environment in seconds, so you can code,
-                            build, test, and open pull requests from any repo anywhere.
+                            <span class="text-white font-normal">Add your idea in seconds.</span>
+                            Enter your problems that need to be automated in any direction, and together 
+                            we will find a solution.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1">
-                            <span>Check out GitHub Codespaces</span>
-                            <CaretRightIcon class="w-5 h-5 text-white" />
-                        </div>
+                        <router-link to="/ideas">
+                            <div class="inline-flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                                <span>View all ideas</span>
+                                <CaretRightIcon class="w-5 h-5 text-white" />
+                            </div>
+                        </router-link>
                     </div>
                     <div class="px-16 pt-12 pb-20 w-1/2">
                         <div
                             class="text-xs font-semibold inline-block px-2 py-1 border border-double border-[#7EE787] text-[#7EE787] rounded-full">
                             Did you know?
                         </div>
-                        <h3 class="text-6xl font-medium text-[#7EE787] mb-8 mt-4">22% increase</h3>
-                        <p class="mb-4 text-xl font-medium max-w-2xl text-white">in developer productivity<br>after three
-                            years with GitHub</p>
+                        <h3 class="text-6xl font-medium text-[#7EE787] mb-8 mt-4">10+ ideas</h3>
+                        <p class="mb-4 text-xl font-medium max-w-lg text-white">Currently, more than 10 ideas are being discussed on our platform</p>
                     </div>
                 </div>
             </div>
