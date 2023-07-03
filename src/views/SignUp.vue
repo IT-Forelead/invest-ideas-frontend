@@ -1,31 +1,75 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { supabase } from '../lib/supabaseClient';
+import { Toaster, toast } from 'vue-sonner'
+import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
 
-const userData = reactive({
+const isLoading = ref(false)
+
+const submitForm = reactive({
   email: '',
   password: '',
+  confirmPassword: '',
   firstname: '',
   lastname: '',
-
 })
 
-const signUp = async () => {
-  await supabase.auth.signUp({
-    email: userData.email,
-    password: userData.password,
-  }).then(async (res) => {
-    await supabase
-      .from('profiles')
-      .upsert({ id: res.data.user.id, firstname: userData.firstname, lastname: userData.lastname })
-      .select()
-  })
+const clearForm = () => {
+  submitForm.firstname = ''
+  submitForm.lastname = ''
+  submitForm.email = ''
+  submitForm.password = ''
+  submitForm.confirmPassword = ''
+}
 
+const signUp = async () => {
+  if (!submitForm.firstname) {
+    toast.error('Please enter your firstname!')
+  } else if (!submitForm?.lastname) {
+    toast.error('Please enter your lastname!')
+  } else if (!submitForm.email) {
+    toast.error('Please enter your email!')
+  } else if (!submitForm.password) {
+    toast.error('Please enter your password!')
+  } else if (!submitForm.confirmPassword) {
+    toast.error('Please enter password again!')
+  } else if (submitForm.password != submitForm.confirmPassword) {
+    toast.error('The passwords do not match!')
+  } else {
+    isLoading.value = true
+    await supabase.auth.signUp({
+      email: submitForm.email,
+      password: submitForm.password,
+    }).then(async (res) => {
+      toast.success(
+        'You have successfully registered!',
+        { description: 'An activation link has been sent to your email.' }
+      )
+      isLoading.value = false
+      clearForm()
+      await supabase
+        .from('profiles')
+        .upsert({ id: res.data.user.id, firstname: submitForm.firstname, lastname: submitForm.lastname })
+        .select()
+    }).catch((err) => {
+      toast.error('Error while registering! Please try again.')
+      isLoading.value = false
+    })
+
+  }
 
 }
 
 </script>
 <template>
+  <Toaster richColors closeButton :toastOptions="{
+    style: {
+      background: '#161B22',
+      border: '1px solid #30363D',
+      color: '#e6edf3'
+    },
+  }" />
+
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
     <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
       <router-link to="/">
@@ -60,7 +104,7 @@ const signUp = async () => {
             <label for="first_name" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               First name
             </label>
-            <input v-model="userData.firstname" type="text" id="first_name"
+            <input v-model="submitForm.firstname" type="text" id="first_name"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your first name">
           </div>
@@ -68,7 +112,7 @@ const signUp = async () => {
             <label for="last_name" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Last name
             </label>
-            <input v-model="userData.lastname" type="text" id="first_name"
+            <input v-model="submitForm.lastname" type="text" id="first_name"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your last name">
           </div>
@@ -76,7 +120,7 @@ const signUp = async () => {
             <label for="email" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Email address
             </label>
-            <input v-model="userData.email" type="email" id="email"
+            <input v-model="submitForm.email" type="email" id="email"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your email">
           </div>
@@ -84,7 +128,7 @@ const signUp = async () => {
             <label for="password" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Password
             </label>
-            <input v-model="userData.password" type="password" id="password"
+            <input v-model="submitForm.password" type="password" id="password"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your password">
           </div>
@@ -92,15 +136,19 @@ const signUp = async () => {
             <label for="password" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Confirm password
             </label>
-            <input type="password" id="password"
+            <input v-model="submitForm.confirmPassword" type="password" id="password"
               class="border appearance-none text-sm rounded-lg block w-full p-3  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your password">
           </div>
         </div>
-        <button @click="signUp()"
-          class="inline-flex justify-center rounded-lg p-2.5 text-base font-semibold bg-blue-600 text-white hover:bg-blue-800 mt-8 w-full cursor-pointer"
-          type="submit">
+        <button v-if="!isLoading" @click="signUp()"
+          class="inline-flex items-start justify-center rounded-lg p-2.5 text-base font-semibold bg-blue-600 text-white hover:bg-blue-800 mt-8 w-full">
           Get started
+        </button>
+        <button v-else
+          class="inline-flex items-center justify-center space-x-2 rounded-lg p-2.5 text-base font-semibold bg-blue-800 text-white mt-8 w-full cursor-default">
+          <SpinnersRingResizeIcon class="w-6 h-6 text-white" />
+          <span>Get started</span>
         </button>
       </div>
     </div>
