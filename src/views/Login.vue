@@ -30,13 +30,12 @@ const signIn = async () => {
       password: submitForm.password,
     })
     if (data.user) {
-      toast.success('Login was successful!')
+      localStorage.setItem('data', JSON.stringify(data))
       router.push('/')
       isLoading.value = false
       clearForm()
     }
     if (error) {
-      console.log(error);
       toast.error('Email or password incorrect. Please try again!')
       isLoading.value = false
     }

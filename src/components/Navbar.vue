@@ -2,12 +2,13 @@
 import $ from 'jquery';
 import i18n from '../i18n.js'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useDropDownStore } from '../store/dropdown.store'
 import { useDarkModeStore } from '../store/darkMode.store'
 import { onClickOutside } from '@vueuse/core'
 import { useDark, useToggle } from "@vueuse/core";
 import LangTranslaterIcon from '../components/Icons/LangTranslaterIcon.vue'
+import { useAuthStore } from '../store/auth.store';
 
 const { t } = useI18n()
 
@@ -52,8 +53,6 @@ watch(() => isDark.value, (val) => {
 })
 
 onMounted(() => {
-  currentLang.value = localStorage.getItem('lang') || 'en'
-  document.getElementsByTagName('title')[0].innerHTML = t('title')
   $(document).scroll(() => {
     if ($(document).scrollTop() > 0) {
       top.value = false;
@@ -62,6 +61,8 @@ onMounted(() => {
     }
   })
 })
+
+const isLogin = computed(() => useAuthStore().user)
 
 </script>
 <template>
@@ -122,8 +123,13 @@ onMounted(() => {
           </ul>
         </nav>
       </div>
-
-      <div class="flex items-center justify-center flex-1 space-x-5">
+      <div v-if="isLogin" class="flex items-center justify-center flex-1 space-x-5">
+          <div
+            class="text-base text-white transition duration-500 bg-transparent cursor-pointer hover:text-gray-400 whitespace-nowrap">
+            {{ isLogin?.email }}
+          </div>
+      </div>
+      <div v-else class="flex items-center justify-center flex-1 space-x-5">
         <router-link to="/login">
           <div
             class="text-base text-white transition duration-500 bg-transparent cursor-pointer hover:text-gray-400 whitespace-nowrap">
