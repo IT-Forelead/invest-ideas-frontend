@@ -24,15 +24,18 @@ const selectedIdea = computed(() => {
 })
 
 async function getIdeaById() {
-  const { data } = await supabase
+  await supabase
     .from('ideas')
     .select(`
       *, 
       categories ( id, name ),
-      users ( id, firstname, lastname )
+      profiles ( id, firstname, lastname )
     `)
     .eq('id', selectedIdeaId.value)
-  useIdeaStore().setSelectedIdea(data)
+    .then(async (res) => {
+      useIdeaStore().setSelectedIdea(res.data)
+    })
+
 }
 
 onMounted(() => {
@@ -58,7 +61,7 @@ onMounted(() => {
               <li class="flex items-center space-x-2">
                 <sapn class="text-sm font-normal text-[#7d8590]">Creator:</sapn>
                 <sapn class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.users?.firstname + ' ' + si?.users?.lastname }}
+                  {{ si?.profiles?.firstname + ' ' + si?.profiles?.lastname }}
                 </sapn>
               </li>
               <li class="flex items-center space-x-2">
@@ -176,7 +179,8 @@ onMounted(() => {
                   <div class="text-base text-[#7d8590]">26.07.2023 17:31</div>
                 </div>
                 <div class="text-xl text-[#e6edf3]">
-                  Ajoyib g'oya ekan. Oldindan bron qilingan vaqtda malum miqdorda pul to'lanadigan qilinsa juda ajoyib bo'lardi nazarimda
+                  Ajoyib g'oya ekan. Oldindan bron qilingan vaqtda malum miqdorda pul to'lanadigan qilinsa juda ajoyib
+                  bo'lardi nazarimda
                 </div>
                 <div class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
                   <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">

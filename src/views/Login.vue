@@ -1,4 +1,18 @@
 <script setup>
+import { reactive } from 'vue';
+import { supabase } from '../lib/supabaseClient'
+
+const userData = reactive({
+  email: '',
+  password: ''
+})
+
+const signIn = async () => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: userData.email,
+    password: userData.password,
+  })
+}
 </script>
 <template>
   <main class="flex items-center h-screen overflow-hidden bg-[#0D1117]">
@@ -12,8 +26,7 @@
         </div>
       </router-link>
       <div class="relative mt-12 sm:mt-16 z-[1]">
-        <svg viewBox="0 0 1090 1090" aria-hidden="true" fill="none"
-          preserveAspectRatio="none" width="1090" height="1090"
+        <svg viewBox="0 0 1090 1090" aria-hidden="true" fill="none" preserveAspectRatio="none" width="1090" height="1090"
           class="absolute -top-7 left-1/2 -z-10 h-[788px] -translate-x-1/2 stroke-gray-600/30 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:-top-9 sm:h-auto">
           <circle cx="545" cy="545" r="544.5"></circle>
           <circle cx="545" cy="545" r="480.5"></circle>
@@ -34,7 +47,7 @@
             <label for="login" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Email address
             </label>
-            <input type="email" id="login"
+            <input v-model="userData.email" type="email" id="login"
               class="border appearance-none text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your login">
           </div>
@@ -42,12 +55,12 @@
             <label for="password" class="mb-2 block text-base font-semibold text-[#e6edf3]">
               Password
             </label>
-            <input type="password" id="password"
+            <input v-model="userData.password" type="password" id="password"
               class="border appearance-none text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:outline-none  focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter your password">
           </div>
         </div>
-        <button
+        <button @click="signIn()"
           class="inline-flex justify-center rounded-lg p-2.5 text-base font-semibold bg-blue-600 text-white hover:bg-blue-800 mt-8 w-full cursor-pointer"
           type="submit">
           Sign in to account
