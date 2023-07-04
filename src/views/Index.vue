@@ -1,16 +1,16 @@
 <script setup>
 import HeaderSection from '../components/Home/HeaderSection.vue'
-import ProductivitySection from '../components/Home/ProductivitySection.vue'
-import CollaborationSection from '../components/Home/CollaborationSection.vue'
-import SecuritySection from '../components/Home/SecuritySection.vue'
+import IdeasSection from '../components/Home/IdeasSection.vue'
+import StartupsSection from '../components/Home/StartupsSection.vue'
+import DeploymentSection from '../components/Home/DeploymentSection.vue'
 import FooterSection from '../components/Home/FooterSection.vue'
 </script>
 
 <template>
   <HeaderSection />
-  <ProductivitySection />
-  <CollaborationSection />
-  <SecuritySection />
+  <IdeasSection />
+  <StartupsSection />
+  <DeploymentSection />
   <FooterSection />
 </template>
 
