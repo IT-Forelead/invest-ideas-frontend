@@ -10,7 +10,6 @@ import "swiper/css/effect-coverflow";
 
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
 import MySqlIcon from '../../assets/icons/MySqlIcon.vue'
 import AkkaIcon from '../../assets/icons/AkkaIcon.vue'
@@ -30,6 +29,39 @@ import NuxtJsIcon from '../../assets/icons/NuxtJsIcon.vue'
 import SparkIcon from '../../assets/icons/SparkIcon.vue'
 import RacketLaunchIcon from '../../assets/icons/RacketLaunchIcon.vue'
 import UserIcon from '../../assets/icons/UserIcon.vue'
+
+import ArduinoIcon from '../../assets/icons/ArduinoIcon.vue'
+import CakePhpIcon from '../../assets/icons/CakePhpIcon.vue'
+import CassandraIcon from '../../assets/icons/CassandraIcon.vue'
+import CIcon from '../../assets/icons/CIcon.vue'
+import CosmosDbIcon from '../../assets/icons/CosmosDbIcon.vue'
+import CouchDbIcon from '../../assets/icons/CouchDbIcon.vue'
+import CPlusPlusIcon from '../../assets/icons/CPlusPlusIcon.vue'
+import CSharpIcon from '../../assets/icons/CSharpIcon.vue'
+import CSS3Icon from '../../assets/icons/CSS3Icon.vue'
+import DjangoIcon from '../../assets/icons/DjangoIcon.vue'
+import DockerIcon from '../../assets/icons/DockerIcon.vue'
+import DotNetIcon from '../../assets/icons/DotNetIcon.vue'
+import ElasticsearchIcon from '../../assets/icons/ElasticsearchIcon.vue'
+import FlutterIcon from '../../assets/icons/FlutterIcon.vue'
+import GoIcon from '../../assets/icons/GoIcon.vue'
+import HTML5Icon from '../../assets/icons/HTML5Icon.vue'
+import JavaIcon from '../../assets/icons/JavaIcon.vue'
+import JavaScriptIcon from '../../assets/icons/JavaScriptIcon.vue'
+import JsonIcon from '../../assets/icons/JsonIcon.vue'
+import KibanaIcon from '../../assets/icons/KibanaIcon.vue'
+import KotlinIcon from '../../assets/icons/KotlinIcon.vue'
+import LessIcon from '../../assets/icons/LessIcon.vue'
+import LogstashIcon from '../../assets/icons/LogstashIcon.vue'
+import PhpIcon from '../../assets/icons/PhpIcon.vue'
+import PostgreSqlIcon from '../../assets/icons/PostgreSqlIcon.vue'
+import PythonIcon from '../../assets/icons/PythonIcon.vue'
+import RedisIcon from '../../assets/icons/RedisIcon.vue'
+import RubyIcon from '../../assets/icons/RubyIcon.vue'
+import ScalaIcon from '../../assets/icons/ScalaIcon.vue'
+import TypeScriptIcon from '../../assets/icons/TypeScriptIcon.vue'
+import ViteJsIcon from '../../assets/icons/ViteJsIcon.vue'
+import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
 
 const modules = ref([Autoplay, EffectCoverflow])
 
@@ -52,7 +84,7 @@ const modules = ref([Autoplay, EffectCoverflow])
                     <div class="text-2xl mb-6 font-medium text-white">Startups</div>
                     <h3 class="text-5xl font-medium text-white max-w-5xl tracking-tight">
                         <span class="text-[#FFA28B]">Choose any idea and turn it into a startup.</span>
-                        Choose the one you like from the ideas and turn it into a startup using the programming 
+                        Choose the one you like from the ideas and turn it into a startup using the programming
                         language and technologies you know.
                     </h3>
                 </div>
@@ -75,7 +107,8 @@ const modules = ref([Autoplay, EffectCoverflow])
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
                             <span class="text-white font-normal">Invest Ideas Team</span>
-                            creates public Repositories on the Github platform for startups based on supply and demand. You can develop startups in these repositories.
+                            creates public Repositories on the Github platform for startups based on supply and demand. You
+                            can develop startups in these repositories.
                         </h2>
                         <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
                             <span>View all startups</span>
@@ -153,43 +186,51 @@ const modules = ref([Autoplay, EffectCoverflow])
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-24 w-auto text-[#6e7681]" />
                                 <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-24 w-auto text-[#6e7681]" />
                                 <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
                                 <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
                                 <AstroIcon class="h-24 w-auto text-[#6e7681]" />
                                 <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
                                 <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
                                 <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
-                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
                                 <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-28 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
                                 <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CSS3Icon class="h-12 w-auto text-[#6e7681]" />
+                                <HTML5Icon class="h-12 w-auto text-[#6e7681]" />
+                                <JavaScriptIcon class="h-12 w-auto text-[#6e7681]" />
+                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <LessIcon class="h-24 w-auto text-[#6e7681]" />
+                                <TypeScriptIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ViteJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <VueJsIcon class="h-12 w-auto text-[#6e7681]" />
                             </div>
                         </Vue3Marquee>
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AngularJsIcon class="h-24 w-auto text-[#6e7681]" />
                                 <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ApacheAirFlowIcon class="h-24 w-auto text-[#6e7681]" />
                                 <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
                                 <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AstroIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AxiosIcon class="h-12 w-auto text-[#6e7681]" />
+                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
+                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
                                 <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
                                 <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
-                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
                                 <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
                                 <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NuxtJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-12 w-auto text-[#6e7681]" />
+                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CSS3Icon class="h-12 w-auto text-[#6e7681]" />
+                                <HTML5Icon class="h-12 w-auto text-[#6e7681]" />
+                                <JavaScriptIcon class="h-12 w-auto text-[#6e7681]" />
+                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <LessIcon class="h-24 w-auto text-[#6e7681]" />
+                                <TypeScriptIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ViteJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <VueJsIcon class="h-12 w-auto text-[#6e7681]" />
                             </div>
                         </Vue3Marquee>
                     </div>
@@ -207,43 +248,72 @@ const modules = ref([Autoplay, EffectCoverflow])
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MySqlIcon class="h-20 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-24 w-auto text-[#6e7681]" />
                                 <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
-                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
                                 <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-28 w-auto text-[#6e7681]" />
-                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-24 w-auto text-[#6e7681]" />
+                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-20 w-auto text-[#6e7681]" />
+                                <ArduinoIcon class="h-14 w-auto text-[#6e7681]" />
+                                <CakePhpIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CassandraIcon class="h-16 w-auto text-[#6e7681]" />
+                                <CIcon class="h-12 w-auto text-[#6e7681]" />
+                                <CosmosDbIcon class="h-14 w-auto text-[#6e7681]" />
+                                <CouchDbIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CPlusPlusIcon class="h-12 w-auto text-[#6e7681]" />
+                                <CSharpIcon class="h-12 w-auto text-[#6e7681]" />
+                                <DjangoIcon class="h-24 w-auto text-[#6e7681]" />
+                                <DockerIcon class="h-14 w-auto text-[#6e7681]" />
+                                <DotNetIcon class="h-14 w-auto text-[#6e7681]" />
+                                <ElasticsearchIcon class="h-12 w-auto text-[#6e7681]" />
+                                <FlutterIcon class="h-12 w-auto text-[#6e7681]" />
+                                <GoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <JavaIcon class="h-16 w-auto text-[#6e7681]" />
+                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <KibanaIcon class="h-24 w-auto text-[#6e7681]" />
+                                <KotlinIcon class="h-24 w-auto text-[#6e7681]" />
+                                <LogstashIcon class="h-24 w-auto text-[#6e7681]" />
+                                <PhpIcon class="h-16 w-auto text-[#6e7681]" />
+                                <PostgreSqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <PythonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <RedisIcon class="h-12 w-auto text-[#6e7681]" />
+                                <RubyIcon class="h-12 w-auto text-[#6e7681]" />
+                                <ScalaIcon class="h-24 w-auto text-[#6e7681]" />
                             </div>
                         </Vue3Marquee>
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AngularJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <MySqlIcon class="h-20 w-auto text-[#6e7681]" />
+                                <AkkaIcon class="h-24 w-auto text-[#6e7681]" />
                                 <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AstroIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AxiosIcon class="h-12 w-auto text-[#6e7681]" />
-                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
                                 <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
                                 <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NuxtJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-12 w-auto text-[#6e7681]" />
+                                <SparkIcon class="h-20 w-auto text-[#6e7681]" />
+                                <ArduinoIcon class="h-14 w-auto text-[#6e7681]" />
+                                <CakePhpIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CassandraIcon class="h-16 w-auto text-[#6e7681]" />
+                                <CIcon class="h-12 w-auto text-[#6e7681]" />
+                                <CosmosDbIcon class="h-14 w-auto text-[#6e7681]" />
+                                <CouchDbIcon class="h-24 w-auto text-[#6e7681]" />
+                                <CPlusPlusIcon class="h-12 w-auto text-[#6e7681]" />
+                                <CSharpIcon class="h-12 w-auto text-[#6e7681]" />
+                                <DjangoIcon class="h-24 w-auto text-[#6e7681]" />
+                                <DockerIcon class="h-14 w-auto text-[#6e7681]" />
+                                <DotNetIcon class="h-14 w-auto text-[#6e7681]" />
+                                <ElasticsearchIcon class="h-12 w-auto text-[#6e7681]" />
+                                <FlutterIcon class="h-12 w-auto text-[#6e7681]" />
+                                <GoIcon class="h-12 w-auto text-[#6e7681]" />
+                                <JavaIcon class="h-16 w-auto text-[#6e7681]" />
+                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <KibanaIcon class="h-24 w-auto text-[#6e7681]" />
+                                <KotlinIcon class="h-24 w-auto text-[#6e7681]" />
+                                <LogstashIcon class="h-24 w-auto text-[#6e7681]" />
+                                <PhpIcon class="h-16 w-auto text-[#6e7681]" />
+                                <PostgreSqlIcon class="h-12 w-auto text-[#6e7681]" />
+                                <PythonIcon class="h-12 w-auto text-[#6e7681]" />
+                                <RedisIcon class="h-12 w-auto text-[#6e7681]" />
+                                <RubyIcon class="h-12 w-auto text-[#6e7681]" />
                             </div>
                         </Vue3Marquee>
                     </div>
