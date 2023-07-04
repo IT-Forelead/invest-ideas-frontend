@@ -1,5 +1,6 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive } from 'vue'
+import { computed } from '@vue/reactivity'
 import { Toaster, toast } from 'vue-sonner'
 import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
 import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
@@ -11,8 +12,11 @@ import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import UploadIcon from '../assets/icons/UploadIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
+import { useCategoryStore } from '../store/category.store'
 
-const categories = ref([])
+const categories = computed(() => {
+  return useCategoryStore().categories
+})
 
 const submitForm = reactive({
   categoryId: '',
@@ -46,7 +50,6 @@ const addIdea = async () => {
       })
     if (error) {
       toast.error('Error while adding idea! Please try again.')
-      throw error
     } else {
       toast.success('Idea added successfully!')
       clearForm()
@@ -58,7 +61,8 @@ async function getCategories() {
   const { data } = await supabase
     .from('categories')
     .select()
-  categories.value = data
+  useCategoryStore().clearStore()
+  useCategoryStore().setCategories(data)
 }
 
 onMounted(() => {
