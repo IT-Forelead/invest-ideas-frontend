@@ -97,53 +97,49 @@ const signOut = async () => {
     }">
     <div class="container flex flex-row items-center justify-center px-4 mx-auto">
       <div class="flex items-center justify-between flex-1 mr-auto">
-        <div class="flex items-center justify-center space-x-2">
-          <img src="/images/logo.png" alt="logo" class="w-12" />
-          <span
-            class="hidden font-bold leading-none text-gray-600 md:block md:text-xl xl:text-2xl dark:text-white whitespace-nowrap">
-            Invest Ideas
-          </span>
-        </div>
+        <router-link to="/" class="cursor-pointer">
+          <div class="flex items-center justify-center space-x-2">
+            <img src="/images/logo.png" alt="logo" class="w-12" />
+            <span
+              class="hidden font-bold leading-none text-gray-600 md:block md:text-xl xl:text-2xl dark:text-white whitespace-nowrap">
+              Invest Ideas
+            </span>
+          </div>
+        </router-link>
         <div></div>
       </div>
       <div class="flex items-center justify-center flex-auto w-full">
         <nav class="flex items-center justify-center w-full">
-          <ul class="flex justify-center space-x-2 p-0 m-0">
+          <ul class="flex justify-center space-x-6 p-0 m-0">
             <li>
-              <a href="/"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>Home</span>
-              </a>
+              <router-link to="/" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Home
+              </router-link>
             </li>
             <li>
-              <a href="#"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>Services</span>
-              </a>
+              <router-link to="/ideas" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Ideas
+              </router-link>
             </li>
             <li>
-              <a href="/ideas"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>Ideas</span>
-              </a>
+              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Services
+              </router-link>
             </li>
             <li>
-              <a href="#"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>Projects</span>
-              </a>
+              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Projects
+              </router-link>
             </li>
             <li>
-              <a href="#"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>About</span>
-              </a>
+              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                About
+              </router-link>
             </li>
             <li>
-              <a href="#"
-                class="block px-2 text-base leading-none text-white transition duration-200 bg-transparent border-0 rounded-full cursor-pointer hover:text-gray-400">
-                <span>Contact us</span>
-              </a>
+              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Contact us
+              </router-link>
             </li>
           </ul>
         </nav>
