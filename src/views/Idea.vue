@@ -16,6 +16,7 @@ import UserIcon from '../assets/icons/UserIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
 import { useIdeaStore } from '../store/idea.store'
+import { useCommentStore } from '../store/comment.store'
 
 const commentText = ref('')
 
@@ -25,6 +26,10 @@ const selectedIdeaId = computed(() => {
 
 const selectedIdea = computed(() => {
   return useIdeaStore().selectedIdea
+})
+
+const comments = computed(() => {
+  return useCommentStore().comments
 })
 
 async function getIdeaById() {
@@ -60,13 +65,29 @@ const addComment = async () => {
       toast.error('Error while adding comment! Please try again.')
     } else {
       toast.success('Comment added successfully!')
+      getComments()
       commentText.value = ''
     }
   }
 }
 
+async function getComments() {
+  await supabase
+    .from('comments')
+    .select(`
+      *,
+      profiles ( id, firstname, lastname )
+    `)
+    .eq('idea_id', selectedIdeaId.value)
+    .then(async (res) => {
+      useCommentStore().clearStore()
+      useCommentStore().setComments(res.data)
+    })
+}
+
 onMounted(() => {
   getIdeaById()
+  getComments()
 })
 </script>
 
@@ -209,17 +230,20 @@ onMounted(() => {
             <div class="text-lg font-medium text-red-500">Only site members can comment. Please register as well.</div>
           </div>
 
-          <div class="space-y-2">
-            <div v-for="i in 5" class="flex items-start space-x-4">
+          <div v-if="comments.length > 0" class="space-y-2">
+            <div v-for="(comment, idx) in comments" :key="idx" class="flex items-start space-x-4">
               <UserIcon class="p-2 bg-[#30363D]/80 rounded-full h-14 w-14 text-blue-500 border border-[#30363D]" />
               <div class="w-full bg-[#161B22] rounded-md border border-[#30363D] p-4 space-y-2">
                 <div class="flex items-center justify-between">
-                  <div class="text-lg font-medium text-[#e6edf3]">Jumaniyozov Surojiddin</div>
-                  <div class="text-base text-[#7d8590]">26.07.2023 17:31</div>
+                  <div class="text-lg font-medium text-[#e6edf3]">
+                    {{ comment?.profiles?.firstname + ' ' + comment?.profiles?.lastname }}
+                  </div>
+                  <div class="text-base text-[#7d8590]">
+                    {{ moment(comment?.created_at).format('DD/MM/YYYY H:mm') }}
+                  </div>
                 </div>
                 <div class="text-xl text-[#e6edf3]">
-                  Ajoyib g'oya ekan. Oldindan bron qilingan vaqtda malum miqdorda pul to'lanadigan qilinsa juda ajoyib
-                  bo'lardi nazarimda
+                  {{ comment?.text }}
                 </div>
                 <div v-if="useAuthStore().user?.id"
                   class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
@@ -229,15 +253,22 @@ onMounted(() => {
                   </div>
                   <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ThumbsUpIcon class="w-5 h-5" />
-                    <span class="text-sm">Like</span>
+                    <span class="text-sm">
+                      {{ comment?.likes }}
+                    </span>
                   </div>
                   <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ThumbsDownIcon class="w-5 h-5" />
-                    <span class="text-sm">Dislike</span>
+                    <span class="text-sm">
+                      {{ comment?.dislikes }}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <div class="text-base font-medium text-[#e6edf3]">There are no comments on the idea. You be the first :)</div>
           </div>
 
         </div>
