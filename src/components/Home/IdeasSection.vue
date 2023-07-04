@@ -1,10 +1,41 @@
 <script setup>
+import { computed } from '@vue/reactivity'
+import { onMounted } from 'vue'
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
-import StarFillIcon from '../../assets/icons/StarFillIcon.vue'
 import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
+import ThumbsUpIcon from '../../assets/icons/ThumbsUpIcon.vue'
+import { supabase } from '../../lib/supabaseClient'
+import { useIdeaStore } from '../../store/idea.store'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const ideas = computed(() => {
+    return useIdeaStore().ideas
+})
+
+async function getIdeas() {
+    await supabase.from('ideas').select(`
+      *,
+      categories ( id, name ),
+      profiles ( id, firstname, lastname )
+    `).then(async (res) => {
+        useIdeaStore().clearStore()
+        useIdeaStore().setIdeas(res.data)
+    })
+}
+
+const selectIdea = (id) => {
+    useIdeaStore().setSelectedIdeaId(id)
+    router.push('/idea')
+}
+
+onMounted(() => {
+    getIdeas()
+})
+
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -47,11 +78,12 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
                             <span class="text-white font-normal">Add your idea in seconds.</span>
-                            Enter your problems that need to be automated in any direction, and together 
+                            Enter your problems that need to be automated in any direction, and together
                             we will find a solution.
                         </h2>
                         <router-link to="/ideas">
-                            <div class="inline-flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                            <div
+                                class="inline-flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
                                 <span>View all ideas</span>
                                 <CaretRightIcon class="w-5 h-5 text-white" />
                             </div>
@@ -63,7 +95,8 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
                             Did you know?
                         </div>
                         <h3 class="text-6xl font-medium text-[#7EE787] mb-8 mt-4">10+ ideas</h3>
-                        <p class="mb-4 text-xl font-medium max-w-lg text-white">Currently, more than 10 ideas are being discussed on our platform</p>
+                        <p class="mb-4 text-xl font-medium max-w-lg text-white">Currently, more than 10 ideas are being
+                            discussed on our platform</p>
                     </div>
                 </div>
             </div>
@@ -71,54 +104,66 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
                 <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
-                            <div class="flex text-[#7EE787]">
-                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                        <div v-for="(idea, idx) in ideas" :key="idx"
+                            class="max-w-lg rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex items-center space-x-2 text-[#7EE787]">
+                                <ThumbsUpIcon class="w-5 h-5" />
+                                <span class="text-sm">{{ idea.likes_count }}</span>
                             </div>
-                            <div class="text-white mt-3 text-lg font-semibold leading-6">
-                                It really works.
+                            <div @click="selectIdea(idea?.id)"
+                                class="text-white mt-3 text-lg font-semibold leading-6 cursor-pointer">
+                                {{ idea?.title }}
                             </div>
                             <div class="text-[#7D8590] mt-3 text-base leading-7">
-                                I downloaded Pocket today and turned $5000 into $25,000
-                                in half an hour.
+                                {{ idea.categories.name }}
                             </div>
-                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                            <div class="mt-3 text-sm text-gray-600">
+                                - {{ idea.profiles.firstname + ' ' + idea.profiles.lastname }}
+                            </div>
                         </div>
                     </div>
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="180" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'reverse'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
-                            <div class="flex text-[#7EE787]">
-                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                        <div v-for="(idea, idx) in ideas" :key="idx"
+                            class="max-w-lg rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex items-center space-x-2 text-[#7EE787]">
+                                <ThumbsUpIcon class="w-5 h-5" />
+                                <span class="text-sm">{{ idea.likes_count }}</span>
                             </div>
-                            <div class="text-white mt-3 text-lg font-semibold leading-6">
-                                It really works.
+                            <div @click="selectIdea(idea?.id)"
+                                class="text-white mt-3 text-lg font-semibold leading-6 cursor-pointer">
+                                {{ idea?.title }}
                             </div>
                             <div class="text-[#7D8590] mt-3 text-base leading-7">
-                                I downloaded Pocket today and turned $5000 into $25,000
-                                in half an hour.
+                                {{ idea.categories.name }}
                             </div>
-                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                            <div class="mt-3 text-sm text-gray-600">
+                                - {{ idea.profiles.firstname + ' ' + idea.profiles.lastname }}
+                            </div>
                         </div>
                     </div>
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="150" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div v-for="i in 8" class="w-96 rounded-xl bg-[#161B22] text-gray-900 p-4">
-                            <div class="flex text-[#7EE787]">
-                                <StarFillIcon v-for="i in 5" class="h-4 w-4" />
+                        <div v-for="(idea, idx) in ideas" :key="idx"
+                            class="max-w-lg rounded-xl bg-[#161B22] text-gray-900 p-4">
+                            <div class="flex items-center space-x-2 text-[#7EE787]">
+                                <ThumbsUpIcon class="w-5 h-5" />
+                                <span class="text-sm">{{ idea.likes_count }}</span>
                             </div>
-                            <div class="text-white mt-3 text-base font-semibold leading-6">
-                                It really works.
+                            <div @click="selectIdea(idea?.id)"
+                                class="text-white mt-3 text-lg font-semibold leading-6 cursor-pointer">
+                                {{ idea?.title }}
                             </div>
-                            <div class="text-[#7D8590] mt-3 text-sm leading-7">
-                                I downloaded Pocket today and turned $5000 into $25,000
-                                in half an hour.
+                            <div class="text-[#7D8590] mt-3 text-base leading-7">
+                                {{ idea.categories.name }}
                             </div>
-                            <div class="mt-3 text-sm text-gray-600">- CrazyInvestor</div>
+                            <div class="mt-3 text-sm text-gray-600">
+                                - {{ idea.profiles.firstname + ' ' + idea.profiles.lastname }}
+                            </div>
                         </div>
                     </div>
                 </Vue3Marquee>

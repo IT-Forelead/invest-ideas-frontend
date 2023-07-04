@@ -30,7 +30,6 @@ async function getIdeas() {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
-
 }
 
 async function getCategories() {

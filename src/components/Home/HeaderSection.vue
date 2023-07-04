@@ -41,7 +41,7 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
         </div>
         <div class="w-11/12 pt-16">
           <div
-            class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid border-gray-50 rounded-full mt-8">
+            class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid cursor-pointer border-gray-50 rounded-full mt-8">
             <LightBulbIcon class="w-11 h-11 bg-white p-2 rounded-full" />
             <div>
               <div class="font-semibold text-white">
