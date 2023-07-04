@@ -2,10 +2,14 @@ import { defineStore } from 'pinia'
 
 export const useDropDownStore = defineStore('dropdown', {
   state: () => ({
+    isOpenProfileDropDown: false,
     isOpenDarkModeDropDown: false,
     isOpenLanguageDropDown: false
   }),
   actions: {
+    toggleProfile() {
+      this.isOpenProfileDropDown = !this.isOpenProfileDropDown
+    },
     openDarkModeDropDown() {
       this.isOpenDarkModeDropDown = true
     },

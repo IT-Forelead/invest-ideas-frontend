@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabaseClient'
 import { Toaster, toast } from 'vue-sonner'
 import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
+import { useAuthStore } from '../store/auth.store'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -31,6 +32,8 @@ const signIn = async () => {
     })
     if (data.user) {
       localStorage.setItem('data', JSON.stringify(data))
+      useAuthStore().setUser(JSON.parse(localStorage.getItem('data'))?.user)
+      useAuthStore().setToken(JSON.parse(localStorage.getItem('data'))?.session)
       router.push('/')
       isLoading.value = false
       clearForm()
