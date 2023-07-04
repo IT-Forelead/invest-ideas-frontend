@@ -1,19 +1,23 @@
 <script setup>
-import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
+import moment from 'moment'
+import { computed, onMounted, ref } from 'vue'
+import { Toaster, toast } from 'vue-sonner'
+import ArrowBendUpLeftIcon from '../assets/icons/ArrowBendUpLeftIcon.vue'
 import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
 import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
 import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
-import ArrowBendUpLeftIcon from '../assets/icons/ArrowBendUpLeftIcon.vue'
+import TextBIcon from '../assets/icons/TextBIcon.vue'
+import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
+import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import ThumbsDownIcon from '../assets/icons/ThumbsDownIcon.vue'
+import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
 import UserIcon from '../assets/icons/UserIcon.vue'
-import { onMounted, computed } from 'vue'
 import { supabase } from '../lib/supabaseClient'
-import moment from 'moment'
+import { useAuthStore } from '../store/auth.store'
 import { useIdeaStore } from '../store/idea.store'
+
+const commentText = ref('')
 
 const selectedIdeaId = computed(() => {
   return useIdeaStore().selectedIdeaId
@@ -35,7 +39,30 @@ async function getIdeaById() {
     .then(async (res) => {
       useIdeaStore().setSelectedIdea(res.data)
     })
+}
 
+const addComment = async () => {
+  if (!useAuthStore().user?.id) {
+    toast.error('You must register to add an comment!')
+  } else if (!selectedIdeaId.value) {
+    toast.error('Idea does not exist!')
+  } else if (!commentText.value) {
+    toast.error('Please enter text!')
+  } else {
+    let { error } = await supabase
+      .from('comments')
+      .insert({
+        user_id: useAuthStore().user?.id,
+        idea_id: selectedIdeaId.value,
+        text: commentText.value,
+      })
+    if (error) {
+      toast.error('Error while adding comment! Please try again.')
+    } else {
+      toast.success('Comment added successfully!')
+      commentText.value = ''
+    }
+  }
 }
 
 onMounted(() => {
@@ -44,9 +71,16 @@ onMounted(() => {
 </script>
 
 <template>
+  <Toaster richColors closeButton :toastOptions="{
+    style: {
+      background: '#161B22',
+      border: '1px solid #30363D',
+      color: '#e6edf3'
+    },
+  }" />
+
   <section class="bg-[#0D1117]">
     <div class="container px-6 mx-auto pt-24 pb-16">
-
       <h1 class="text-5xl font-semibold text-white mt-6 mb-6">
         Ideas in discussion
       </h1>
@@ -131,7 +165,8 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
+          <div v-if="useAuthStore().user?.id"
+            class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-2xl font-medium text-[#e6edf3]">Write a comment</div>
             <div class="bg-[#0D1117] max-w-3xl border border-[#30363D] overflow-hidden rounded-md">
               <div class="flex items-center w-full border-b border-[#30363D] text-xl text-gray-600">
@@ -161,13 +196,17 @@ onMounted(() => {
                   <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
                 </button>
               </div>
-              <textarea id="editor" rows="5"
+              <textarea v-model="commentText" id="editor" rows="5"
                 class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
                 placeholder="Write an article..."></textarea>
             </div>
-            <button class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
+            <button @click="addComment()"
+              class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
               Comment
             </button>
+          </div>
+          <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <div class="text-lg font-medium text-red-500">Only site members can comment. Please register as well.</div>
           </div>
 
           <div class="space-y-2">
@@ -182,7 +221,8 @@ onMounted(() => {
                   Ajoyib g'oya ekan. Oldindan bron qilingan vaqtda malum miqdorda pul to'lanadigan qilinsa juda ajoyib
                   bo'lardi nazarimda
                 </div>
-                <div class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
+                <div v-if="useAuthStore().user?.id"
+                  class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
                   <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ArrowBendUpLeftIcon class="w-5 h-5" />
                     <span class="text-sm">Reply</span>
