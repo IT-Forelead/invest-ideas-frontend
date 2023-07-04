@@ -1,42 +1,56 @@
 <script setup>
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
+import { onMounted, reactive, ref } from 'vue'
+import { Toaster, toast } from 'vue-sonner'
+import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
 import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
 import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
 import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
+import TextBIcon from '../assets/icons/TextBIcon.vue'
+import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
+import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import UploadIcon from '../assets/icons/UploadIcon.vue'
-import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
 import { supabase } from '../lib/supabaseClient'
-import { reactive, ref, onMounted } from 'vue'
+import { useAuthStore } from '../store/auth.store'
 
 const categories = ref([])
 
-const submitData = reactive({
+const submitForm = reactive({
   categoryId: '',
   title: '',
   text: ''
 })
 
 const clearForm = () => {
-  submitData.categoryId = ''
-  submitData.title = ''
-  submitData.text = ''
+  submitForm.categoryId = ''
+  submitForm.title = ''
+  submitForm.text = ''
 }
 
 const addIdea = async () => {
-  let { error } = await supabase
-    .from('ideas')
-    .insert({
-      user_id: '',
-      category_id: submitData.categoryId,
-      title: submitData.title,
-      text: submitData.text,
-    })
-  if (error) {
-    throw error
+  if (!useAuthStore().user?.id) {
+    toast.error('You must register to add an idea!')
+  } else if (!submitForm.title) {
+    toast.error('Please enter title!')
+  } else if (!submitForm.categoryId) {
+    toast.error('Please select category!')
+  } else if (!submitForm.text) {
+    toast.error('Please enter text!')
   } else {
-    clearForm()
+    let { error } = await supabase
+      .from('ideas')
+      .insert({
+        user_id: useAuthStore().user?.id,
+        category_id: submitForm.categoryId,
+        title: submitForm.title,
+        text: submitForm.text,
+      })
+    if (error) {
+      toast.error('Error while adding idea! Please try again.')
+      throw error
+    } else {
+      toast.success('Idea added successfully!')
+      clearForm()
+    }
   }
 }
 
@@ -53,6 +67,14 @@ onMounted(() => {
 </script>
 
 <template>
+  <Toaster richColors closeButton :toastOptions="{
+    style: {
+      background: '#161B22',
+      border: '1px solid #30363D',
+      color: '#e6edf3'
+    },
+  }" />
+
   <section class="bg-[#0D1117]">
     <div class="container px-6 mx-auto pt-24 pb-16">
 
@@ -71,7 +93,7 @@ onMounted(() => {
               Title:
               <span class="text-red-500">*</span>
             </label>
-            <input type="text" v-model="submitData.title"
+            <input type="text" v-model="submitForm.title"
               class="border text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter idea's title">
           </div>
@@ -81,7 +103,7 @@ onMounted(() => {
               Category:
               <span class="text-red-500">*</span>
             </label>
-            <select v-model="submitData.categoryId"
+            <select v-model="submitForm.categoryId"
               class="border text-sm rounded-lg block w-full p-2.5  bg-[#0D1117] border-[#30363D] placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
               <option value="" selected>Choose a category</option>
               <option v-for="(category, idx) in categories" :key="idx" :value="category?.id">
@@ -123,7 +145,7 @@ onMounted(() => {
                   <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
                 </button>
               </div>
-              <textarea v-model="submitData.text" id="editor" rows="8"
+              <textarea v-model="submitForm.text" id="editor" rows="8"
                 class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
                 placeholder="Write an article..."></textarea>
             </div>
