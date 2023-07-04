@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabaseClient'
 import { Toaster, toast } from 'vue-sonner'
-import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
+import SpinnersRingResizeIcon from '../assets/icons/SpinnersRingResizeIcon.vue'
 import { useAuthStore } from '../store/auth.store'
 
 const router = useRouter()

@@ -1,6 +1,6 @@
 <script setup>
-import ThumbsUpIcon from '../components/Icons/ThumbsUpIcon.vue'
-import CaretRightIcon from '../components/Icons/CaretRightIcon.vue'
+import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
+import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { onMounted } from 'vue'
 import { computed } from '@vue/reactivity'

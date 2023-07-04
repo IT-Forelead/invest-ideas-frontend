@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue';
 import { supabase } from '../lib/supabaseClient'
 import { Toaster, toast } from 'vue-sonner'
-import SpinnersRingResizeIcon from '../components/Icons/SpinnersRingResizeIcon.vue'
+import SpinnersRingResizeIcon from '../assets/icons/SpinnersRingResizeIcon.vue'
 
 const isLoading = ref(false)
 

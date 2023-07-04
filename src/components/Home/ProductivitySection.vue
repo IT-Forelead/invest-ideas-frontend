@@ -1,10 +1,10 @@
 <script setup>
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
-import CaretRightIcon from '../Icons/CaretRightIcon.vue'
-import StarFillIcon from '../Icons/StarFillIcon.vue'
-import LightBulbIcon from '../Icons/LightBulbIcon.vue'
+import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
+import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
+import StarFillIcon from '../../assets/icons/StarFillIcon.vue'
+import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
 </script>
 <template>
     <section class="bg-[#0D1117]">

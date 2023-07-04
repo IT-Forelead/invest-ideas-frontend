@@ -1,10 +1,10 @@
 <script setup>
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
-import CaretRightIcon from '../Icons/CaretRightIcon.vue'
-import ArrowSquareOutIcon from '../Icons/ArrowSquareOutIcon.vue'
-import TerminalWindowIcon from '../Icons/TerminalWindowIcon.vue'
+import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
+import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
+import ArrowSquareOutIcon from '../../assets/icons/ArrowSquareOutIcon.vue'
+import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
 </script>
 <template>
     <section class="bg-[#0D1117]">

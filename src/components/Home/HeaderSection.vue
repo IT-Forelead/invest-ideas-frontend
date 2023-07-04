@@ -1,7 +1,7 @@
 <script setup>
-import CodeSimpleIcon from '../Icons/CodeSimpleIcon.vue'
-import CaretRightIcon from '../Icons/CaretRightIcon.vue'
-import LightBulbIcon from '../Icons/LightBulbIcon.vue'
+import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
+import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
+import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
 
 </script>
 <template>
