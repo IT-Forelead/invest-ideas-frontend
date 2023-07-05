@@ -132,7 +132,7 @@ const signOut = async () => {
               </router-link>
             </li>
             <li>
-              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+              <router-link to="/about" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
                 About
               </router-link>
             </li>

@@ -32,19 +32,21 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
             class="w-[3px] h-full rounded-md mx-auto"></div>
         </div>
         <div class="w-11/12 pt-16">
-          <div
-            class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid cursor-pointer border-gray-50 rounded-full mt-8">
-            <LightBulbIcon class="w-11 h-11 bg-white p-2 rounded-full" />
-            <div>
-              <div class="font-semibold text-white">
-                Introducing Invest Ideas
+          <router-link to="/about">
+            <div
+              class="inline-flex items-center py-3 px-5 space-x-4 bg-black/30 border border-solid cursor-pointer border-gray-50 rounded-full mt-8">
+              <LightBulbIcon class="w-11 h-11 bg-white p-2 rounded-full" />
+              <div>
+                <div class="font-semibold text-white">
+                  Introducing Invest Ideas
+                </div>
+                <div class="text-gray-400 text-base">
+                  Learn more about our platform
+                </div>
               </div>
-              <div class="text-gray-400 text-base">
-                Learn more about our platform
-              </div>
+              <CaretRightIcon class="w-5 h-5 text-white" />
             </div>
-            <CaretRightIcon class="w-5 h-5 text-white" />
-          </div>
+          </router-link>
 
           <h1 class="relative z-[1] text-7xl font-semibold text-white mt-11 mb-6">
             Let’s build your idea
