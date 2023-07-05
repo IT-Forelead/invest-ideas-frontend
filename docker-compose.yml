@@ -1,14 +1,14 @@
 version: "3.9"
 services:
-  team-website:
+  invest-ideas:
     restart: always
-    image: team-website:latest
-    hostname: team-website
-    container_name: team-website
+    image: invest-ideas:latest
+    hostname: invest-ideas
+    container_name: invest-ideas
     networks:
       - external-net
     ports:
-      - "8000:80"
+      - "3007:80"
 networks:
   external-net:
     name: external-net
