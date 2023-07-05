@@ -1,8 +1,9 @@
 <script setup>
+import { useAuthStore } from '../../store/auth.store'
 </script>
 <template>
     <section>
-        <div class="relative overflow-hidden">
+        <div v-if="!useAuthStore().user?.id" class="relative overflow-hidden">
             <img class="absolute bottom-0 left-0 w-full h-full object-cover block pointer-events-none"
                 src="/images/footer-galaxy.jpg" alt="" />
             <div class="container px-6 mx-auto relative z-[2]">

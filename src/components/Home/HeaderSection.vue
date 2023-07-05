@@ -1,18 +1,11 @@
 <script setup>
-import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
+import RacketLaunchIcon from '../../assets/icons/RacketLaunchIcon.vue'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
 import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
 
 </script>
 <template>
   <section id="header" class="relative bg-[#0d1117] overflow-hidden">
-    <!-- <picture>
-      <source media="(max-width: 768px)" type="image/webp"
-        srcset="/images/hero-bg-md.webp 1x, /images/hero-bg.webp 2x">
-      <source media="(min-width: 1280px)" type="image/webp"
-        srcset="/images/hero-bg.webp 1x, /images/hero-bg-2x.webp 2x">
-
-    </picture> -->
     <img class="absolute top-0 left-0 pointer-events-none object-cover" 
       src="/images/footer-galaxy.jpg" alt="#" />
 
@@ -21,7 +14,6 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
       src="/images/bg-stars.webp" alt="#" /> -->
 
     <div class="relative container px-6 pt-16 mx-auto">
-
       <!-- <img src="/images/hero-drone.webp" class="absolute top-32 right-0 pointer-events-none w-80 h-52" alt="#" /> -->
 
       <div class="flex">
@@ -32,7 +24,7 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
             class="w-[3px] h-full rounded-md mx-auto"></div>
           <div class="mx-auto my-4">
             <div class="relative inline-block">
-              <CodeSimpleIcon class="w-6 h-6 text-white" />
+              <RacketLaunchIcon class="w-6 h-6 text-white" />
               <div class="absolute bg-[#DD7DF7] blur-lg left-0 top-0 h-full w-full"></div>
             </div>
           </div>
