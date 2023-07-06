@@ -64,6 +64,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
+  scrollBehavior (to, from, savedPosition) {
+    return { top: 0 };
+  }
 })
 
 router.beforeEach((to, from, next) => {
