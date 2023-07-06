@@ -70,6 +70,31 @@ const addComment = async () => {
     }
   }
 }
+// const newCount = selectedIdea.value.likes_count + 1
+// console.log('aaa'+newCount);
+
+console.log(selectedIdea.value.likes_count);
+console.log(selectedIdea.value.likes_count + 1);
+
+const addLike = async () => {
+  if (!useAuthStore().user?.id) {
+    toast.error('You must register to add an comment!')
+  } else if (!selectedIdeaId.value) {
+    toast.error('Idea does not exist!')
+  } else {
+    let newCount = Number(selectedIdea.value.likes_count) + 1
+    console.log("bbbb "+ selectedIdea.value.likes_count++);
+    const { error } = await supabase
+      .from('ideas')
+      .update({ likes_count: newCount })
+      .eq('id', selectedIdeaId.value)
+    if (error) {
+      toast.error('Error while adding comment! Please try again.')
+    } else {
+      toast.success('Comment added successfully!')
+    }
+  }
+}
 
 async function getComments() {
   await supabase
@@ -114,40 +139,40 @@ onMounted(() => {
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
             <ul class="space-y-1">
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Creator:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Creator:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ si?.profiles?.firstname + ' ' + si?.profiles?.lastname }}
-                </sapn>
+                </span>
               </li>
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Created at:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ moment(si.created_at).format('DD/MM/YYYY H:mm') }}
-                </sapn>
+                </span>
               </li>
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Category:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Category:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ si?.categories?.name }}
-                </sapn>
+                </span>
               </li>
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Comentaries:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Comentaries:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ si?.comments_count }}
-                </sapn>
+                </span>
               </li>
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Views:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Views:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ si?.views_count }}
-                </sapn>
+                </span>
               </li>
               <li class="flex items-center space-x-2">
-                <sapn class="text-sm font-normal text-[#7d8590]">Likes:</sapn>
-                <sapn class="text-lg font-normal text-[#e6edf3]">
+                <span class="text-sm font-normal text-[#7d8590]">Likes:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
                   {{ si?.likes_count }}
-                </sapn>
+                </span>
               </li>
             </ul>
           </div>
@@ -156,7 +181,7 @@ onMounted(() => {
             <div class="text-lg font-normal text-[#e6edf3]">
               Vote for the idea if you think it is useful for the community
             </div>
-            <div>
+            <div @click="addLike()">
               <ThumbsUpIcon class="w-12 h-12 text-blue-500" />
             </div>
           </div>

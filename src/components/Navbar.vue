@@ -2,7 +2,7 @@
 import $ from 'jquery';
 import i18n from '../i18n.js'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { supabase } from '../lib/supabaseClient'
 import { useDropDownStore } from '../store/dropdown.store'
 import { useDarkModeStore } from '../store/darkMode.store'
@@ -20,6 +20,19 @@ const top = ref(true)
 const languageDropDown = ref(null)
 const darkModeDropDown = ref(null)
 const ProfileDropDown = ref(null)
+
+const isLogin = computed(() => {
+  return useAuthStore().user?.id || localStorage.getItem('sb-gzhpnkqboqsuavpuuccu-auth-token')
+})
+
+const userData = computed(() => {
+  return JSON.parse(localStorage.getItem('data') || '{}')
+})
+
+onMounted(() => {
+  useAuthStore().setUser(userData.value?.user)
+  useAuthStore().setToken(userData.value?.session)
+})
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
@@ -144,12 +157,12 @@ const signOut = async () => {
           </ul>
         </nav>
       </div>
-      <div v-if="useAuthStore().user?.id" class="relative w-60" ref="ProfileDropDown">
+      <div v-if="isLogin" class="relative w-60" ref="ProfileDropDown">
         <div @click="useDropDownStore().toggleProfile()"
           class="flex items-center select-none justify-between text-[#e6edf3] hover:text-gray-400 relative cursor-pointer space-x-2">
           <UserCircleIcon class="w-7 h-7" />
           <div class="text-base text-left font-medium whitespace-nowrap">
-            {{ useAuthStore().user?.email }}
+            {{ userData.user?.email }}
           </div>
         </div>
         <ul v-if="useDropDownStore().isOpenProfileDropDown"

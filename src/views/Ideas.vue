@@ -40,8 +40,9 @@ async function getCategories() {
   useCategoryStore().setCategories(data)
 }
 
-const selectIdea = (id) => {
-  useIdeaStore().setSelectedIdeaId(id)
+const selectIdea = (idea) => {
+  useIdeaStore().setSelectedIdeaId(idea.id)
+  useIdeaStore().setSelectedIdea(idea)
   router.push('/idea')
 }
 
@@ -67,7 +68,7 @@ onMounted(() => {
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <sapn class="text-lg font-normal text-[#e6edf3]">{{ category?.name }}</sapn>
+                <span class="text-lg font-normal text-[#e6edf3]">{{ category?.name }}</span>
               </li>
             </ul>
           </div>
@@ -79,7 +80,7 @@ onMounted(() => {
               <div class="text-base text-[#7d8590]">{{ idea.categories.name }}</div>
               <div class="text-base text-[#7d8590]">{{ moment(idea.created_at).format('DD/MM/YYYY H:mm') }}</div>
             </div>
-            <div @click="selectIdea(idea.id)" class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
+            <div @click="selectIdea(idea)" class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
               {{ idea.title }}
             </div>
             <div class="text-base text-[#e6edf3]">
