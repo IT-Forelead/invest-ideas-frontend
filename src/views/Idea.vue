@@ -17,6 +17,9 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
 import { useIdeaStore } from '../store/idea.store'
 import { useCommentStore } from '../store/comment.store'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const commentText = ref('')
 
@@ -40,9 +43,23 @@ async function getIdeaById() {
       categories ( id, name ),
       profiles ( id, firstname, lastname )
     `)
-    .eq('id', selectedIdeaId.value)
+    .eq('id', route.params.id)
     .then(async (res) => {
       useIdeaStore().setSelectedIdea(res.data)
+    })
+}
+
+async function getComments() {
+  await supabase
+    .from('comments')
+    .select(`
+      *,
+      profiles ( id, firstname, lastname )
+    `)
+    .eq('idea_id', route.params.id)
+    .then(async (res) => {
+      useCommentStore().clearStore()
+      useCommentStore().setComments(res.data)
     })
 }
 
@@ -94,20 +111,6 @@ const addLike = async () => {
       toast.success('Comment added successfully!')
     }
   }
-}
-
-async function getComments() {
-  await supabase
-    .from('comments')
-    .select(`
-      *,
-      profiles ( id, firstname, lastname )
-    `)
-    .eq('idea_id', selectedIdeaId.value)
-    .then(async (res) => {
-      useCommentStore().clearStore()
-      useCommentStore().setComments(res.data)
-    })
 }
 
 onMounted(() => {
@@ -199,7 +202,6 @@ onMounted(() => {
               Get more information
             </div>
           </div>
-
         </div>
         <div class="col-span-5 space-y-6">
           <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">

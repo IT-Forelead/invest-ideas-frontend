@@ -20,7 +20,7 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
-    path: '/idea',
+    path: '/idea/:id',
     name: 'Idea',
     component: () => import('../views/Idea.vue'),
     meta: { layout: 'dashboard' },

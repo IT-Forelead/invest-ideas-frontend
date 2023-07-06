@@ -41,9 +41,7 @@ async function getCategories() {
 }
 
 const selectIdea = (idea) => {
-  useIdeaStore().setSelectedIdeaId(idea.id)
-  useIdeaStore().setSelectedIdea(idea)
-  router.push('/idea')
+  router.push(`/idea/${idea.id}`)
 }
 
 onMounted(() => {
