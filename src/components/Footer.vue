@@ -33,11 +33,15 @@ import GlobeIcon from '../assets/icons/GlobeIcon.vue'
             </li>
             <li class="flex items-center text-[#7d8590]">
               <EnvelopeIcon class="w-6 h-6" />
-              <div class="ml-3 text-base font-medium">info@it-forelead.uz</div>
+              <a href="mailto:info@it-forelead.uz" class="ml-3 text-base font-medium cursor-pointer hover:text-[#0167F3]">
+                info@it-forelead.uz
+              </a>
             </li>
             <li class="flex items-center text-[#7d8590]">
               <GlobeIcon class="w-6 h-6" />
-              <div class="ml-3 text-base font-medium">www.it-forelead.uz</div>
+              <a href="http://it-forelead.uz" target="_blank" class="ml-3 text-base font-medium cursor-pointer hover:text-[#0167F3]">
+                www.it-forelead.uz
+              </a>
             </li>
           </ul>
               <ul class="flex items-center space-x-1">
@@ -174,7 +178,7 @@ import GlobeIcon from '../assets/icons/GlobeIcon.vue'
       <div class="flex justify-center pt-6 border-t border-gray-800">
         <span class="text-sm text-[#7d8590]">
           &copy; 2023
-          <a href="http://it-forelead.uz" class="cursor-pointer hover:text-[#0167F3]">
+          <a href="http://it-forelead.uz" target="_blank" class="cursor-pointer hover:text-[#0167F3]">
             IT-Forelead
           </a>
           Inc. All rights reserved.
