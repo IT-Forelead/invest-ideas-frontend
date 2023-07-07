@@ -27,9 +27,8 @@ async function getIdeas() {
     })
 }
 
-const selectIdea = (id) => {
-    useIdeaStore().setSelectedIdeaId(id)
-    router.push('/idea')
+const selectIdea = (idea) => {
+  router.push(`/idea/${idea.id}`)
 }
 
 onMounted(() => {
@@ -110,7 +109,7 @@ onMounted(() => {
                                 <ThumbsUpIcon class="w-5 h-5" />
                                 <span class="text-sm">{{ idea.likes_count }}</span>
                             </div>
-                            <div @click="selectIdea(idea?.id)"
+                            <div @click="selectIdea(idea)"
                                 class="text-white mt-3 text-lg font-semibold leading-6 cursor-pointer">
                                 {{ idea?.title }}
                             </div>
