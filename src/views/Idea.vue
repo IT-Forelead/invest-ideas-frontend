@@ -12,6 +12,7 @@ import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
 import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import ThumbsDownIcon from '../assets/icons/ThumbsDownIcon.vue'
 import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
+import ThumbsUpFillIcon from '../assets/icons/ThumbsUpFillIcon.vue'
 import UserIcon from '../assets/icons/UserIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
@@ -37,7 +38,8 @@ async function getIdeaById() {
     .select(`
       *, 
       categories ( id, name ),
-      profiles ( id, firstname, lastname )
+      profiles ( id, firstname, lastname ),
+      idea_likes ( id, created_at, idea_id, user_id )
     `)
     .eq('id', route.params.id)
     .then(async (res) => {
@@ -97,17 +99,25 @@ const addLike = async () => {
     toast.error('You must be registered to vote!')
   } else if (!route.params.id) {
     toast.error('Idea does not exist!')
+  } else if (selectedIdea.value?.idea_likes.find(el => el.user_id === useAuthStore().user?.id)) {
+    toast.error('You voted for this idea!')
   } else {
-    let newCount = selectedIdea.value.likes_count + 1
-    const { error } = await supabase
-      .from('ideas')
-      .update({ 'likes_count': newCount })
-      .eq('id', route.params.id)
+    let { error } = await supabase
+      .from('idea_likes')
+      .insert({
+        idea_id: route.params.id,
+        user_id: useAuthStore().user?.id,
+      })
     if (error) {
       toast.error('Error occurred while voting! Please try again.')
     } else {
       toast.success('You have successfully voted!')
       getIdeaById()
+      let newCount = selectedIdea.value.likes_count + 1
+      const { error } = await supabase
+        .from('ideas')
+        .update({ 'likes_count': newCount })
+        .eq('id', route.params.id)
     }
   }
 }
@@ -183,8 +193,11 @@ onMounted(() => {
             <div class="text-lg font-normal text-[#e6edf3]">
               Vote for the idea if you think it is useful for the community
             </div>
-            <div @click="addLike()">
+            <div v-if="!selectedIdea?.idea_likes.find(el => el.user_id === useAuthStore().user?.id)" @click="addLike()">
               <ThumbsUpIcon class="w-12 h-12 text-blue-500" />
+            </div>
+            <div v-else>
+              <ThumbsUpFillIcon class="w-12 h-12 text-red-500" />
             </div>
           </div>
 
