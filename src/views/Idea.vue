@@ -135,7 +135,7 @@ onMounted(() => {
       <div class="text-xl font-normal max-w-4xl text-gray-500 mb-12">
         Ideas currently being discussed and voted on
       </div>
-      <div class="grid grid-cols-7 gap-8">
+      <div v-if="selectedIdea?.id" class="grid grid-cols-7 gap-8">
         <div class="col-span-2 space-y-8">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
@@ -211,7 +211,7 @@ onMounted(() => {
               {{ selectedIdea?.text }}
             </div>
           </div>
-
+          <!-- add comentary -->
           <div v-if="useAuthStore().user?.id"
             class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-2xl font-medium text-[#e6edf3]">Write a comment</div>
@@ -255,7 +255,7 @@ onMounted(() => {
           <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <div class="text-lg font-medium text-red-500">Only site members can comment. Please register as well.</div>
           </div>
-
+          <!-- comentaries -->
           <div v-if="comments.length > 0" class="space-y-2">
             <div v-for="(comment, idx) in comments" :key="idx" class="flex items-start space-x-4">
               <UserIcon class="p-2 bg-[#30363D]/80 rounded-full h-14 w-14 text-blue-500 border border-[#30363D]" />
@@ -296,12 +296,12 @@ onMounted(() => {
           <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <div class="text-base font-medium text-[#e6edf3]">There are no comments on the idea. You be the first :)</div>
           </div>
-
         </div>
       </div>
-
+      <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+        <div class="text-base font-medium text-red-500">Such an idea does not exist in the database!</div>
+      </div>
     </div>
   </section>
 </template>
-
 <style scoped></style>
