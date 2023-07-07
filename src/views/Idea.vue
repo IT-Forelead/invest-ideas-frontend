@@ -23,10 +23,6 @@ const route = useRoute()
 
 const commentText = ref('')
 
-const selectedIdeaId = computed(() => {
-  return useIdeaStore().selectedIdeaId
-})
-
 const selectedIdea = computed(() => {
   return useIdeaStore().selectedIdea
 })
@@ -45,7 +41,7 @@ async function getIdeaById() {
     `)
     .eq('id', route.params.id)
     .then(async (res) => {
-      useIdeaStore().setSelectedIdea(res.data)
+      useIdeaStore().setSelectedIdea(res.data[0])
     })
 }
 
@@ -66,7 +62,7 @@ async function getComments() {
 const addComment = async () => {
   if (!useAuthStore().user?.id) {
     toast.error('You must register to add an comment!')
-  } else if (!selectedIdeaId.value) {
+  } else if (!route.params.id) {
     toast.error('Idea does not exist!')
   } else if (!commentText.value) {
     toast.error('Please enter text!')
@@ -75,40 +71,43 @@ const addComment = async () => {
       .from('comments')
       .insert({
         user_id: useAuthStore().user?.id,
-        idea_id: selectedIdeaId.value,
+        idea_id: route.params.id,
         text: commentText.value,
       })
     if (error) {
       toast.error('Error while adding comment! Please try again.')
     } else {
       toast.success('Comment added successfully!')
+      let newCount = selectedIdea.value.comments_count + 1
+      const { error } = await supabase
+        .from('ideas')
+        .update({ 'comments_count': newCount })
+        .eq('id', route.params.id)
+      if (!error) {
+        getIdeaById()
+      }
       getComments()
       commentText.value = ''
     }
   }
 }
-// const newCount = selectedIdea.value.likes_count + 1
-// console.log('aaa'+newCount);
-
-console.log(selectedIdea.value.likes_count);
-console.log(selectedIdea.value.likes_count + 1);
 
 const addLike = async () => {
   if (!useAuthStore().user?.id) {
-    toast.error('You must register to add an comment!')
-  } else if (!selectedIdeaId.value) {
+    toast.error('You must be registered to vote!')
+  } else if (!route.params.id) {
     toast.error('Idea does not exist!')
   } else {
-    let newCount = Number(selectedIdea.value.likes_count) + 1
-    console.log("bbbb "+ selectedIdea.value.likes_count++);
+    let newCount = selectedIdea.value.likes_count + 1
     const { error } = await supabase
       .from('ideas')
-      .update({ likes_count: newCount })
-      .eq('id', selectedIdeaId.value)
+      .update({ 'likes_count': newCount })
+      .eq('id', route.params.id)
     if (error) {
-      toast.error('Error while adding comment! Please try again.')
+      toast.error('Error occurred while voting! Please try again.')
     } else {
-      toast.success('Comment added successfully!')
+      toast.success('You have successfully voted!')
+      getIdeaById()
     }
   }
 }
@@ -136,7 +135,7 @@ onMounted(() => {
       <div class="text-xl font-normal max-w-4xl text-gray-500 mb-12">
         Ideas currently being discussed and voted on
       </div>
-      <div v-for="(si, idx) in selectedIdea" :key="idx" class="grid grid-cols-7 gap-8">
+      <div class="grid grid-cols-7 gap-8">
         <div class="col-span-2 space-y-8">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
@@ -144,37 +143,37 @@ onMounted(() => {
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Creator:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.profiles?.firstname + ' ' + si?.profiles?.lastname }}
+                  {{ selectedIdea?.profiles?.firstname + ' ' + selectedIdea?.profiles?.lastname }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ moment(si.created_at).format('DD/MM/YYYY H:mm') }}
+                  {{ moment(selectedIdea?.created_at).format('DD/MM/YYYY H:mm') }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Category:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.categories?.name }}
+                  {{ selectedIdea?.categories?.name }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Comentaries:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.comments_count }}
+                  {{ selectedIdea?.comments_count }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Views:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.views_count }}
+                  {{ selectedIdea?.views_count }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Likes:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ si?.likes_count }}
+                  {{ selectedIdea?.likes_count }}
                 </span>
               </li>
             </ul>
@@ -206,10 +205,10 @@ onMounted(() => {
         <div class="col-span-5 space-y-6">
           <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-3xl font-extrabold text-[#e6edf3]">
-              {{ si?.title }}
+              {{ selectedIdea?.title }}
             </div>
             <div class="text-xl text-[#e6edf3]">
-              {{ si?.text }}
+              {{ selectedIdea?.text }}
             </div>
           </div>
 
