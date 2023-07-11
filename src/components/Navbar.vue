@@ -135,8 +135,8 @@ const signOut = async () => {
               </router-link>
             </li>
             <li>
-              <router-link to="#" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
-                Services
+              <router-link to="/startups" class="text-base leading-none text-white transition duration-200 cursor-pointer hover:text-gray-400">
+                Startups
               </router-link>
             </li>
             <li>

@@ -108,7 +108,7 @@ import GlobeIcon from '../assets/icons/GlobeIcon.vue'
               </router-link>
             </li>
             <li>
-              <router-link to="/"
+              <router-link to="/startups"
                 class="text-[#7d8590] text-base font-medium cursor-pointer transition-all duration-500 hover:text-[#0167F3] hover:ml-1">
                 Startups
               </router-link>
