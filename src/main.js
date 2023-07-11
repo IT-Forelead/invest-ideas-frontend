@@ -12,7 +12,8 @@ import Vue3Marquee from 'vue3-marquee'
 import money from 'v-money3'
 import i18n from './i18n.js'
 import { MotionPlugin } from '@vueuse/motion'
-import VueApexCharts from "vue3-apexcharts";
+import VueApexCharts from 'vue3-apexcharts'
+import VueCookies from 'vue-cookies'
 
 const pinia = createPinia()
 const app = createApp(App)
@@ -25,6 +26,7 @@ app.use(VueTheMask)
 app.use(MotionPlugin)
 app.use(VueApexCharts)
 app.use(Vue3Marquee)
+app.use(VueCookies)
 app.component('dashboard-layout', DashboardLayout)
 app.component('infinite-loading', InfiniteLoading)
 app.mount('#app')

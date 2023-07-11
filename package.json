@@ -31,6 +31,7 @@
     "vanilla-tilt": "^1.8.0",
     "vite-plugin-string": "^1.2.1",
     "vue": "^3.2.41",
+    "vue-cookies": "^1.8.3",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
     "vue-sonner": "^0.3.2",
