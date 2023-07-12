@@ -27,14 +27,17 @@ import ArrowSquareOutIcon from '../assets/icons/ArrowSquareOutIcon.vue'
               </li>
               <li class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
+                <span class="text-lg font-normal text-[#e6edf3] cursor-pointer">B2B tizimlar</span>
+              </li>
+              <li class="flex items-center space-x-1">
+                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
                 <span class="text-lg font-normal text-[#e6edf3] cursor-pointer">Mobil ilovalar</span>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-span-5 grid grid-cols-3 gap-8">
-          <div v-for="i in 6" :key="i"
-            class="w-full h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+          <div class="w-full h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
             <div
               class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
               <div
@@ -43,7 +46,43 @@ import ArrowSquareOutIcon from '../assets/icons/ArrowSquareOutIcon.vue'
                 <ArrowSquareOutIcon class="w-5 h-5" />
               </div>
             </div>
-            <img src="/images/nuxtjs.png" class="w-full h-40 object-cover rounded-t-md" alt="#" />
+            <img src="/images/projects/invest-ideas.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
+            <div class="flex items-center p-3 text-base text-white">Digital med</div>
+          </div>
+          <div class="w-full h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+            <div
+              class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
+              <div
+                class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
+                <span class="text-black font-semibold text-lg">Preview</span>
+                <ArrowSquareOutIcon class="w-5 h-5" />
+              </div>
+            </div>
+            <img src="/images/projects/digital-med.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
+            <div class="flex items-center p-3 text-base text-white">Digital med</div>
+          </div>
+          <div class="w-full h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+            <div
+              class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
+              <div
+                class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
+                <span class="text-black font-semibold text-lg">Preview</span>
+                <ArrowSquareOutIcon class="w-5 h-5" />
+              </div>
+            </div>
+            <img src="/images/projects/workout-v2.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
+            <div class="flex items-center p-3 text-base text-white">Workout v2</div>
+          </div>
+          <div class="w-full h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+            <div
+              class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
+              <div
+                class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
+                <span class="text-black font-semibold text-lg">Preview</span>
+                <ArrowSquareOutIcon class="w-5 h-5" />
+              </div>
+            </div>
+            <img src="/images/projects/workout-v1.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
             <div class="flex items-center p-3 text-base text-white">Workout</div>
           </div>
         </div>

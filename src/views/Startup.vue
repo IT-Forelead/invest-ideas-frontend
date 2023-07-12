@@ -20,30 +20,6 @@ import { useIdeaStore } from '../store/idea.store'
 import { useCommentStore } from '../store/comment.store'
 import { useRoute } from 'vue-router'
 
-
-// Daily visits chart
-const series = computed(() => [44, 55, 13, 43, 22])
-
-const chartOptions = computed(() => {
-  return {
-    chart: {
-      width: 380,
-      type: 'pie',
-    },
-    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }]
-  }
-})
 </script>
 
 <template>
@@ -61,7 +37,7 @@ const chartOptions = computed(() => {
         Startup
       </h1>
       <div class="text-xl font-normal max-w-4xl text-gray-500 mb-12">
-        Ideas currently being discussed and voted on
+        Complete information about the startup
       </div>
       <div class="grid grid-cols-7 gap-8">
         <div class="col-span-2 space-y-8">
@@ -69,15 +45,15 @@ const chartOptions = computed(() => {
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
             <ul class="space-y-1">
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Creator:</span>
+                <span class="text-sm font-normal text-[#7d8590]">Name:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  Jumaniyozov Surojiddin
+                  Workout
                 </span>
               </li>
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
+                <span class="text-sm font-normal text-[#7d8590]">Status:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ moment().format('DD/MM/YYYY H:mm') }}
+                  Ready to use
                 </span>
               </li>
               <li class="flex items-center space-x-2">
@@ -87,47 +63,113 @@ const chartOptions = computed(() => {
                 </span>
               </li>
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Category:</span>
+                <span class="text-sm font-normal text-[#7d8590]">Github:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
                   https://github.com/IT-Forelead/workout
                 </span>
               </li>
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Comentaries:</span>
+                <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  21
+                  {{ moment().format('DD/MM/YYYY H:mm') }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Views:</span>
+                <span class="text-sm font-normal text-[#7d8590]">Creator:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  32
-                </span>
-              </li>
-              <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Likes:</span>
-                <span class="text-lg font-normal text-[#e6edf3]">
-                  35
+                  Jumaniyozov Surojiddin
                 </span>
               </li>
             </ul>
           </div>
 
-          <div class="flex items-center p-6 space-x-4 bg-[#161B22] border border-[#30363D] rounded-xl">
-            <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
+          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
+            <div class="flex flex-wrap items-center">
+              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+            </div>
           </div>
 
-          <div
-            class="flex flex-col justify-center min-h-[600px] space-y-12 p-9 text-white  bg-[#161B22] bg-[url('/images/bg-linerbg.png')] bg-cover border border-solid border-[#30363D] rounded-xl box-shadow">
-            <div class="space-y-2">
-              <CrownSimpleIcon class="p-2 bg-[#30363D]/80 rounded-lg h-16 w-16 text-blue-500" />
-              <h3 class="text-2xl font-semibold">Premium</h3>
-              <h4 class="text-xl mb-28">
-                If you want to implement your idea faster by financing, we offer you our Premium tariff.
-              </h4>
+          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Jumaniyozov Surojiddin
+              </div>
             </div>
-            <div class="inline-block w-56 px-6 py-2 bg-[#e6edf3] text-black font-medium rounded-full cursor-pointer">
-              Get more information
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Shomurotov Og'abek
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Yuldashev Bekturdi
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Babayev Shohruxbek
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Xakimov Bekzod
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+              <div class="text-lg font-normal text-[#e6edf3]">
+                Raxmatov Maftunbek
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages</h3>
+            <div class="flex items-center h-2 rounded-lg w-full overflow-hidden divide-x divide-[#30363D]">
+              <div class="bg-red-500 h-full w-[20%]"></div>
+              <div class="bg-yellow-500 h-full w-[45%]"></div>
+              <div class="bg-blue-500 h-full w-[35%]"></div>
+              <div class="bg-orange-500 h-full w-[3%]"></div>
+              <div class="bg-blue-500 h-full w-[1%]"></div>
+            </div>
+            <div class="flex flex-wrap items-center">
+              <div class="flex items-center space-x-1 mr-4">
+                <div class="w-2 h-2 bg-red-500 mr-1"></div>
+                <div class="text-white text-lg">Vue</div>
+                <div class="text-gray-600 text-md">20%</div>
+              </div>
+              <div class="flex items-center space-x-1 mr-4">
+                <div class="w-2 h-2 bg-red-500 mr-1"></div>
+                <div class="text-white text-lg">JavaScript</div>
+                <div class="text-gray-600 text-md">20%</div>
+              </div>
+              <div class="flex items-center space-x-1 mr-4">
+                <div class="w-2 h-2 bg-red-500 mr-1"></div>
+                <div class="text-white text-lg">Java</div>
+                <div class="text-gray-600 text-md">20%</div>
+              </div>
+              <div class="flex items-center space-x-1 mr-4">
+                <div class="w-2 h-2 bg-red-500 mr-1"></div>
+                <div class="text-white text-lg">Shell</div>
+                <div class="text-gray-600 text-md">3%</div>
+              </div>
+              <div class="flex items-center space-x-1 mr-4">
+                <div class="w-2 h-2 bg-red-500 mr-1"></div>
+                <div class="text-white text-lg">Other</div>
+                <div class="text-gray-600 text-md">1%</div>
+              </div>
             </div>
           </div>
         </div>
