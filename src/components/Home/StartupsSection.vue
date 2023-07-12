@@ -110,10 +110,12 @@ const modules = ref([Autoplay, EffectCoverflow])
                             creates public Repositories on the Github platform for startups based on supply and demand. You
                             can develop startups in these repositories.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
-                            <span>View all startups</span>
-                            <CaretRightIcon class="w-5 h-5 text-white" />
-                        </div>
+                        <router-link to="/startups">
+                            <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                                <span>View all startups</span>
+                                <CaretRightIcon class="w-5 h-5 text-white" />
+                            </div>
+                        </router-link>
                     </div>
                     <div class="px-16 pt-12 pb-20 w-1/2">
                         <div

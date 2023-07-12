@@ -50,10 +50,12 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                             <span class="text-white font-normal">Invest Ideas Team</span>
                             provides partially ready-to-use startups as a demo, regardless of what programming language or technology they are written in.
                         </h2>
-                        <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
-                            <span>View all products</span>
-                            <CaretRightIcon class="w-5 h-5 text-white" />
-                        </div>
+                        <router-link to="/projects">
+                            <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
+                                <span>View all products</span>
+                                <CaretRightIcon class="w-5 h-5 text-white" />
+                            </div>
+                        </router-link>
                     </div>
                     <div class="px-16 pt-12 pb-20 w-1/2">
                         <div
