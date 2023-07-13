@@ -16,8 +16,9 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
 import { useCommentStore } from '../store/comment.store'
 import { useStartupStore } from '../store/startup.store'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
 const route = useRoute()
 
 const commentText = ref('')
@@ -98,6 +99,11 @@ const startupStatusTranslate = (status) => {
     case 'new':
       return 'New'
   }
+}
+
+const reply = async (firstname, lastname) => {
+  commentText.value = firstname + ' ' + lastname + ', '
+  router.push('#add-comment')
 }
 
 onMounted(() => {
@@ -284,7 +290,7 @@ onMounted(() => {
             </div>
           </div>
           <!-- add comentary -->
-          <div v-if="useAuthStore().user?.id"
+          <div v-if="useAuthStore().user?.id" id="#add-comment"
             class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-2xl font-medium text-[#e6edf3]">Write a comment</div>
             <div class="bg-[#0D1117] max-w-3xl border border-[#30363D] overflow-hidden rounded-md">
@@ -344,17 +350,29 @@ onMounted(() => {
                 </div>
                 <div v-if="useAuthStore().user?.id"
                   class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
-                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                  <div v-if="useAuthStore().user?.id != comment?.profiles?.id" @click="reply(comment?.profiles?.firstname, comment?.profiles?.lastname)" class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ArrowBendUpLeftIcon class="w-5 h-5" />
                     <span class="text-sm">Reply</span>
                   </div>
-                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id" class="flex items-center space-x-2 text-[#7d8590]">
                     <ThumbsUpIcon class="w-5 h-5" />
                     <span class="text-sm">
                       {{ comment?.likes }}
                     </span>
                   </div>
-                  <div class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                  <div v-else class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                    <ThumbsUpIcon class="w-5 h-5" />
+                    <span class="text-sm">
+                      {{ comment?.likes }}
+                    </span>
+                  </div>
+                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id" class="flex items-center space-x-2 text-[#7d8590]">
+                    <ThumbsDownIcon class="w-5 h-5" />
+                    <span class="text-sm">
+                      {{ comment?.dislikes }}
+                    </span>
+                  </div>
+                  <div v-else class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ThumbsDownIcon class="w-5 h-5" />
                     <span class="text-sm">
                       {{ comment?.dislikes }}
