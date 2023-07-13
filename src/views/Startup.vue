@@ -69,6 +69,18 @@ import { useRoute } from 'vue-router'
                 </span>
               </li>
               <li class="flex items-center space-x-2">
+                <span class="text-sm font-normal text-[#7d8590]">Contributors count:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
+                  17
+                </span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-sm font-normal text-[#7d8590]">Number of ready to run:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
+                  17
+                </span>
+              </li>
+              <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
                   {{ moment().format('DD/MM/YYYY H:mm') }}
