@@ -40,6 +40,22 @@ async function getStartups() {
     })
 }
 
+async function getStartupsByCategoryId(categoryId) {
+  await supabase
+    .from('startups')
+    .select(`
+      *,
+      categories ( * ),
+      profiles ( * ),
+      ideas ( * )
+    `)
+    .eq('category_id', categoryId)
+    .then(async (res) => {
+      useStartupStore().clearStore()
+      useStartupStore().setStartups(res.data)
+    })
+}
+
 const startupStatusTranslate = (status) => {
   switch (status) {
     case 'ready_to_use':
@@ -74,12 +90,14 @@ onMounted(() => {
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <span class="text-lg font-normal text-[#e6edf3]">{{ category?.name }}</span>
+                <span @click="getStartupsByCategoryId(category?.id)" class="text-lg font-normal text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  {{ category?.name }}
+                </span>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-span-5 grid grid-cols-2 gap-4">
+        <div v-if="startups.length > 0" class="col-span-5 grid grid-cols-2 gap-4">
           <div v-for="(startup, idx) in startups" :key="idx" class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="flex items-center justify-between">
               <div class="text-base text-[#7d8590]">{{ startup?.categories.name }}</div>
@@ -94,7 +112,10 @@ onMounted(() => {
             <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">
               {{ startupStatusTranslate(startup?.status) }}
             </div>
-          </div>  
+          </div>
+        </div>
+        <div v-else class="col-span-5 flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <div class="text-base font-medium text-red-500">Startups do not exist</div>
         </div>
       </div>
     </div>

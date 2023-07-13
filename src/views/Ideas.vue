@@ -26,9 +26,24 @@ async function getIdeas() {
     .from('ideas')
     .select(`
       *,
-      categories ( id, name ),
-      profiles ( id, firstname, lastname )
+      categories ( * ),
+      profiles ( * )
     `).then(async (res) => {
+      useIdeaStore().clearStore()
+      useIdeaStore().setIdeas(res.data)
+    })
+}
+
+async function getIdeasByCategoryId(categoryId) {
+  await supabase
+    .from('ideas')
+    .select(`
+      *,
+      categories ( * ),
+      profiles ( * )
+    `)
+    .eq('category_id', categoryId)
+    .then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
@@ -68,12 +83,14 @@ onMounted(() => {
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <span class="text-lg font-normal text-[#e6edf3]">{{ category?.name }}</span>
+                <span @click="getIdeasByCategoryId(category?.id)" class="text-lg font-normal text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  {{ category?.name }}
+                </span>
               </li>
             </ul>
           </div>
         </div>
-        <div class="col-span-5 space-y-6">
+        <div v-if="ideas.length > 0" class="col-span-5 space-y-6">
           <div v-for="(idea, idx) in ideas" :key="idx"
             class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="flex items-center justify-between">
@@ -101,6 +118,9 @@ onMounted(() => {
               </div>
             </div>
           </div>
+        </div>
+        <div v-else class="col-span-5 flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <div class="text-base font-medium text-red-500">Ideas do not exist</div>
         </div>
       </div>
     </div>
