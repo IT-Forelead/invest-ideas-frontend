@@ -5,11 +5,17 @@ import { useRouter } from 'vue-router'
 import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useCategoryStore } from '../store/category.store'
+import { useStartupStore } from '../store/startup.store'
+import moment from 'moment'
 
 const router = useRouter()
 
 const categories = computed(() => {
   return useCategoryStore().categories
+})
+
+const startups = computed(() => {
+  return useStartupStore().startups
 })
 
 async function getCategories() {
@@ -20,8 +26,32 @@ async function getCategories() {
   useCategoryStore().setCategories(data)
 }
 
+async function getStartups() {
+  await supabase
+    .from('startups')
+    .select(`
+      *,
+      categories ( * ),
+      profiles ( * ),
+      ideas ( * )
+    `).then(async (res) => {
+      useStartupStore().clearStore()
+      useStartupStore().setStartups(res.data)
+    })
+}
+
+const startupStatusTranslate = (type) => {
+  switch (type) {
+    case 'ready_to_use':
+      return 'Ready to use'
+    case 'new':
+      return 'New'
+  }
+}
+
 onMounted(() => {
   getCategories()
+  getStartups()
 })
 </script>
 <template>
@@ -46,58 +76,23 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-span-5 grid grid-cols-2 gap-4">
-          <div class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
+          <div v-for="(startup, idx) in startups" :key="idx" class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="flex items-center justify-between">
-              <div class="text-base text-[#7d8590]">Xususiy biznesni avtomatlashtirish</div>
-              <div class="text-base text-[#7d8590]">30/06/2023 17:57</div>
+              <div class="text-base text-[#7d8590]">{{ startup?.categories.name }}</div>
+              <div class="text-base text-[#7d8590]">{{ moment(startup?.created_at).format('DD/MM/YYYY H:mm') }}</div>
             </div>
             <div class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
-              Workout
+              {{ startup?.name }}
             </div>
             <div class="text-base text-[#e6edf3]">
-              Trenerovkaxonalarni ichki boshqaruvini aftomatlashtirish startapi
+              {{ startup?.description }}
             </div>
-            <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">Ready to use</div>
+            <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">
+              {{ startupStatusTranslate(startup?.status) }}
+            </div>
           </div>
-          <div class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
-            <div class="flex items-center justify-between">
-              <div class="text-base text-[#7d8590]">Xususiy biznesni avtomatlashtirish</div>
-              <div class="text-base text-[#7d8590]">30/06/2023 17:57</div>
-            </div>
-            <div class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
-              Digital med
-            </div>
-            <div class="text-base text-[#e6edf3]">
-              Xususiy shifoxonalarni ichki boshqaruvini aftomatlashtirish startapi
-            </div>
-            <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">Ready to use</div>
-          </div>
-          <div class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
-            <div class="flex items-center justify-between">
-              <div class="text-base text-[#7d8590]">Xususiy biznesni avtomatlashtirish</div>
-              <div class="text-base text-[#7d8590]">30/06/2023 17:57</div>
-            </div>
-            <div class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
-              Workout
-            </div>
-            <div class="text-base text-[#e6edf3]">
-              Trenerovkaxonalarni ichki boshqaruvini aftomatlashtirish startapi
-            </div>
-            <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">Ready to use</div>
-          </div>
-          <div class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
-            <div class="flex items-center justify-between">
-              <div class="text-base text-[#7d8590]">Xususiy biznesni avtomatlashtirish</div>
-              <div class="text-base text-[#7d8590]">30/06/2023 17:57</div>
-            </div>
-            <div class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
-              Digital med
-            </div>
-            <div class="text-base text-[#e6edf3]">
-              Xususiy shifoxonalarni ichki boshqaruvini aftomatlashtirish startapi
-            </div>
-            <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">Ready to use</div>
-          </div>
+
+
         </div>
       </div>
     </div>
