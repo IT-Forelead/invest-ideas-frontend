@@ -18,8 +18,94 @@ import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
 import { useIdeaStore } from '../store/idea.store'
 import { useCommentStore } from '../store/comment.store'
+import { useStartupStore } from '../store/startup.store'
 import { useRoute } from 'vue-router'
 
+const route = useRoute()
+
+const commentText = ref('')
+
+const selectedStartup = computed(() => {
+  return useStartupStore().selectedStartup
+})
+
+const comments = computed(() => {
+  return useCommentStore().comments
+})
+
+async function getStartupById() {
+  await supabase
+    .from('startups')
+    .select(`
+      *,
+      categories ( * ),
+      profiles ( * ),
+      ideas ( * )
+    `)
+    .eq('id', route.params.id)
+    .then(async (res) => {
+      getComments(res.data[0]?.idea_id)
+      useStartupStore().setSelectedStartup(res.data[0])
+    })
+}
+
+async function getComments(ideaId) {
+  await supabase
+    .from('comments')
+    .select(`
+      *,
+      profiles ( * )
+    `)
+    .eq('idea_id', ideaId)
+    .order('created_at', { ascending: false })
+    .then(async (res) => {
+      useCommentStore().clearStore()
+      useCommentStore().setComments(res.data)
+    })
+}
+
+const addComment = async () => {
+  if (!useAuthStore().user?.id) {
+    toast.error('You must register to add an comment!')
+  } else if (!selectedStartup.value?.idea_id) {
+    toast.error('Idea does not exist!')
+  } else if (!commentText.value) {
+    toast.error('Please enter text!')
+  } else {
+    let { error } = await supabase
+      .from('comments')
+      .insert({
+        user_id: useAuthStore().user?.id,
+        idea_id: selectedStartup.value?.idea_id,
+        text: commentText.value,
+      })
+    if (error) {
+      toast.error('Error while adding comment! Please try again.')
+    } else {
+      toast.success('Comment added successfully!')
+      let newCount = selectedStartup.value?.ideas?.comments_count + 1
+      const { error } = await supabase
+        .from('ideas')
+        .update({ 'comments_count': newCount })
+        .eq('id', selectedStartup.value?.idea_id)
+      getComments(selectedStartup.value?.idea_id)
+      commentText.value = ''
+    }
+  }
+}
+
+const startupStatusTranslate = (status) => {
+  switch (status) {
+    case 'ready_to_use':
+      return 'Ready to use'
+    case 'new':
+      return 'New'
+  }
+}
+
+onMounted(() => {
+  getStartupById()
+})
 </script>
 
 <template>
@@ -34,12 +120,12 @@ import { useRoute } from 'vue-router'
   <section class="bg-[#0D1117]">
     <div class="container px-6 mx-auto pt-24 pb-16">
       <h1 class="text-5xl font-semibold text-white mt-6 mb-6">
-        Startup
+        {{ selectedStartup?.name }}
       </h1>
       <div class="text-xl font-normal max-w-4xl text-gray-500 mb-12">
-        Complete information about the startup
+        {{ selectedStartup?.description }}
       </div>
-      <div class="grid grid-cols-7 gap-8">
+      <div v-if="selectedStartup?.id" class="grid grid-cols-7 gap-8">
         <div class="col-span-2 space-y-8">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Information</h3>
@@ -47,49 +133,49 @@ import { useRoute } from 'vue-router'
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Name:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  Workout
+                  {{ selectedStartup?.name }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Status:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  Ready to use
+                  {{ startupStatusTranslate(selectedStartup?.status) }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Category:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  Insonlar uchun foydali startuplar
+                  {{ selectedStartup?.categories?.name }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Github:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  https://github.com/IT-Forelead/workout
+                  {{ selectedStartup?.github_link }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Contributors count:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  17
+                  {{ selectedStartup?.contributors_count }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Number of ready to run:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  17
+                  {{ selectedStartup?.who_ready_to_launch }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Created at:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ moment().format('DD/MM/YYYY H:mm') }}
+                  {{ moment(selectedStartup?.created_at).format('DD/MM/YYYY H:mm') }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Creator:</span>
                 <span class="text-lg font-normal text-[#e6edf3]">
-                  Jumaniyozov Surojiddin
+                  {{ selectedStartup?.profiles?.firstname + ' ' + selectedStartup?.profiles?.lastname }}
                 </span>
               </li>
             </ul>
@@ -98,12 +184,18 @@ import { useRoute } from 'vue-router'
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
             <div class="flex flex-wrap items-center">
-              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4" class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
+              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4"
+                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
             </div>
           </div>
 
@@ -188,14 +280,10 @@ import { useRoute } from 'vue-router'
         <div class="col-span-5 space-y-6">
           <div class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-3xl font-extrabold text-[#e6edf3]">
-              Futbol o'ynash uchun gazon band qilish, musoboqalash tashkillashtirish
+              {{ selectedStartup?.ideas?.title }}
             </div>
             <div class="text-xl text-[#e6edf3]">
-              Bu platforma xozirda telegram guruhda tashkil qilingan. https://t.me/xarezmclub2023 Lekin ko'p
-              noqulayliklari bor. Masalan: - Jamoa soni cheklangan - Kim oldin yozsa, va admin birinchi ko'rsa sizni
-              jamongizni qabul qiladi - Gazon soni faqat 1ta - Online registratsiya yo'q - Ma'lum bir o'yin
-              tavsilotlarini ko'rish uchun guruhdan qidirib o'tirish kerak - Reyting faqat bitta o'yin uchun bor.
-              Xamma o'yinlar xisoboti yo'q
+              {{ selectedStartup?.ideas?.text }}
             </div>
           </div>
           <!-- add comentary -->
@@ -234,7 +322,7 @@ import { useRoute } from 'vue-router'
                 class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
                 placeholder="Write an article..."></textarea>
             </div>
-            <button class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
+            <button @click="addComment()" class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
               Comment
             </button>
           </div>
@@ -242,20 +330,20 @@ import { useRoute } from 'vue-router'
             <div class="text-lg font-medium text-red-500">Only site members can comment. Please register as well.</div>
           </div>
           <!-- comentaries -->
-          <div class="space-y-2">
+          <div v-if="comments.length > 0" class="space-y-2">
             <div v-for="(comment, idx) in comments" :key="idx" class="flex items-start space-x-4">
               <UserIcon class="p-2 bg-[#30363D]/80 rounded-full h-14 w-14 text-blue-500 border border-[#30363D]" />
               <div class="w-full bg-[#161B22] rounded-md border border-[#30363D] p-4 space-y-2">
                 <div class="flex items-center justify-between">
                   <div class="text-lg font-medium text-[#e6edf3]">
-                    Jumaniyozov Surojiddin
+                    {{ comment?.profiles?.firstname + ' ' + comment?.profiles?.lastname }}
                   </div>
                   <div class="text-base text-[#7d8590]">
-                    {{ moment().format('DD/MM/YYYY H:mm') }}
+                    {{ moment(comment?.created_at).format('DD/MM/YYYY H:mm') }}
                   </div>
                 </div>
                 <div class="text-xl text-[#e6edf3]">
-                  Ajoyib fikr.
+                  {{ comment?.text }}
                 </div>
                 <div v-if="useAuthStore().user?.id"
                   class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
@@ -279,7 +367,13 @@ import { useRoute } from 'vue-router'
               </div>
             </div>
           </div>
+          <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <div class="text-base font-medium text-[#e6edf3]">There are no comments on the idea. You be the first :)</div>
+          </div>
         </div>
+      </div>
+      <div v-else class="flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+        <div class="text-base font-medium text-red-500">Not available in startup database!</div>
       </div>
     </div>
   </section>

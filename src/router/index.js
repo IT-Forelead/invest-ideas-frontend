@@ -38,7 +38,7 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   {
-    path: '/startup',
+    path: '/startup/:id',
     name: 'Startup',
     component: () => import('../views/Startup.vue'),
     meta: { layout: 'dashboard' },

@@ -40,13 +40,17 @@ async function getStartups() {
     })
 }
 
-const startupStatusTranslate = (type) => {
-  switch (type) {
+const startupStatusTranslate = (status) => {
+  switch (status) {
     case 'ready_to_use':
       return 'Ready to use'
     case 'new':
       return 'New'
   }
+}
+
+const selectStartup = (startup) => {
+  router.push(`/startup/${startup.id}`)
 }
 
 onMounted(() => {
@@ -81,7 +85,7 @@ onMounted(() => {
               <div class="text-base text-[#7d8590]">{{ startup?.categories.name }}</div>
               <div class="text-base text-[#7d8590]">{{ moment(startup?.created_at).format('DD/MM/YYYY H:mm') }}</div>
             </div>
-            <div class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
+            <div @click="selectStartup(startup)" class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
               {{ startup?.name }}
             </div>
             <div class="text-base text-[#e6edf3]">
@@ -90,9 +94,7 @@ onMounted(() => {
             <div class="inline-block py-1 px-3 rounded-full bg-green-500 text-xs text-white">
               {{ startupStatusTranslate(startup?.status) }}
             </div>
-          </div>
-
-
+          </div>  
         </div>
       </div>
     </div>

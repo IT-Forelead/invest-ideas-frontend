@@ -55,6 +55,7 @@ async function getComments() {
       profiles ( id, firstname, lastname )
     `)
     .eq('idea_id', route.params.id)
+    .order('created_at', { ascending: false })
     .then(async (res) => {
       useCommentStore().clearStore()
       useCommentStore().setComments(res.data)
