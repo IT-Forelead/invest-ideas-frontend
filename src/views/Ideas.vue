@@ -1,5 +1,7 @@
 <script setup>
 import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
+import ChatCircleIcon from '../assets/icons/ChatCircleIcon.vue'
+import EyeIcon from '../assets/icons/EyeIcon.vue'
 import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { onMounted } from 'vue'
@@ -84,9 +86,19 @@ onMounted(() => {
             <div class="text-base text-[#e6edf3]">
               {{ idea.text.substring(0, 300) + '...' }}
             </div>
-            <div class="flex items-center space-x-2">
-              <ThumbsUpIcon class="w-5 h-5 text-[#7d8590]" />
-              <span class="text-sm text-[#7d8590]">{{ idea.likes_count }}</span>
+            <div class="flex items-center space-x-3">
+              <div class="flex items-center space-x-1">
+                <ThumbsUpIcon class="w-5 h-5 text-[#7d8590]" />
+                <span class="text-sm text-[#7d8590]">{{ idea.likes_count }}</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <ChatCircleIcon class="w-5 h-5 text-[#7d8590]" />
+                <span class="text-sm text-[#7d8590]">{{ idea.comments_count }}</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <EyeIcon class="w-5 h-5 text-[#7d8590]" />
+                <span class="text-sm text-[#7d8590]">{{ idea.views_count }}</span>
+              </div>
             </div>
           </div>
         </div>

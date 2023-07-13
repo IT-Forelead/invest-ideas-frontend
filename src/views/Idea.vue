@@ -198,7 +198,7 @@ onMounted(() => {
               <ThumbsUpIcon class="w-12 h-12 text-blue-500" />
             </div>
             <div v-else>
-              <ThumbsUpFillIcon class="w-12 h-12 text-red-500" />
+              <ThumbsUpFillIcon class="w-12 h-12 text-blue-500" />
             </div>
           </div>
 
