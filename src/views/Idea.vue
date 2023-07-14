@@ -45,6 +45,11 @@ async function getIdeaById() {
     .eq('id', route.params.id)
     .then(async (res) => {
       useIdeaStore().setSelectedIdea(res.data[0])
+      let newCount = selectedIdea.value.views_count + 1
+      const { error } = await supabase
+        .from('ideas')
+        .update({ 'views_count': newCount })
+        .eq('id', route.params.id)
     })
 }
 
@@ -293,11 +298,14 @@ onMounted(() => {
                 </div>
                 <div v-if="useAuthStore().user?.id"
                   class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
-                  <div v-if="useAuthStore().user?.id != comment?.profiles?.id" @click="reply(comment?.profiles?.firstname, comment?.profiles?.lastname)" class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
+                  <div v-if="useAuthStore().user?.id != comment?.profiles?.id"
+                    @click="reply(comment?.profiles?.firstname, comment?.profiles?.lastname)"
+                    class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">
                     <ArrowBendUpLeftIcon class="w-5 h-5" />
                     <span class="text-sm">Reply</span>
                   </div>
-                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id" class="flex items-center space-x-2 text-[#7d8590]">
+                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id"
+                    class="flex items-center space-x-2 text-[#7d8590]">
                     <ThumbsUpIcon class="w-5 h-5" />
                     <span class="text-sm">
                       {{ comment?.likes }}
@@ -309,7 +317,8 @@ onMounted(() => {
                       {{ comment?.likes }}
                     </span>
                   </div>
-                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id" class="flex items-center space-x-2 text-[#7d8590]">
+                  <div v-if="useAuthStore().user?.id == comment?.profiles?.id"
+                    class="flex items-center space-x-2 text-[#7d8590]">
                     <ThumbsDownIcon class="w-5 h-5" />
                     <span class="text-sm">
                       {{ comment?.dislikes }}
