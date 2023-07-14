@@ -31,6 +31,10 @@ const comments = computed(() => {
   return useCommentStore().comments
 })
 
+const contributors = computed(() => {
+  return useStartupStore().contributors
+})
+
 async function getStartupById() {
   await supabase
     .from('startups')
@@ -44,6 +48,20 @@ async function getStartupById() {
     .then(async (res) => {
       getComments(res.data[0]?.idea_id)
       useStartupStore().setSelectedStartup(res.data[0])
+    })
+}
+
+async function getContributors() {
+  await supabase
+    .from('contributors')
+    .select(`
+      *,
+      profiles ( * )
+    `)
+    .eq('startup_id', route.params.id)
+    .then(async (res) => {
+      useStartupStore().clearStore()
+      useStartupStore().setContributors(res.data)
     })
 }
 
@@ -108,6 +126,7 @@ const reply = async (firstname, lastname) => {
 
 onMounted(() => {
   getStartupById()
+  getContributors()
 })
 </script>
 
@@ -184,7 +203,7 @@ onMounted(() => {
             </ul>
           </div>
 
-          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <!-- <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
             <div class="flex flex-wrap items-center">
               <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4"
@@ -200,44 +219,14 @@ onMounted(() => {
               <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4"
                 class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
             </div>
-          </div>
+          </div> -->
 
-          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <div v-if="contributors.length > 0" class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
+            <div v-for="(contributor, idx) in contributors" :key="idx" class="flex items-center space-x-2">
+              <img src="https://api.dicebear.com/6.x/identicon/svg?seed=Chester" class="w-8 h-8 rounded-full" alt="#">
               <div class="text-lg font-normal text-[#e6edf3]">
-                Jumaniyozov Surojiddin
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
-              <div class="text-lg font-normal text-[#e6edf3]">
-                Shomurotov Og'abek
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
-              <div class="text-lg font-normal text-[#e6edf3]">
-                Yuldashev Bekturdi
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
-              <div class="text-lg font-normal text-[#e6edf3]">
-                Babayev Shohruxbek
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
-              <div class="text-lg font-normal text-[#e6edf3]">
-                Xakimov Bekzod
-              </div>
-            </div>
-            <div class="flex items-center space-x-2">
-              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4" class="w-8 h-8 rounded-full" alt="#">
-              <div class="text-lg font-normal text-[#e6edf3]">
-                Raxmatov Maftunbek
+                {{ contributor?.profiles?.firstname + ' ' + contributor?.profiles?.lastname }}
               </div>
             </div>
           </div>
