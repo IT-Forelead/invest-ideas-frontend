@@ -22,6 +22,7 @@ const router = useRouter()
 const route = useRoute()
 
 const commentText = ref('')
+const startupLanguages = ref([])
 
 const selectedStartup = computed(() => {
   return useStartupStore().selectedStartup
@@ -62,6 +63,17 @@ async function getContributors() {
     .then(async (res) => {
       useStartupStore().clearStore()
       useStartupStore().setContributors(res.data)
+    })
+}
+
+async function getStartupLanguages() {
+  await supabase
+    .from('startup_languages')
+    .select(`*`)
+    .eq('startup_id', route.params.id)
+    .order('percent', { ascending: false })
+    .then(async (res) => {
+      startupLanguages.value = res?.data
     })
 }
 
@@ -127,6 +139,7 @@ const reply = async (firstname, lastname) => {
 onMounted(() => {
   getStartupById()
   getContributors()
+  getStartupLanguages()
 })
 </script>
 
@@ -203,68 +216,28 @@ onMounted(() => {
             </ul>
           </div>
 
-          <!-- <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
-            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
-            <div class="flex flex-wrap items-center">
-              <img src="https://avatars.githubusercontent.com/u/25469673?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/57610011?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/71312807?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/86780757?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/122019364?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-              <img src="https://avatars.githubusercontent.com/u/37735368?s=64&v=4"
-                class="w-10 h-10 rounded-full mr-1 mb-2" alt="#">
-            </div>
-          </div> -->
-
           <div v-if="contributors.length > 0" class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Contributors</h3>
             <div v-for="(contributor, idx) in contributors" :key="idx" class="flex items-center space-x-2">
-              <img src="https://api.dicebear.com/6.x/identicon/svg?seed=Chester" class="w-8 h-8 rounded-full" alt="#">
+              <div class="flex items-center justify-center bg-[#30363D]/80 w-8 h-8 rounded-full border border-[#30363D]">
+                <UserIcon class="h-6 w-6 text-blue-500" />
+              </div>
               <div class="text-lg font-normal text-[#e6edf3]">
                 {{ contributor?.profiles?.firstname + ' ' + contributor?.profiles?.lastname }}
               </div>
             </div>
           </div>
 
-          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
-            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages</h3>
+          <div v-if="startupLanguages.length > 0" class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages {{ langp }}</h3>
             <div class="flex items-center h-2 rounded-lg w-full overflow-hidden divide-x divide-[#30363D]">
-              <div class="bg-red-500 h-full w-[20%]"></div>
-              <div class="bg-yellow-500 h-full w-[45%]"></div>
-              <div class="bg-blue-500 h-full w-[35%]"></div>
-              <div class="bg-orange-500 h-full w-[3%]"></div>
-              <div class="bg-blue-500 h-full w-[1%]"></div>
+              <div v-for="(sl, idx) in startupLanguages" :key="idx" class="h-2.5" :class="`w-[${sl?.percent}%]`" :style="`background-color: ${sl?.color};`"></div>
             </div>
             <div class="flex flex-wrap items-center">
-              <div class="flex items-center space-x-1 mr-4">
-                <div class="w-2 h-2 bg-red-500 mr-1"></div>
-                <div class="text-white text-lg">Vue</div>
-                <div class="text-gray-600 text-md">20%</div>
-              </div>
-              <div class="flex items-center space-x-1 mr-4">
-                <div class="w-2 h-2 bg-red-500 mr-1"></div>
-                <div class="text-white text-lg">JavaScript</div>
-                <div class="text-gray-600 text-md">20%</div>
-              </div>
-              <div class="flex items-center space-x-1 mr-4">
-                <div class="w-2 h-2 bg-red-500 mr-1"></div>
-                <div class="text-white text-lg">Java</div>
-                <div class="text-gray-600 text-md">20%</div>
-              </div>
-              <div class="flex items-center space-x-1 mr-4">
-                <div class="w-2 h-2 bg-red-500 mr-1"></div>
-                <div class="text-white text-lg">Shell</div>
-                <div class="text-gray-600 text-md">3%</div>
-              </div>
-              <div class="flex items-center space-x-1 mr-4">
-                <div class="w-2 h-2 bg-red-500 mr-1"></div>
-                <div class="text-white text-lg">Other</div>
-                <div class="text-gray-600 text-md">1%</div>
+              <div v-for="(startupLang, idx) in startupLanguages" :key="idx" class="flex items-center space-x-1 mr-4">
+                <div class="w-2.5 h-2.5 rounded-full mr-1" :style="`background-color: ${startupLang?.color};`"></div>
+                <div class="text-white text-lg">{{ startupLang?.name }}</div>
+                <div class="text-gray-600 text-md">{{ startupLang?.percent }}</div>
               </div>
             </div>
           </div>
