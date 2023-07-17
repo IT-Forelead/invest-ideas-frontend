@@ -229,7 +229,7 @@ onMounted(() => {
           </div>
 
           <div v-if="startupLanguages.length > 0" class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
-            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages {{ langp }}</h3>
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages</h3>
             <div class="flex items-center h-2 rounded-lg w-full overflow-hidden divide-x divide-[#30363D]">
               <div v-for="(sl, idx) in startupLanguages" :key="idx" class="h-2.5" :class="`w-[${sl?.percent}%]`" :style="`background-color: ${sl?.color};`"></div>
             </div>
