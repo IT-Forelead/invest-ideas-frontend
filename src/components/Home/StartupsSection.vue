@@ -1,13 +1,4 @@
 <script setup>
-import { ref } from 'vue'
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Autoplay, EffectCoverflow } from "swiper";
-
-// Import Swiper styles
-import "swiper/css";
-
-import "swiper/css/effect-coverflow";
-
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
@@ -29,7 +20,6 @@ import NuxtJsIcon from '../../assets/icons/NuxtJsIcon.vue'
 import SparkIcon from '../../assets/icons/SparkIcon.vue'
 import RacketLaunchIcon from '../../assets/icons/RacketLaunchIcon.vue'
 import UserIcon from '../../assets/icons/UserIcon.vue'
-
 import ArduinoIcon from '../../assets/icons/ArduinoIcon.vue'
 import CakePhpIcon from '../../assets/icons/CakePhpIcon.vue'
 import CassandraIcon from '../../assets/icons/CassandraIcon.vue'
@@ -62,8 +52,6 @@ import ScalaIcon from '../../assets/icons/ScalaIcon.vue'
 import TypeScriptIcon from '../../assets/icons/TypeScriptIcon.vue'
 import ViteJsIcon from '../../assets/icons/ViteJsIcon.vue'
 import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
-
-const modules = ref([Autoplay, EffectCoverflow])
 
 </script>
 <template>
