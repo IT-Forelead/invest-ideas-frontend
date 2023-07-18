@@ -1,10 +1,13 @@
 version: "3.9"
 services:
-  invest-ideas:
+  invest-ideas-ui:
     restart: always
-    image: invest-ideas:latest
-    hostname: invest-ideas
-    container_name: invest-ideas
+    image: devitforelead/invest-ideas-ui:latest
+    hostname: invest-ideas-ui
+    container_name: invest-ideas-ui
+    environment:
+      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+      VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
     networks:
       - external-net
     ports:
