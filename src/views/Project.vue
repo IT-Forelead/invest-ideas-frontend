@@ -62,6 +62,14 @@ async function getStartupLanguages(startupId) {
     })
 }
 
+const selectIdea = (ideaId) => {
+  router.push(`/idea/${ideaId}`)
+}
+
+const selectStartup = (startupId) => {
+  router.push(`/startup/${startupId}`)
+}
+
 onMounted(() => {
   getProjectById()
 })
@@ -103,27 +111,27 @@ onMounted(() => {
                 </span>
               </li>
               <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Demo link:</span>
-                <span class="text-lg font-normal text-[#e6edf3]">
-                  {{ selectedProject?.demo_link }}
-                </span>
-              </li>
-              <li class="flex items-center space-x-2">
-                <span class="text-sm font-normal text-[#7d8590]">Number of ready to run:</span>
-                <span class="text-lg font-normal text-[#e6edf3]">
-                  1
-                </span>
-              </li>
-              <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Idea:</span>
-                <span class="text-lg font-normal text-[#e6edf3]">
+                <span @click="selectIdea(selectedProject?.ideas?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ selectedProject?.ideas?.title }}
                 </span>
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Startup:</span>
-                <span class="text-lg font-normal text-[#e6edf3]">
+                <span @click="selectStartup(selectedProject?.startups?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ selectedProject?.startups?.name }}
+                </span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-sm font-normal text-[#7d8590]">Demo link:</span>
+                <a :href="selectedStartup?.github_link" target="_blank" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  {{ selectedProject?.demo_link.substring(7, 1000) }}
+                </a>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-sm font-normal text-[#7d8590]">Currently in use:</span>
+                <span class="text-lg font-normal text-[#e6edf3]">
+                  {{ selectedProject?.currently_in_use }}
                 </span>
               </li>
             </ul>

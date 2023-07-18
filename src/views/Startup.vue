@@ -185,7 +185,7 @@ onMounted(() => {
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Github:</span>
-                <a :href="selectedStartup?.github_link" target="_blank" class="text-lg font-normal text-[#e6edf3] hover:text-[#0167F3]">
+                <a :href="selectedStartup?.github_link" target="_blank" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3]">
                   {{ selectedStartup?.github_link.substring(19, 1000) }}
                 </a>
               </li>

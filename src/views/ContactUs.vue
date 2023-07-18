@@ -87,7 +87,7 @@ const sendEmail = async () => {
                 </div>
                 <div class="flex">
                     <iframe class="w-full h-auto border border-[#30363D] rounded-xl"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d921.3061397624714!2d60.62215095937589!3d41.558457209876934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfc9842c81fc9d%3A0x9e434d2b8a616ce9!2sIT%20Park!5e1!3m2!1suz!2s!4v1688566155376!5m2!1suz!2s"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13933.896015266984!2d60.627229448994456!3d41.55529292447378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfc92f0b4d4f3d%3A0x139a4f0fa120ea37!2sIT-Forelead!5e0!3m2!1suz!2s!4v1689662209529!5m2!1suz!2s"
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
