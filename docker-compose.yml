@@ -8,6 +8,8 @@ services:
     environment:
       VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
       VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
+    volumes:
+      - "./:/invest-ideas"
     networks:
       - external-net
     ports:
