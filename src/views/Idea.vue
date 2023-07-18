@@ -41,7 +41,7 @@ async function getIdeaById() {
       categories ( id, name ),
       profiles ( id, firstname, lastname ),
       idea_likes ( id, created_at, idea_id, user_id )
-    `)
+    `) 
     .eq('id', route.params.id)
     .then(async (res) => {
       useIdeaStore().setSelectedIdea(res.data[0])

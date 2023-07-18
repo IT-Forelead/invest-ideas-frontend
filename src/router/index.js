@@ -76,12 +76,12 @@ const routes = [
   {
     path: '/notfound',
     name: 'Not-Found',
-    component: () => import('../components/NotFound.vue'),
+    component: () => import('../views/NotFound.vue'),
   },
   {
     path: '/:pathMach(.*)*',
     name: 'NotFound',
-    component: () => import('../components/NotFound.vue'),
+    component: () => import('../views/NotFound.vue'),
   },
 ]
 
