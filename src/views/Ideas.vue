@@ -91,13 +91,13 @@ onMounted(() => {
           </div>
         </div>
         <div v-if="ideas.length > 0" class="col-span-5 space-y-6">
-          <div v-for="(idea, idx) in ideas" :key="idx"
-            class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
+          <div @click="selectIdea(idea)" v-for="(idea, idx) in ideas" :key="idx"
+            class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4 cursor-pointer">
             <div class="flex items-center justify-between">
               <div class="text-base text-[#7d8590]">{{ idea.categories.name }}</div>
               <div class="text-base text-[#7d8590]">{{ moment(idea.created_at).format('DD/MM/YYYY H:mm') }}</div>
             </div>
-            <div @click="selectIdea(idea)" class="text-xl font-extrabold text-[#e6edf3] cursor-pointer">
+            <div class="text-xl font-extrabold text-[#e6edf3]">
               {{ idea.title }}
             </div>
             <div class="text-base text-[#e6edf3]">

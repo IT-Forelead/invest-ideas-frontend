@@ -1,9 +1,21 @@
 <script setup>
-import HeaderSection from '../components/Home/HeaderSection.vue'
-import IdeasSection from '../components/Home/IdeasSection.vue'
-import StartupsSection from '../components/Home/StartupsSection.vue'
-import DeploymentSection from '../components/Home/DeploymentSection.vue'
-import FooterSection from '../components/Home/FooterSection.vue'
+import { defineAsyncComponent } from 'vue'
+
+const HeaderSection = defineAsyncComponent(() =>
+  import('../components/Home/HeaderSection.vue')
+)
+const IdeasSection = defineAsyncComponent(() =>
+  import('../components/Home/IdeasSection.vue')
+)
+const StartupsSection = defineAsyncComponent(() =>
+  import('../components/Home/StartupsSection.vue')
+)
+const DeploymentSection = defineAsyncComponent(() =>
+  import('../components/Home/DeploymentSection.vue')
+)
+const FooterSection = defineAsyncComponent(() =>
+  import('../components/Home/FooterSection.vue')
+)
 </script>
 
 <template>
