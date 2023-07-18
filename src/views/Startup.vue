@@ -185,7 +185,7 @@ onMounted(() => {
               </li>
               <li class="flex items-center space-x-2">
                 <span class="text-sm font-normal text-[#7d8590]">Github:</span>
-                <a :href="selectedStartup?.github_link" target="_blank" class="text-lg font-normal text-[#e6edf3] hover:text-[#0167F3]">
+                <a :href="selectedStartup?.github_link" target="_blank" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3]">
                   {{ selectedStartup?.github_link.substring(19, 1000) }}
                 </a>
               </li>
@@ -229,7 +229,7 @@ onMounted(() => {
           </div>
 
           <div v-if="startupLanguages.length > 0" class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
-            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages {{ langp }}</h3>
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Languages</h3>
             <div class="flex items-center h-2 rounded-lg w-full overflow-hidden divide-x divide-[#30363D]">
               <div v-for="(sl, idx) in startupLanguages" :key="idx" class="h-2.5" :class="`w-[${sl?.percent}%]`" :style="`background-color: ${sl?.color};`"></div>
             </div>

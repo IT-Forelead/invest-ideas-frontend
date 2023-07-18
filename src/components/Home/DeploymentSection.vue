@@ -1,10 +1,38 @@
 <script setup>
+import { computed } from '@vue/reactivity'
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { supabase } from '../../lib/supabaseClient'
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
-import CodeSimpleIcon from '../../assets/icons/CodeSimpleIcon.vue'
+import { useProjectStore } from '../../store/project.store'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
 import ArrowSquareOutIcon from '../../assets/icons/ArrowSquareOutIcon.vue'
 import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
+
+const router = useRouter()
+
+const projects = computed(() => {
+    return useProjectStore().projects
+})
+
+async function getProjects() {
+    await supabase
+        .from('projects')
+        .select(`*`)
+        .then(async (res) => {
+            useProjectStore().clearStore()
+            useProjectStore().setProjects(res.data)
+        })
+}
+
+const selectProject = (projectId) => {
+    router.push(`/project/${projectId}`)
+}
+
+onMounted(() => {
+    getProjects()
+})
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -25,7 +53,7 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                     <div class="text-2xl mb-6 font-medium text-white">Deployment</div>
                     <h3 class="text-5xl font-medium text-white max-w-5xl tracking-tight">
                         <span class="text-[#939AFF]">Deploy and security are on us.</span>
-                        We will deploy the startup that is considered ready for use. 
+                        We will deploy the startup that is considered ready for use.
                         We deploy daily changes at a certain time every day.
                     </h3>
                 </div>
@@ -48,7 +76,8 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                     <div class="py-8 px-16 mb-2 max-w-5xl tracking-tight">
                         <h2 class="text-2xl mb-4 text-[#7D8590]">
                             <span class="text-white font-normal">Invest Ideas Team</span>
-                            provides partially ready-to-use startups as a demo, regardless of what programming language or technology they are written in.
+                            provides partially ready-to-use startups as a demo, regardless of what programming language or
+                            technology they are written in.
                         </h2>
                         <router-link to="/projects">
                             <div class="flex items-center space-x-2 font-semibold text-xl text-white py-1 cursor-pointer">
@@ -75,7 +104,8 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                 <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+                        <div @click="selectProject(project?.id)" v-for="(project, idx) in projects" :key="idx"
+                            class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
                             <div
                                 class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
                                 <div
@@ -84,51 +114,17 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/projects/invest-ideas.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Invest ideas</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/digital-med.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Digital med</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/workout-v2.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout v2</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/workout-v1.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout</div>
+                            <img :src="`/images/projects/${project?.image_url}`" class="w-full h-40 bg-cover rounded-t-md"
+                                alt="#" />
+                            <div class="flex items-center p-3 text-base text-white">{{ project?.name }}</div>
                         </div>
                     </div>
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="180" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'reverse'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+                        <div @click="selectProject(project?.id)" v-for="(project, idx) in projects" :key="idx"
+                            class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
                             <div
                                 class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
                                 <div
@@ -137,51 +133,17 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/projects/invest-ideas.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Invest ideas</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/workout-v2.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout v2</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/digital-med.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Digital med</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/workout-v1.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout</div>
+                            <img :src="`/images/projects/${project?.image_url}`" class="w-full h-40 bg-cover rounded-t-md"
+                                alt="#" />
+                            <div class="flex items-center p-3 text-base text-white">{{ project?.name }}</div>
                         </div>
                     </div>
                 </Vue3Marquee>
                 <Vue3Marquee :pauseOnHover="true" :duration="150" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
+                        <div @click="selectProject(project?.id)" v-for="(project, idx) in projects" :key="idx"
+                            class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
                             <div
                                 class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
                                 <div
@@ -190,44 +152,9 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
                                     <ArrowSquareOutIcon class="w-5 h-5" />
                                 </div>
                             </div>
-                            <img src="/images/projects/workout-v2.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout v2</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/digital-med.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Digital med</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/invest-ideas.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Invest ideas</div>
-                        </div>
-                        <div class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
-                            <div
-                                class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
-                                <div
-                                    class="absolute inline-flex items-center space-x-2 top-1/2 left-1/2 bg-[#939AFF] p-2 px-8 rounded-3xl -translate-x-1/2 -translate-y-1/2">
-                                    <span class="text-black font-semibold text-lg">Preview</span>
-                                    <ArrowSquareOutIcon class="w-5 h-5" />
-                                </div>
-                            </div>
-                            <img src="/images/projects/workout-v1.png" class="w-full h-40 bg-cover rounded-t-md" alt="#" />
-                            <div class="flex items-center p-3 text-base text-white">Workout</div>
+                            <img :src="`/images/projects/${project?.image_url}`" class="w-full h-40 bg-cover rounded-t-md"
+                                alt="#" />
+                            <div class="flex items-center p-3 text-base text-white">{{ project?.name }}</div>
                         </div>
                     </div>
                 </Vue3Marquee>
@@ -238,5 +165,4 @@ import TerminalWindowIcon from '../../assets/icons/TerminalWindowIcon.vue'
 <style scoped>
 .box-shadow {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .5), 0 70px 65px rgba(0, 0, 0, .18), 0 30px 30px rgba(0, 0, 0, .14), 0 15px 15px rgba(0, 0, 0, .12), 0 10px 8px rgba(0, 0, 0, .1), 0 4px 4px rgba(0, 0, 0, .08), 0 2px 2px rgba(0, 0, 0, .06) !important;
-}
-</style>
+}</style>

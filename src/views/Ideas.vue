@@ -83,7 +83,7 @@ onMounted(() => {
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
                 <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <span @click="getIdeasByCategoryId(category?.id)" class="text-lg font-normal text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                <span @click="getIdeasByCategoryId(category?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ category?.name }}
                 </span>
               </li>
