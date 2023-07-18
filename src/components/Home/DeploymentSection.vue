@@ -142,7 +142,7 @@ onMounted(() => {
                 <Vue3Marquee :pauseOnHover="true" :duration="150" :gradient="true" :gradientColor="[13, 17, 23]"
                     :direction="'normal'" class="overflow-hidden">
                     <div class="flex items-center ml-6 space-x-6">
-                        <div @click="selectProject(project?.id)" v-for="(project, idx) in projects.reverse()" :key="idx"
+                        <div @click="selectProject(project?.id)" v-for="(project, idx) in projects" :key="idx"
                             class="w-96 h-52 bg-[#161B22] border relative group border-solid border-[#30363D] rounded-lg shadow-[0_5px_10px_rgba(0,0,0,0.12)] cursor-pointer">
                             <div
                                 class="absolute flex items-center justify-center inset-0 bg-black/20 border border-solid border-[#939AFF] rounded-lg duration-300 opacity-0 group-hover:opacity-100">
