@@ -5,6 +5,7 @@ import { Toaster, toast } from 'vue-sonner'
 import SpinnersRingResizeIcon from '../assets/icons/SpinnersRingResizeIcon.vue'
 
 const isLoading = ref(false)
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
 
 const submitForm = reactive({
   email: '',
@@ -27,6 +28,8 @@ const signUp = async () => {
     toast.error('Please enter your firstname!')
   } else if (!submitForm?.lastname) {
     toast.error('Please enter your lastname!')
+  } else if (!emailRegex.test(submitForm.email)) {
+    toast.error('Please, enter right email address!')
   } else if (!submitForm.email) {
     toast.error('Please enter your email!')
   } else if (!submitForm.password) {

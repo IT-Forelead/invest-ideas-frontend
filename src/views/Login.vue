@@ -9,6 +9,8 @@ import { useAuthStore } from '../store/auth.store'
 const router = useRouter()
 const isLoading = ref(false)
 
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
+
 const submitForm = reactive({
   email: '',
   password: ''
@@ -22,6 +24,8 @@ const clearForm = () => {
 const signIn = async () => {
   if (!submitForm.email) {
     toast.error('Please enter your email!')
+  } else if (!emailRegex.test(submitForm.email)) {
+      toast.error('Please, enter right email address!')
   } else if (!submitForm?.password) {
     toast.error('Please enter your password!')
   } else {

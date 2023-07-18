@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
 import { Toaster, toast } from 'vue-sonner'
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
 
 const submitForm = reactive({
     email: '',
@@ -17,6 +18,8 @@ const clearForm = () => {
 const sendEmail = async () => {
     if (!submitForm.email) {
         toast.error('Please enter your email!')
+    } else if (!emailRegex.test(submitForm.email)) {
+        toast.error('Please, enter right email address!')
     } else if (!submitForm.title) {
         toast.error('Please enter title!')
     } else if (submitForm.title.length < 20) {
