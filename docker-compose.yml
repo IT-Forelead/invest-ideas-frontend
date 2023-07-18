@@ -6,8 +6,8 @@ services:
     hostname: invest-ideas-ui
     container_name: invest-ideas-ui
     environment:
-      - VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
-      - VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
+      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+      VITE_SUPABASE_KEY: ${VITE_SUPABASE_KEY}
     networks:
       - external-net
     ports:
