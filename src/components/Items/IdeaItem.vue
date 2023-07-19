@@ -2,6 +2,8 @@
 import moment from 'moment'
 import ThumbsUpIcon from '../../assets/icons/ThumbsUpIcon.vue'
 import ThumbsUpFillIcon from '../../assets/icons/ThumbsUpFillIcon.vue'
+import ThumbsDownIcon from '../../assets/icons/ThumbsDownIcon.vue'
+import ThumbsDownFillIcon from '../../assets/icons/ThumbsDownFillIcon.vue'
 import ChatCircleIcon from '../../assets/icons/ChatCircleIcon.vue'
 import EyeIcon from '../../assets/icons/EyeIcon.vue'
 import { useAuthStore } from '../../store/auth.store'
@@ -14,11 +16,15 @@ const { idea } = defineProps({
 })
 
 const isLiked = computed(() => {
-  return idea?.idea_votes?.find(el => el.user_id === useAuthStore()?.user?.id)
+    return idea?.idea_votes?.find(el => el.user_id === useAuthStore()?.user?.id)?.type == 'like'
+})
+
+const isDisliked = computed(() => {
+    return idea?.idea_votes?.find(el => el.user_id === useAuthStore()?.user?.id)?.type == 'dislike'
 })
 
 const selectIdea = (ideaId) => {
-  router.push(`/idea/${ideaId}`)
+    router.push(`/idea/${ideaId}`)
 }
 </script>
 <template>
@@ -35,13 +41,15 @@ const selectIdea = (ideaId) => {
             {{ idea.text.substring(0, 300) + '...' }}
         </div>
         <div class="flex items-center space-x-3">
-            <div v-if="useAuthStore().user?.id && isLiked" class="flex items-center space-x-1">
-                <ThumbsUpFillIcon class="w-5 h-5 text-[#7d8590]" />
+            <div class="flex items-center space-x-1">
+                <ThumbsUpFillIcon v-if="useAuthStore().user?.id && isLiked" class="w-5 h-5 text-[#7d8590]" />
+                <ThumbsUpIcon v-else class="w-5 h-5 text-[#7d8590]" />
                 <span class="text-sm text-[#7d8590]">{{ idea.likes_count }}</span>
             </div>
-            <div v-else class="flex items-center space-x-1">
-                <ThumbsUpIcon class="w-5 h-5 text-[#7d8590]" />
-                <span class="text-sm text-[#7d8590]">{{ idea.likes_count }}</span>
+            <div class="flex items-center space-x-1">
+                <ThumbsDownFillIcon v-if="useAuthStore().user?.id && isDisliked" class="w-5 h-5 text-[#7d8590]" />
+                <ThumbsDownIcon v-else class="w-5 h-5 text-[#7d8590]" />
+                <span class="text-sm text-[#7d8590]">{{ idea.dislikes_count }}</span>
             </div>
             <div class="flex items-center space-x-1">
                 <ChatCircleIcon class="w-5 h-5 text-[#7d8590]" />
