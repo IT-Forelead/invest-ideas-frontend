@@ -68,7 +68,7 @@ onMounted(() => {
       </div>
       <div class="grid grid-cols-7 gap-8">
         <div class="col-span-2">
-          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl sticky top-24">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
