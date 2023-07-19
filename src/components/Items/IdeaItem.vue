@@ -14,7 +14,7 @@ const { idea } = defineProps({
 })
 
 const isLiked = computed(() => {
-  return idea?.idea_likes?.find(el => el.user_id === useAuthStore()?.user?.id)
+  return idea?.idea_votes?.find(el => el.user_id === useAuthStore()?.user?.id)
 })
 
 const selectIdea = (ideaId) => {

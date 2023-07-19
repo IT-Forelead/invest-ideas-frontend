@@ -22,7 +22,7 @@ async function getIdeas() {
       *,
       categories ( * ),
       profiles ( * ),
-      idea_likes ( * )
+      idea_votes ( * )
     `).then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
@@ -36,7 +36,7 @@ async function getIdeasByCategoryId(categoryId) {
       *,
       categories ( * ),
       profiles ( * ),
-      idea_likes ( * )
+      idea_votes ( * )
     `)
     .eq('category_id', categoryId)
     .then(async (res) => {
