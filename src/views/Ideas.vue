@@ -1,20 +1,11 @@
 <script setup>
-import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
-import ThumbsUpFillIcon from '../assets/icons/ThumbsUpFillIcon.vue'
-import ChatCircleIcon from '../assets/icons/ChatCircleIcon.vue'
-import EyeIcon from '../assets/icons/EyeIcon.vue'
 import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
 import IdeaItem from '../components/Items/IdeaItem.vue'
 import { supabase } from '../lib/supabaseClient'
 import { onMounted } from 'vue'
 import { computed } from '@vue/reactivity'
-import moment from 'moment'
 import { useIdeaStore } from '../store/idea.store'
-import { useAuthStore } from '../store/auth.store'
 import { useCategoryStore } from '../store/category.store'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const ideas = computed(() => {
   return useIdeaStore().ideas
@@ -22,11 +13,6 @@ const ideas = computed(() => {
 
 const categories = computed(() => {
   return useCategoryStore().categories
-})
-
-const isLiked = (idea) => computed(() => {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
-  return idea?.idea_likes.find(el => el.user_id === useAuthStore().user?.id)
 })
 
 async function getIdeas() {
@@ -67,15 +53,10 @@ async function getCategories() {
   useCategoryStore().setCategories(data)
 }
 
-const selectIdea = (idea) => {
-  router.push(`/idea/${idea.id}`)
-}
-
 onMounted(() => {
   getIdeas()
   getCategories()
 })
-
 </script>
 <template>
   <section class="bg-[#0D1117]">
@@ -88,7 +69,7 @@ onMounted(() => {
       </div>
       <div class="grid grid-cols-7 gap-8">
         <div class="col-span-2">
-          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+          <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl sticky top-24">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">

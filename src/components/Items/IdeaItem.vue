@@ -5,21 +5,24 @@ import ThumbsUpFillIcon from '../../assets/icons/ThumbsUpFillIcon.vue'
 import ChatCircleIcon from '../../assets/icons/ChatCircleIcon.vue'
 import EyeIcon from '../../assets/icons/EyeIcon.vue'
 import { useAuthStore } from '../../store/auth.store'
+import { useRouter } from 'vue-router'
 import { computed } from 'vue'
 
+const router = useRouter()
 const { idea } = defineProps({
     idea: Object
 })
 
 const isLiked = computed(() => {
-  return idea?.idea_likes.find(el => el.user_id === useAuthStore().user?.id)
+  return idea?.idea_likes?.find(el => el.user_id === useAuthStore()?.user?.id)
 })
 
-
-
+const selectIdea = (ideaId) => {
+  router.push(`/idea/${ideaId}`)
+}
 </script>
 <template>
-    <div @click="selectIdea(idea)"
+    <div @click="selectIdea(idea?.id)"
         class="p-4 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4 cursor-pointer">
         <div class="flex items-center justify-between">
             <div class="text-base text-[#7d8590]">{{ idea.categories.name }}</div>

@@ -206,7 +206,7 @@ onMounted(() => {
               Vote for the idea if you think it is useful for the community
             </div>
             <div v-if="!selectedIdea?.idea_likes.find(el => el.user_id === useAuthStore().user?.id)" @click="addLike()">
-              <ThumbsUpIcon class="w-12 h-12 text-blue-500" />
+              <ThumbsUpIcon class="w-12 h-12 text-blue-500 cursor-pointer" />
             </div>
             <div v-else>
               <ThumbsUpFillIcon class="w-12 h-12 text-blue-500" />
