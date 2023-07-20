@@ -16,7 +16,6 @@ import { MotionPlugin } from '@vueuse/motion'
 import VueApexCharts from 'vue3-apexcharts'
 import VueCookies from 'vue-cookies'
 import { QuillEditor } from '@vueup/vue-quill'
-// import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 const pinia = createPinia()
 const app = createApp(App)

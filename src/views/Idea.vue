@@ -4,12 +4,6 @@ import { computed, onMounted, ref } from 'vue'
 import { Toaster, toast } from 'vue-sonner'
 import ArrowBendUpLeftIcon from '../assets/icons/ArrowBendUpLeftIcon.vue'
 import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
-import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
-import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
-import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import ThumbsDownIcon from '../assets/icons/ThumbsDownIcon.vue'
 import ThumbsDownFillIcon from '../assets/icons/ThumbsDownFillIcon.vue'
 import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
@@ -99,7 +93,7 @@ const addComment = async () => {
         getIdeaById()
       }
       getComments()
-      commentText.value = ''
+      commentText.value = ' '
     }
   }
 }

@@ -3,12 +3,6 @@ import moment from 'moment'
 import { computed, onMounted, ref } from 'vue'
 import { Toaster, toast } from 'vue-sonner'
 import ArrowBendUpLeftIcon from '../assets/icons/ArrowBendUpLeftIcon.vue'
-import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
-import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
-import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import ThumbsDownIcon from '../assets/icons/ThumbsDownIcon.vue'
 import ThumbsUpIcon from '../assets/icons/ThumbsUpIcon.vue'
 import UserIcon from '../assets/icons/UserIcon.vue'
@@ -117,7 +111,7 @@ const addComment = async () => {
         .update({ 'comments_count': newCount })
         .eq('id', selectedStartup.value?.idea_id)
       getComments(selectedStartup.value?.idea_id)
-      commentText.value = ''
+      commentText.value = ' '
     }
   }
 }
