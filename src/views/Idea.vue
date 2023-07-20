@@ -15,8 +15,6 @@ import { useIdeaStore } from '../store/idea.store'
 import { useCommentStore } from '../store/comment.store'
 import { useRouter, useRoute } from 'vue-router'
 
-const contentHTML = ref('<h1>This is html header</h1>')
-
 const router = useRouter()
 const route = useRoute()
 
