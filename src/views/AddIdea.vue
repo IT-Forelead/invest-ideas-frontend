@@ -3,12 +3,6 @@ import { onMounted, reactive } from 'vue'
 import { computed } from '@vue/reactivity'
 import { Toaster, toast } from 'vue-sonner'
 import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
-import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
-import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
-import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import UploadIcon from '../assets/icons/UploadIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
@@ -37,8 +31,8 @@ const addIdea = async () => {
     toast.error('Please enter title!')
   } else if (!submitForm.categoryId) {
     toast.error('Please select category!')
-  } else if (!submitForm.text) {
-    toast.error('Please enter text!')
+  } else if (submitForm.text.length < 300) {
+    toast.error('Descraption is very short! Minimum 300 symbol.')
   } else {
     let { error } = await supabase
       .from('ideas')
@@ -121,40 +115,8 @@ onMounted(() => {
               Text:
               <span class="text-red-500">*</span>
             </label>
-            <div class="bg-[#0D1117] border border-[#30363D] overflow-hidden rounded-md">
-              <div class="flex items-center w-full border-b border-[#30363D] text-xl text-gray-600">
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextBIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextItalicIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextUnderlineIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <div class="w-5"></div>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignLeftIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignCenterIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-              </div>
-              <textarea v-model="submitForm.text" id="editor" rows="8"
-                class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
-                placeholder="Write an article..."></textarea>
-            </div>
+            <QuillEditor v-model:content="submitForm.text" content-type="html" toolbar="full" placeholder="Write an article..." />
           </div>
-
           <div class="max-w-3xl">
             <label class="block mb-2 text-xl font-medium text-[#e6edf3]">
               Upload file:
@@ -203,4 +165,15 @@ onMounted(() => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.ql-toolbar.ql-snow {
+  border: 1px solid #000 !important;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  padding: 8px;
+}
+
+.ql-container.ql-snow {
+  border: 1px solid #000 !important;
+}
+</style>
