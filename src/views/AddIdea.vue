@@ -164,16 +164,4 @@ onMounted(() => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.ql-toolbar.ql-snow {
-  border: 1px solid #000 !important;
-  box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  padding: 8px;
-}
-
-.ql-container.ql-snow {
-  border: 1px solid #000 !important;
-}
-</style>
+<style scoped></style>
