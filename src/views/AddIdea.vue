@@ -2,14 +2,7 @@
 import { onMounted, reactive } from 'vue'
 import { computed } from '@vue/reactivity'
 import { Toaster, toast } from 'vue-sonner'
-import $ from 'jquery'
 import CrownSimpleIcon from '../assets/icons/CrownSimpleIcon.vue'
-import TextAlignCenterIcon from '../assets/icons/TextAlignCenterIcon.vue'
-import TextAlignLeftIcon from '../assets/icons/TextAlignLeftIcon.vue'
-import TextAlignRightIcon from '../assets/icons/TextAlignRightIcon.vue'
-import TextBIcon from '../assets/icons/TextBIcon.vue'
-import TextItalicIcon from '../assets/icons/TextItalicIcon.vue'
-import TextUnderlineIcon from '../assets/icons/TextUnderlineIcon.vue'
 import UploadIcon from '../assets/icons/UploadIcon.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useAuthStore } from '../store/auth.store'
@@ -38,7 +31,7 @@ const addIdea = async () => {
     toast.error('Please enter title!')
   } else if (!submitForm.categoryId) {
     toast.error('Please select category!')
-  } else if ($('#idea-descraption .ql-editor').html().length < 300) {
+  } else if (submitForm.text.length < 300) {
     toast.error('Descraption is very short! Minimum 300 symbol.')
   } else {
     let { error } = await supabase
@@ -47,7 +40,7 @@ const addIdea = async () => {
         user_id: useAuthStore().user?.id,
         category_id: submitForm.categoryId,
         title: submitForm.title,
-        text: $('#idea-descraption .ql-editor').html(),
+        text: submitForm.text,
       })
     if (error) {
       toast.error('Error while adding idea! Please try again.')
@@ -122,7 +115,7 @@ onMounted(() => {
               Text:
               <span class="text-red-500">*</span>
             </label>
-            <QuillEditor id="idea-descraption" toolbar="essential" placeholder="Write an article..." />
+            <QuillEditor v-model:content="submitForm.text" content-type="html" toolbar="full" placeholder="Write an article..." />
           </div>
           <div class="max-w-3xl">
             <label class="block mb-2 text-xl font-medium text-[#e6edf3]">

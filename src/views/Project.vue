@@ -169,9 +169,7 @@ onMounted(() => {
             <div class="text-3xl font-extrabold text-[#e6edf3]">
               {{ selectedProject?.title }}
             </div>
-            <div class="text-xl text-[#e6edf3]">
-              {{ selectedProject?.description }}
-            </div>
+            <div class="text-xl text-[#e6edf3] ql-editor" v-html="selectedProject?.description"></div>
           </div>
           <img class="w-full rounded-md" :src="`/images/projects/${selectedProject?.image_url}`" alt="#">
         </div>

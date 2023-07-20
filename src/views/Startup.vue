@@ -247,45 +247,14 @@ onMounted(() => {
             <div class="text-3xl font-extrabold text-[#e6edf3]">
               {{ selectedStartup?.ideas?.title }}
             </div>
-            <div class="text-xl text-[#e6edf3]">
-              {{ selectedStartup?.ideas?.text }}
-            </div>
+            <div class="text-xl text-[#e6edf3] ql-editor" v-html="selectedStartup?.ideas?.text"></div>
           </div>
           <!-- add comentary -->
           <div v-if="useAuthStore().user?.id" id="#add-comment"
             class="p-6 transition-all duration-500 bg-[#161B22] border border-[#30363D] rounded-xl space-y-4">
             <div class="text-2xl font-medium text-[#e6edf3]">Write a comment</div>
-            <div class="bg-[#0D1117] max-w-3xl border border-[#30363D] overflow-hidden rounded-md">
-              <div class="flex items-center w-full border-b border-[#30363D] text-xl text-gray-600">
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextBIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextItalicIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextUnderlineIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <div class="w-5"></div>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignLeftIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignCenterIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-                <button
-                  class="flex items-center justify-center outline-none focus:outline-none w-10 h-10 hover:text-indigo-500 active:bg-gray-50">
-                  <TextAlignRightIcon class="w-5 h-5 text-[#e6edf3]" />
-                </button>
-              </div>
-              <textarea v-model="commentText" id="editor" rows="5"
-                class="block p-4 w-full text-sm border-0 bg-[#0D1117] focus:ring-0 text-[#e6edf3] placeholder-gray-400"
-                placeholder="Write an article..."></textarea>
+            <div>
+              <QuillEditor v-model:content="commentText" content-type="html" toolbar="essential" placeholder="Write an article..." />
             </div>
             <button @click="addComment()" class="w-36 py-1.5 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
               Comment
@@ -307,9 +276,7 @@ onMounted(() => {
                     {{ moment(comment?.created_at).format('DD/MM/YYYY H:mm') }}
                   </div>
                 </div>
-                <div class="text-xl text-[#e6edf3]">
-                  {{ comment?.text }}
-                </div>
+                <div class="text-xl text-[#e6edf3] ql-editor" v-html="comment?.text"></div>
                 <div v-if="useAuthStore().user?.id"
                   class="flex items-center space-x-4 border-t border-dashed border-[#30363D] pt-2">
                   <div v-if="useAuthStore().user?.id != comment?.profiles?.id" @click="reply(comment?.profiles?.firstname, comment?.profiles?.lastname)" class="flex items-center space-x-2 text-[#7d8590] hover:text-blue-500 cursor-pointer">

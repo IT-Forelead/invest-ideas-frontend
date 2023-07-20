@@ -37,9 +37,7 @@ const selectIdea = (ideaId) => {
         <div class="text-xl font-extrabold text-[#e6edf3]">
             {{ idea.title }}
         </div>
-        <div class="text-base text-[#e6edf3]">
-            {{ idea.text.substring(0, 300) + '...' }}
-        </div>
+        <div class="text-base text-[#e6edf3] ql-editor" v-html="idea?.text.substring(0, 300) + '...'"></div>
         <div class="flex items-center space-x-3">
             <div class="flex items-center space-x-1">
                 <ThumbsUpFillIcon v-if="useAuthStore().user?.id && isLiked" class="w-5 h-5 text-[#7d8590]" />
