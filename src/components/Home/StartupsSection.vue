@@ -2,57 +2,66 @@
 import { Vue3Marquee } from 'vue3-marquee'
 import 'vue3-marquee/dist/style.css'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
-import MySqlIcon from '../../assets/icons/MySqlIcon.vue'
-import AkkaIcon from '../../assets/icons/AkkaIcon.vue'
-import AngularJsIcon from '../../assets/icons/AngularJsIcon.vue'
-import AnsibleIcon from '../../assets/icons/AnsibleIcon.vue'
-import ApacheAirFlowIcon from '../../assets/icons/ApacheAirFlowIcon.vue'
-import ApacheIcon from '../../assets/icons/ApacheIcon.vue'
-import ArgoIcon from '../../assets/icons/ArgoIcon.vue'
-import AstroIcon from '../../assets/icons/AstroIcon.vue'
-import AxiosIcon from '../../assets/icons/AxiosIcon.vue'
-import BackboneJsIcon from '../../assets/icons/BackboneJsIcon.vue'
-import BootstrapIcon from '../../assets/icons/BootstrapIcon.vue'
-import MongoDbIcon from '../../assets/icons/MongoDbIcon.vue'
-import NestJsIcon from '../../assets/icons/NestJsIcon.vue'
-import NodeJsIcon from '../../assets/icons/NodeJsIcon.vue'
-import NuxtJsIcon from '../../assets/icons/NuxtJsIcon.vue'
-import SparkIcon from '../../assets/icons/SparkIcon.vue'
 import RacketLaunchIcon from '../../assets/icons/RacketLaunchIcon.vue'
 import UserIcon from '../../assets/icons/UserIcon.vue'
-import ArduinoIcon from '../../assets/icons/ArduinoIcon.vue'
-import CakePhpIcon from '../../assets/icons/CakePhpIcon.vue'
-import CassandraIcon from '../../assets/icons/CassandraIcon.vue'
-import CIcon from '../../assets/icons/CIcon.vue'
-import CosmosDbIcon from '../../assets/icons/CosmosDbIcon.vue'
-import CouchDbIcon from '../../assets/icons/CouchDbIcon.vue'
-import CPlusPlusIcon from '../../assets/icons/CPlusPlusIcon.vue'
-import CSharpIcon from '../../assets/icons/CSharpIcon.vue'
-import CSS3Icon from '../../assets/icons/CSS3Icon.vue'
-import DjangoIcon from '../../assets/icons/DjangoIcon.vue'
-import DockerIcon from '../../assets/icons/DockerIcon.vue'
-import DotNetIcon from '../../assets/icons/DotNetIcon.vue'
-import ElasticsearchIcon from '../../assets/icons/ElasticsearchIcon.vue'
-import FlutterIcon from '../../assets/icons/FlutterIcon.vue'
-import GoIcon from '../../assets/icons/GoIcon.vue'
-import HTML5Icon from '../../assets/icons/HTML5Icon.vue'
-import JavaIcon from '../../assets/icons/JavaIcon.vue'
-import JavaScriptIcon from '../../assets/icons/JavaScriptIcon.vue'
-import JsonIcon from '../../assets/icons/JsonIcon.vue'
-import KibanaIcon from '../../assets/icons/KibanaIcon.vue'
-import KotlinIcon from '../../assets/icons/KotlinIcon.vue'
-import LessIcon from '../../assets/icons/LessIcon.vue'
-import LogstashIcon from '../../assets/icons/LogstashIcon.vue'
-import PhpIcon from '../../assets/icons/PhpIcon.vue'
-import PostgreSqlIcon from '../../assets/icons/PostgreSqlIcon.vue'
-import PythonIcon from '../../assets/icons/PythonIcon.vue'
-import RedisIcon from '../../assets/icons/RedisIcon.vue'
-import RubyIcon from '../../assets/icons/RubyIcon.vue'
-import ScalaIcon from '../../assets/icons/ScalaIcon.vue'
-import TypeScriptIcon from '../../assets/icons/TypeScriptIcon.vue'
-import ViteJsIcon from '../../assets/icons/ViteJsIcon.vue'
-import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
+import { defineAsyncComponent, ref } from 'vue'
 
+const frontendIconsList = ref([
+    { name: 'AngularJsIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'AnsibleIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'ApacheAirFlowIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'ApacheIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'ArgoIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'AstroIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'AxiosIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'BackboneJsIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'BootstrapIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'NestJsIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'NodeJsIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'NuxtJsIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'CSS3Icon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'HTML5Icon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'JavaScriptIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'JsonIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'LessIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'TypeScriptIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'ViteJsIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'VueJsIcon', class: 'h-12 w-auto text-[#6e7681]' }
+])
+
+const backendIconsList = ref([
+    { name: 'MySqlIcon', class: 'h-20 w-auto text-[#6e7681]' },
+    { name: 'AkkaIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'AnsibleIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'MongoDbIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'NodeJsIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'SparkIcon', class: 'h-20 w-auto text-[#6e7681]' },
+    { name: 'ArduinoIcon', class: 'h-14 w-auto text-[#6e7681]' },
+    { name: 'CakePhpIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'CassandraIcon', class: 'h-16 w-auto text-[#6e7681]' },
+    { name: 'CIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'CosmosDbIcon', class: 'h-14 w-auto text-[#6e7681]' },
+    { name: 'CouchDbIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'CPlusPlusIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'CSharpIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'DjangoIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'DockerIcon', class: 'h-14 w-auto text-[#6e7681]' },
+    { name: 'DotNetIcon', class: 'h-14 w-auto text-[#6e7681]' },
+    { name: 'ElasticsearchIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'FlutterIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'GoIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'JavaIcon', class: 'h-16 w-auto text-[#6e7681]' },
+    { name: 'JsonIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'KibanaIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'KotlinIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'LogstashIcon', class: 'h-24 w-auto text-[#6e7681]' },
+    { name: 'PhpIcon', class: 'h-16 w-auto text-[#6e7681]' },
+    { name: 'PostgreSqlIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'PythonIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'RedisIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'RubyIcon', class: 'h-12 w-auto text-[#6e7681]' },
+    { name: 'ScalaIcon', class: 'h-24 w-auto text-[#6e7681]' }
+])
 </script>
 <template>
     <section class="bg-[#0D1117]">
@@ -80,7 +89,6 @@ import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
             <!-- content -->
             <div class="h-24 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow"></div>
         </div>
-
         <div class="container px-6 py-8 mx-auto">
             <div class="flex">
                 <div class="w-1/12 flex flex-col items-center relative">
@@ -160,9 +168,7 @@ import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
                             </div>
                         </div>
                     </div>
-
                 </div>
-
                 <div
                     class="flex flex-col justify-center space-y-4 h-96 bg-[#161B22] border border-solid border-[#30363D] rounded-xl box-shadow">
                     <div class="flex justify-center">
@@ -176,51 +182,19 @@ import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <AngularJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
-                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CSS3Icon class="h-12 w-auto text-[#6e7681]" />
-                                <HTML5Icon class="h-12 w-auto text-[#6e7681]" />
-                                <JavaScriptIcon class="h-12 w-auto text-[#6e7681]" />
-                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <LessIcon class="h-24 w-auto text-[#6e7681]" />
-                                <TypeScriptIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ViteJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <VueJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <component v-for="(icon, idx) in frontendIconsList" :key="idx"
+                                    :is="defineAsyncComponent(() => import(`../../assets/icons/${icon?.name}.vue`))"
+                                    :class="icon?.class">
+                                </component>
                             </div>
                         </Vue3Marquee>
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <AngularJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ApacheAirFlowIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ApacheIcon class="h-24 w-auto text-[#6e7681]" />
-                                <ArgoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <AstroIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AxiosIcon class="h-24 w-auto text-[#6e7681]" />
-                                <BackboneJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <BootstrapIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NestJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <NuxtJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CSS3Icon class="h-12 w-auto text-[#6e7681]" />
-                                <HTML5Icon class="h-12 w-auto text-[#6e7681]" />
-                                <JavaScriptIcon class="h-12 w-auto text-[#6e7681]" />
-                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <LessIcon class="h-24 w-auto text-[#6e7681]" />
-                                <TypeScriptIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ViteJsIcon class="h-12 w-auto text-[#6e7681]" />
-                                <VueJsIcon class="h-12 w-auto text-[#6e7681]" />
+                                <component v-for="(icon, idx) in frontendIconsList" :key="idx"
+                                    :is="defineAsyncComponent(() => import(`../../assets/icons/${icon?.name}.vue`))"
+                                    :class="icon?.class">
+                                </component>
                             </div>
                         </Vue3Marquee>
                     </div>
@@ -238,81 +212,24 @@ import VueJsIcon from '../../assets/icons/VueJsIcon.vue'
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'normal'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-20 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-20 w-auto text-[#6e7681]" />
-                                <ArduinoIcon class="h-14 w-auto text-[#6e7681]" />
-                                <CakePhpIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CassandraIcon class="h-16 w-auto text-[#6e7681]" />
-                                <CIcon class="h-12 w-auto text-[#6e7681]" />
-                                <CosmosDbIcon class="h-14 w-auto text-[#6e7681]" />
-                                <CouchDbIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CPlusPlusIcon class="h-12 w-auto text-[#6e7681]" />
-                                <CSharpIcon class="h-12 w-auto text-[#6e7681]" />
-                                <DjangoIcon class="h-24 w-auto text-[#6e7681]" />
-                                <DockerIcon class="h-14 w-auto text-[#6e7681]" />
-                                <DotNetIcon class="h-14 w-auto text-[#6e7681]" />
-                                <ElasticsearchIcon class="h-12 w-auto text-[#6e7681]" />
-                                <FlutterIcon class="h-12 w-auto text-[#6e7681]" />
-                                <GoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <JavaIcon class="h-16 w-auto text-[#6e7681]" />
-                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <KibanaIcon class="h-24 w-auto text-[#6e7681]" />
-                                <KotlinIcon class="h-24 w-auto text-[#6e7681]" />
-                                <LogstashIcon class="h-24 w-auto text-[#6e7681]" />
-                                <PhpIcon class="h-16 w-auto text-[#6e7681]" />
-                                <PostgreSqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <PythonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <RedisIcon class="h-12 w-auto text-[#6e7681]" />
-                                <RubyIcon class="h-12 w-auto text-[#6e7681]" />
-                                <ScalaIcon class="h-24 w-auto text-[#6e7681]" />
+                                <component v-for="(icon, idx) in backendIconsList" :key="idx"
+                                    :is="defineAsyncComponent(() => import(`../../assets/icons/${icon?.name}.vue`))"
+                                    :class="icon?.class">
+                                </component>
                             </div>
                         </Vue3Marquee>
                         <Vue3Marquee :pauseOnHover="true" :duration="100" :gradient="false" :direction="'reverse'"
                             class="overflow-hidden">
                             <div class="flex items-center ml-6 space-x-6">
-                                <MySqlIcon class="h-20 w-auto text-[#6e7681]" />
-                                <AkkaIcon class="h-24 w-auto text-[#6e7681]" />
-                                <AnsibleIcon class="h-12 w-auto text-[#6e7681]" />
-                                <MongoDbIcon class="h-12 w-auto text-[#6e7681]" />
-                                <NodeJsIcon class="h-24 w-auto text-[#6e7681]" />
-                                <SparkIcon class="h-20 w-auto text-[#6e7681]" />
-                                <ArduinoIcon class="h-14 w-auto text-[#6e7681]" />
-                                <CakePhpIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CassandraIcon class="h-16 w-auto text-[#6e7681]" />
-                                <CIcon class="h-12 w-auto text-[#6e7681]" />
-                                <CosmosDbIcon class="h-14 w-auto text-[#6e7681]" />
-                                <CouchDbIcon class="h-24 w-auto text-[#6e7681]" />
-                                <CPlusPlusIcon class="h-12 w-auto text-[#6e7681]" />
-                                <CSharpIcon class="h-12 w-auto text-[#6e7681]" />
-                                <DjangoIcon class="h-24 w-auto text-[#6e7681]" />
-                                <DockerIcon class="h-14 w-auto text-[#6e7681]" />
-                                <DotNetIcon class="h-14 w-auto text-[#6e7681]" />
-                                <ElasticsearchIcon class="h-12 w-auto text-[#6e7681]" />
-                                <FlutterIcon class="h-12 w-auto text-[#6e7681]" />
-                                <GoIcon class="h-12 w-auto text-[#6e7681]" />
-                                <JavaIcon class="h-16 w-auto text-[#6e7681]" />
-                                <JsonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <KibanaIcon class="h-24 w-auto text-[#6e7681]" />
-                                <KotlinIcon class="h-24 w-auto text-[#6e7681]" />
-                                <LogstashIcon class="h-24 w-auto text-[#6e7681]" />
-                                <PhpIcon class="h-16 w-auto text-[#6e7681]" />
-                                <PostgreSqlIcon class="h-12 w-auto text-[#6e7681]" />
-                                <PythonIcon class="h-12 w-auto text-[#6e7681]" />
-                                <RedisIcon class="h-12 w-auto text-[#6e7681]" />
-                                <RubyIcon class="h-12 w-auto text-[#6e7681]" />
+                                <component v-for="(icon, idx) in backendIconsList" :key="idx"
+                                    :is="defineAsyncComponent(() => import(`../../assets/icons/${icon?.name}.vue`))"
+                                    :class="icon?.class">
+                                </component>
                             </div>
                         </Vue3Marquee>
                     </div>
-
-
-
                 </div>
             </div>
-
             <div class="flex flex-col items-center w-1/12">
                 <div
                     class="h-32 w-[3px] bg-gradient-to-b from-[#0D1117] via-[#797ef9] to-[#abb4ff] mt-4 md:mt-6 rounded-md">

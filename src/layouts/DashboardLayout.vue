@@ -1,6 +1,12 @@
 <script setup>
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
+import { defineAsyncComponent } from 'vue';
+
+const Navbar = defineAsyncComponent(() =>
+  import('../components/Navbar.vue')
+)
+const Footer = defineAsyncComponent(() =>
+  import('../components/Footer.vue')
+)
 </script>
 <template>
   <Navbar />
