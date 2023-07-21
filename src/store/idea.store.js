@@ -5,6 +5,7 @@ export const useIdeaStore = defineStore('idea', {
     ideas: [],
     selectedIdea: {},
     selectedIdeaId: '',
+    searchingTitle: '',
   }),
   actions: {
     setIdeas(data) {
@@ -15,6 +16,9 @@ export const useIdeaStore = defineStore('idea', {
     },
     setSelectedIdeaId(data) {
       this.selectedIdeaId = data
+    },
+    setSearchingTitle(data) {
+      this.searchingTitle = data
     },
     clearStore() {
       this.ideas = []
