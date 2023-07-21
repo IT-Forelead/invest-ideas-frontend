@@ -1,10 +1,35 @@
 <script setup>
+import { Toaster, toast } from 'vue-sonner'
 import RacketLaunchIcon from '../../assets/icons/RacketLaunchIcon.vue'
 import CaretRightIcon from '../../assets/icons/CaretRightIcon.vue'
 import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
+import { useIdeaStore } from '../../store/idea.store'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const search = ref('')
+
+const searching = () => {
+  if (!search.value) {
+    toast.error('Please enter idea title!')
+  } else {
+    useIdeaStore().setSearchingTitle(search.value)
+    router.push(`/search`)
+  }
+}
 
 </script>
 <template>
+  <Toaster richColors closeButton :toastOptions="{
+    style: {
+      background: '#161B22',
+      border: '1px solid #30363D',
+      color: '#e6edf3'
+    },
+  }" />
+
   <section id="header" class="relative bg-[#0d1117] overflow-hidden">
     <img class="absolute top-0 left-0 pointer-events-none object-cover" 
       src="/images/footer-galaxy.jpg" alt="#" />
@@ -58,8 +83,8 @@ import LightBulbIcon from '../../assets/icons/LightBulbIcon.vue'
 
           <div class="relative z-[1] flex items-center w-2/3 space-x-4">
             <div class="flex w-2/3">
-              <input type="text" class=" rounded-l-md bg-white text-base font-semibold outline-0 h-12 w-3/5" placeholder="Enter title of idea" />
-              <button
+              <input v-model="search" type="text" class=" rounded-l-md bg-white text-base font-semibold outline-0 h-12 w-3/5" placeholder="Enter title of idea" />
+              <button @click="searching()"
                 class="flex items-center justify-center w-2/5 bg-[#6e40c9] whitespace-nowrap rounded-r-md select-none border-0 px-5 h-12 text-base font-bold text-white">
                 Search for ideas
               </button>
