@@ -23,7 +23,9 @@ async function getIdeas() {
       categories ( * ),
       profiles ( * ),
       idea_votes ( * )
-    `).then(async (res) => {
+    `)
+    // .in('category_id', ['aa34ab52-34c3-4262-9da5-6e3ec1d31733', '8bad4171-e614-4ad3-8db7-90ecaee14fbe'])
+    .then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
@@ -77,6 +79,14 @@ onMounted(() => {
                 <span @click="getIdeasByCategoryId(category?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ category?.name }}
                 </span>
+              </li>
+              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-3">
+                <input :id="`idea-${idx}`" type="checkbox"
+                  class="w-5 h-5 text-indigo-600 rounded focus:ring-0">
+                <label :for="`idea-${idx}`"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  {{ category?.name }}
+                </label>
               </li>
             </ul>
           </div>
