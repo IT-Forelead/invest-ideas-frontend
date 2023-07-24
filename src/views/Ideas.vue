@@ -1,11 +1,14 @@
 <script setup>
-import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
+import { computed } from '@vue/reactivity'
+import { onMounted, ref } from 'vue'
+import FolderIcon from '../assets/icons/FolderIcon.vue'
+import FolderOpenIcon from '../assets/icons/FolderOpenIcon.vue'
 import IdeaItem from '../components/Items/IdeaItem.vue'
 import { supabase } from '../lib/supabaseClient'
-import { onMounted } from 'vue'
-import { computed } from '@vue/reactivity'
-import { useIdeaStore } from '../store/idea.store'
 import { useCategoryStore } from '../store/category.store'
+import { useIdeaStore } from '../store/idea.store'
+
+const selectedCategoryId = ref('')
 
 const ideas = computed(() => {
   return useIdeaStore().ideas
@@ -14,6 +17,15 @@ const ideas = computed(() => {
 const categories = computed(() => {
   return useCategoryStore().categories
 })
+
+const selectCategory = (categoryId) => {
+  selectedCategoryId.value = categoryId
+  if (categoryId) {
+    getIdeasByCategoryId(categoryId)
+  } else {
+    getIdeas()
+  }
+}
 
 async function getIdeas() {
   await supabase
@@ -74,19 +86,37 @@ onMounted(() => {
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl sticky top-24">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
-              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <span @click="getIdeasByCategoryId(category?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
-                  {{ category?.name }}
+              <li class="flex items-center space-x-1">
+                <div v-if="!selectedCategoryId">
+                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <div v-else>
+                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <span v-if="!selectedCategoryId"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
+                  All ideas
+                </span>
+                <span v-else @click="selectCategory(category?.id)"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  All ideas
                 </span>
               </li>
-              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-3">
-                <input :id="`idea-${idx}`" type="checkbox"
-                  class="w-5 h-5 text-indigo-600 rounded focus:ring-0">
-                <label :for="`idea-${idx}`"
+              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
+                <div v-if="selectedCategoryId == category?.id">
+                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <div v-else>
+                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <span v-if="selectedCategoryId == category?.id"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
+                  {{ category?.name }}
+                </span>
+                <span v-else @click="selectCategory(category?.id)"
                   class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ category?.name }}
-                </label>
+                </span>
               </li>
             </ul>
           </div>
@@ -94,7 +124,8 @@ onMounted(() => {
         <div v-if="ideas.length > 0" class="col-span-5 space-y-6">
           <IdeaItem v-for="(idea, idx) in ideas" :key="idx" :idea="idea" />
         </div>
-        <div v-else class="col-span-5 flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
+        <div v-else
+          class="col-span-5 flex items-center justify-center p-6 bg-[#161B22] border border-[#30363D] rounded-xl">
           <div class="text-base font-medium text-red-500">Ideas do not exist</div>
         </div>
       </div>
