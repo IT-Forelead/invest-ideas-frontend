@@ -1,14 +1,12 @@
 <script setup>
 import { computed } from '@vue/reactivity'
 import { onMounted, ref } from 'vue'
-import FolderIcon from '../assets/icons/FolderIcon.vue'
-import FolderOpenIcon from '../assets/icons/FolderOpenIcon.vue'
 import IdeaItem from '../components/Items/IdeaItem.vue'
 import { supabase } from '../lib/supabaseClient'
 import { useCategoryStore } from '../store/category.store'
 import { useIdeaStore } from '../store/idea.store'
 
-const selectedCategoryId = ref('')
+const selectedCatIds = ref([])
 
 const ideas = computed(() => {
   return useIdeaStore().ideas
@@ -17,15 +15,6 @@ const ideas = computed(() => {
 const categories = computed(() => {
   return useCategoryStore().categories
 })
-
-const selectCategory = (categoryId) => {
-  selectedCategoryId.value = categoryId
-  if (categoryId) {
-    getIdeasByCategoryId(categoryId)
-  } else {
-    getIdeas()
-  }
-}
 
 async function getIdeas() {
   await supabase
@@ -36,14 +25,13 @@ async function getIdeas() {
       profiles ( * ),
       idea_votes ( * )
     `)
-    // .in('category_id', ['aa34ab52-34c3-4262-9da5-6e3ec1d31733', '8bad4171-e614-4ad3-8db7-90ecaee14fbe'])
     .then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
 }
 
-async function getIdeasByCategoryId(categoryId) {
+async function getIdeasByFilter() {
   await supabase
     .from('ideas')
     .select(`
@@ -52,11 +40,16 @@ async function getIdeasByCategoryId(categoryId) {
       profiles ( * ),
       idea_votes ( * )
     `)
-    .eq('category_id', categoryId)
+    .in('category_id', selectedCatIds.value)
     .then(async (res) => {
       useIdeaStore().clearStore()
       useIdeaStore().setIdeas(res.data)
     })
+}
+
+async function clearFrom() {
+  selectedCatIds.value = []
+  getIdeas()
 }
 
 async function getCategories() {
@@ -71,6 +64,14 @@ onMounted(() => {
   getIdeas()
   getCategories()
 })
+
+const getCheckboxVal = (id) => {
+  if (selectedCatIds.value.includes(id)) {
+    selectedCatIds.value = selectedCatIds.value.filter(a => a !== id)
+  } else {
+    selectedCatIds.value.push(id)
+  }
+}
 </script>
 <template>
   <section class="bg-[#0D1117]">
@@ -84,41 +85,28 @@ onMounted(() => {
       <div class="grid grid-cols-7 gap-8">
         <div class="col-span-2">
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl sticky top-24">
-            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
+            <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Filters</h3>
             <ul class="space-y-2">
-              <li class="flex items-center space-x-1">
-                <div v-if="!selectedCategoryId">
-                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
+              <li v-for="(category, idx) in categories" :key="idx">
+                <div @click="getCheckboxVal(category.id)" class="flex items-center space-x-3">
+                  <input :id="`idea-${idx}`" :checked="selectedCatIds.includes(category?.id)" type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-0">
+                  <span
+                    class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                    {{ category?.name }}
+                  </span>
                 </div>
-                <div v-else>
-                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
-                </div>
-                <span v-if="!selectedCategoryId"
-                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
-                  All ideas
-                </span>
-                <span v-else @click="selectCategory(category?.id)"
-                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
-                  All ideas
-                </span>
-              </li>
-              <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
-                <div v-if="selectedCategoryId == category?.id">
-                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
-                </div>
-                <div v-else>
-                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
-                </div>
-                <span v-if="selectedCategoryId == category?.id"
-                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
-                  {{ category?.name }}
-                </span>
-                <span v-else @click="selectCategory(category?.id)"
-                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
-                  {{ category?.name }}
-                </span>
               </li>
             </ul>
+            <div class="space-x-4 pt-4">
+              <button @click="clearFrom()"
+                class="w-36 py-2 px-4 rounded-lg text-white text-base bg-gray-600 cursor-pointer hover:bg-gray-800">
+                Reset filter
+              </button>
+              <button @click="getIdeasByFilter()"
+                class="w-36 py-2 px-4 rounded-lg text-white text-base bg-blue-600 cursor-pointer hover:bg-blue-800">
+                Apply filter
+              </button>
+            </div>
           </div>
         </div>
         <div v-if="ideas.length > 0" class="col-span-5 space-y-6">
