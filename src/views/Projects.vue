@@ -1,14 +1,18 @@
 <script setup>
 import { computed } from '@vue/reactivity'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '../lib/supabaseClient'
 import { useCategoryStore } from '../store/category.store'
 import { useProjectStore } from '../store/project.store'
 import CaretRightIcon from '../assets/icons/CaretRightIcon.vue'
 import ArrowSquareOutIcon from '../assets/icons/ArrowSquareOutIcon.vue'
+import FolderIcon from '../assets/icons/FolderIcon.vue'
+import FolderOpenIcon from '../assets/icons/FolderOpenIcon.vue'
 
 const router = useRouter()
+
+const selectedCategoryId = ref('')
 
 const categories = computed(() => {
   return useCategoryStore().projectCategories
@@ -17,6 +21,15 @@ const categories = computed(() => {
 const projects = computed(() => {
   return useProjectStore().projects
 })
+
+const selectCategory = (categoryId) => {
+  selectedCategoryId.value = categoryId
+  if (categoryId) {
+    getProjectsByCategoryId(categoryId)
+  } else {
+    getProjects()
+  }
+}
 
 async function getCategories() {
   const { data } = await supabase
@@ -71,9 +84,35 @@ onMounted(() => {
           <div class="p-6 space-y-6 bg-[#161B22] border border-[#30363D] rounded-xl sticky top-24">
             <h3 class="pb-2 text-xl font-semibold text-[#e6edf3] border-b border-[#30363D]">Categories</h3>
             <ul class="space-y-2">
+              <li class="flex items-center space-x-1">
+                <div v-if="!selectedCategoryId">
+                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <div v-else>
+                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <span v-if="!selectedCategoryId"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
+                  All ideas
+                </span>
+                <span v-else @click="selectCategory(category?.id)"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                  All ideas
+                </span>
+              </li>
               <li v-for="(category, idx) in categories" :key="idx" class="flex items-center space-x-1">
-                <CaretRightIcon class="w-6 h-6 text-[#7d8590]" />
-                <span @click="getProjectsByCategoryId(category?.id)" class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
+                <div v-if="selectedCategoryId == category?.id">
+                  <FolderOpenIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <div v-else>
+                  <FolderIcon class="w-6 h-6 text-[#7d8590]" />
+                </div>
+                <span v-if="selectedCategoryId == category?.id"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] underline">
+                  {{ category?.name }}
+                </span>
+                <span v-else @click="selectCategory(category?.id)"
+                  class="text-lg font-normal transition-all duration-500 text-[#e6edf3] hover:text-[#0167F3] cursor-pointer">
                   {{ category?.name }}
                 </span>
               </li>
