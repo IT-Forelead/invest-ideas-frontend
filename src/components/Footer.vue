@@ -61,7 +61,7 @@ import GlobeIcon from '../assets/icons/GlobeIcon.vue'
                   </a>
                 </li>
                 <li>
-                  <a href="https://t.me/itforelead" target="_blank" class="flex items-center justify-center text-[#E6EDF3] rounded-full w-8 h-8 cursor-pointer hover:bg-[#0167F3]">
+                  <a href="https://t.me/IT_ForeLead" target="_blank" class="flex items-center justify-center text-[#E6EDF3] rounded-full w-8 h-8 cursor-pointer hover:bg-[#0167F3]">
                     <TelegramIcon class="w-6 h-6" />
                   </a>
                 </li>
