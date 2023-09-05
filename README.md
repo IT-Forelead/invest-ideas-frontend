@@ -1,3 +1,4 @@
+## [InvestIdeas.uz](http://investideas.uz)
 # The Platform intended to release different ideas
 
 ![img.png](img.png)
