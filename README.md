@@ -1,7 +1,15 @@
-# Vue 3 + Vite
+## [InvestIdeas.uz](http://investideas.uz)
+# The Platform intended to release different ideas
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![img.png](img.png)
 
-## Recommended IDE Setup
+## To add your Idea just need to:
+* Sign Up
+* Leave description of your Idea
+* **That's it, we will contact with you in several hours** 
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+![img_2.png](img_2.png)
+
+![img_1.png](img_1.png)
+
